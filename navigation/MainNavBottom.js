@@ -12,11 +12,11 @@ const Bottom = createBottomTabNavigator()
 const Navigator = () => {
 	return(
 		<Bottom.Navigator >
-			<Bottom.Screen name="homeBottom"   component={Home}/>
-			<Bottom.Screen name="MenuBottom" component={Menu}/>
-			<Bottom.Screen name="ProfileBottom"  component={Profile}/>
-			<Bottom.Screen name="SignUpBottom" component={SignUp}/>
-			<Bottom.Screen name="LogInBottom" component={LogIn}/>	
+			<Bottom.Screen name="Home"   component={Home}/>
+			<Bottom.Screen name="Menu" component={Menu}/>
+			<Bottom.Screen name="Profile"  component={Profile}/>
+			<Bottom.Screen name="SignUp" component={SignUp}/>
+			<Bottom.Screen name="LogIn" component={LogIn}/>	
 		</Bottom.Navigator>
 	)
 }
