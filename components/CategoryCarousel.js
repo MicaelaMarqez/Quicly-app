@@ -16,7 +16,7 @@ const CategoryCarousel = (props) => {
                     <View style={styles.containerPrice}>                       
                         <Text style={styles.textPrice}>${item.price}</Text>                      
                         <Pressable style={styles.button}>
-                            <Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }} onPress={() => props.navigation.navigate('Menu')}>+</Text>
+                            <Text style={{ textAlign: 'center', color: 'white', fontSize: 23,fontWeight: "bold" }}>+</Text>
                         </Pressable>    
                     </View>
                 </View>
