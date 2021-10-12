@@ -2,7 +2,7 @@ import axios from 'axios'
 const HOST = 'https://quickly-food.herokuapp.com'
 const adminProductActions = {
   createProduct: (product, props) => {
-    let token = localStorage.getItem('token')
+    // let token = localStorage.getItem('token')
     return async (dispatch) => {
       let response = await axios.post(`${HOST}/api/admin/productos`, product, {
         headers: {
@@ -17,7 +17,7 @@ const adminProductActions = {
     }
   },
   updateProduct: (updated, productId) => {
-    let token = localStorage.getItem('token')
+    // let token = localStorage.getItem('token')
     return async (dispatch) => {
       let response = await axios.put(`${HOST}/api/admin/producto/` + productId, updated, {
         headers: {
@@ -31,7 +31,7 @@ const adminProductActions = {
     }
   },
   deleteProduct: (productId) => {
-    let token = localStorage.getItem('token')
+    // let token = localStorage.getItem('token')
     return async (dispatch) => {
       let response = await axios.delete(`${HOST}/api/admin/producto/` + productId, {
         headers: {

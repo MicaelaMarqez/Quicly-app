@@ -2,8 +2,8 @@ let initialState = {
   token: null,
   user: null,
   userData: null,
-  cart: localStorage.getItem('cart') || [],
-  orders: localStorage.getItem('orders') || [],
+  cart: [], //localStorage.getItem('cart') ||
+  orders: [], //localStorage.getItem('orders') ||
   socket: null,
 }
 
