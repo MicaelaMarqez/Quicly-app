@@ -6,7 +6,6 @@ const DataProfile = (props) => {
 		firstName: "Juan",
 		lastName: "Carlos",
 	})
-	console.log(updateData)
 	const inputHandler = (e, campo, value) => {
 		setUpdateData({
 			...updateData,
@@ -22,7 +21,7 @@ const DataProfile = (props) => {
 	}
 
 	const dataUpdate = () => {
-		let verification = Object.values(updateData).some((prop) => prop === "")
+		let verification = Object.values(updateData).some((prop) => prop === "" || !prop)
 		if(verification) return console.log("no podes modificar esto sin nada")
 		console.log(updateData)
 	}

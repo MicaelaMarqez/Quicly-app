@@ -4,7 +4,7 @@ import HistoryProfile from "../components/HistoryProfile"
 import HelpProfile from "../components/HelpProfile"
 import PaymentProfile from "../components/PaymentProfile"
 import DataProfile from "../components/DataProfile"
-
+import AddAddress from "../components/AddAddress"
 
 const Profile = (props) => {
 	const [changeComponent, setChangeComponent] = useState(<DataProfile/>)
@@ -89,7 +89,12 @@ const Profile = (props) => {
 					{changeComponent}
 				</View>
 			</View>
+			<View style={styles.containerAddAddress}>
+				<ImageBackground resizeMode="cover" style={styles.imageAdd} source={{uri: "https://i.postimg.cc/hvXnHK15/descarga-removebg-preview.png"}}>
 
+				</ImageBackground>
+				{<AddAddress/>}
+			</View>
 		</ScrollView>
 	)
 }
@@ -203,5 +208,14 @@ const styles = StyleSheet.create({
 		width: "95%",
 		borderRadius: 15,
 		backgroundColor: "white",
+	},
+	containerAddAddress:{
+		width: "100%",
+		minHeight: 200,
+		backgroundColor: "red"
+	},
+	imageAdd:{
+		height: 50,
+		width: 50,
 	},
   });
