@@ -19,11 +19,15 @@ const styles = StyleSheet.create({
     container: {
         // backgroundColor: 'red',
         marginBottom: 20,
-        marginHorizontal: 'auto'
+        marginHorizontal: 'auto',
+
     },
     title: {
         width: '100%',
         fontSize: 20,
-        marginBottom: 5
+        marginBottom: 5,
+        marginLeft: 15,
+        fontWeight: "700",
+        color: "#fe6849",
     }
 })
