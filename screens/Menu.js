@@ -12,8 +12,6 @@ import { NativeBaseProvider, Button } from 'native-base';
 const Menu = (props) => {
 	const [loader, setLoader] = useState(true)
 
-	// const categories = ['Hamburguesas', 'Pizzas', 'Lomos', 'Empanadas']
-
 	const categories = []
 	props.products.map(product => {
 		if (!categories.includes(product.category)) {
@@ -43,8 +41,6 @@ const Menu = (props) => {
 	return (
 		<NativeBaseProvider>
 			<ScrollView style={styles.container}>
-				{/* <Box>hola</Box> */}
-				<Text>Esta es la Menu</Text>
 				{categories.map(category => {
 					let products = props.products.filter(product => product.category === category)
 					return <CategorySection products={products} key={category} category={category} />
@@ -69,7 +65,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Menu)
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		// alignItems: 'center'
+		// alignItems: 'center',
 	},
 	contenedor: {
 		width: '90%',

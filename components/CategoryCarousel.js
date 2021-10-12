@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Text, SafeAreaView, StatusBar, Platform, Dimensions, ImageBackground, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, SafeAreaView, StatusBar, Platform, Dimensions, ImageBackground, ScrollView, Pressable } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 const CategoryCarousel = (props) => {
@@ -12,8 +12,13 @@ const CategoryCarousel = (props) => {
                 </ImageBackground>
                 <View style={styles.infoContainer}>
                     <Text style={styles.productName}>{item.name}</Text>
-                    <Text>${item.price}</Text>
-                    <Text>{item.ingredients}</Text>
+                    <Text style={styles.productIngredients}>{item.ingredients}</Text>
+                    <View style={styles.containerPrice}>                       
+                        <Text style={styles.textPrice}>${item.price}</Text>                      
+                        <Pressable style={styles.button}>
+                            <Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }} onPress={() => props.navigation.navigate('Menu')}>+</Text>
+                        </Pressable>    
+                    </View>
                 </View>
             </View>
         );
@@ -40,7 +45,8 @@ const CategoryCarousel = (props) => {
                     width: 7,
                     height: 7,
                     borderRadius: 5,
-                    backgroundColor: '#df5e5e'
+                    backgroundColor: '#fe6849',
+                    marginBottom: 0,
                 }}
                 inactiveDotOpacity={0.4}
                 inactiveDotScale={0.6}
@@ -54,20 +60,33 @@ export default CategoryCarousel
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        marginBottom: 15
+        marginBottom: 10,
+        padding: 5,
+
     },
     slide: {
         width: '100%',
+        height: 160,
+        marginVertical: 5,
+        borderRadius: 10,
         alignItems: 'center',
+        padding: 8,
         flexDirection: 'row',
-        borderColor: '#444',
-        borderWidth: 1
-    },
+        shadowColor: "#000",
+		shadowOffset: {
+		width: 2,
+		height: 2,
+		},
+		shadowOpacity: 5,
+		shadowRadius: 10,
+		elevation: 2,
+        backgroundColor: "white",
+        },
     background: {
         width: 120,
         height: 120,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
+        borderRadius: 10,
+        marginRight: 5,
         overflow: 'hidden'
     },
     infoContainer: {
@@ -78,10 +97,39 @@ const styles = StyleSheet.create({
     },
     productName: {
         width: '100%',
-        color: 'white',
-        backgroundColor: '#000000a1',
+        color: "#fe6849",
         textAlign: 'center',
         padding: 5,
         fontSize: 18,
+    },	
+    button: {
+		backgroundColor: "#fe6849",
+		width: "18%",
+		borderRadius: 5,
+		padding: 1,
+		shadowColor: "#000",
+		shadowOffset: {
+		width: 5,
+		height: 5,
+		},
+		shadowOpacity: 1,
+		shadowRadius: 15,
+		elevation: 5,
+	},
+    productIngredients:{
+        textAlign: "center",
+        paddingBottom: 5,
+    },
+    containerPrice:{
+        flexDirection: "row",
+        width: "70%",
+        paddingTop: 10,
+        justifyContent: "space-around",
+        alignItems: "center",
+        borderTopWidth: 0.4,
+    },
+    textPrice: {
+        fontSize: 18,
+        fontWeight: "bold", 
     }
 })
