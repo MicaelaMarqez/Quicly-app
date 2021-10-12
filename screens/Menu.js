@@ -13,8 +13,8 @@ const Menu = (props) => {
 	const [loader, setLoader] = useState(true)
 
 	const categories = []
-	props.products.map(product=>{
-		if(!categories.includes(product.category)){
+	props.products.map(product => {
+		if (!categories.includes(product.category)) {
 			return categories.push(product.category)
 		}
 	})
