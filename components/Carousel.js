@@ -27,7 +27,7 @@ const MyCarousel = () => {
     },
   ]
 
-  _renderItem = ({item}) => {
+ const  _renderItem = ({item}) => {
     return (
         <View style={styles.containerImage}>
             <View key={item.id} style={styles.slide}>
