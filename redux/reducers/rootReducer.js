@@ -9,10 +9,10 @@ import adminOrderReducer from './admin/adminOrderReducer'
 const rootReducer = combineReducers({
     users: userReducer,
     products: productReducer,
-    orders: orderReducer,
-    adminUsers: adminUserReducer,
-    adminProducts: adminProductReducer,
-    adminOrders: adminOrderReducer
+    // orders: orderReducer,
+    // adminUsers: adminUserReducer,
+    // adminProducts: adminProductReducer,
+    // adminOrders: adminOrderReducer
 })
 
 export default rootReducer

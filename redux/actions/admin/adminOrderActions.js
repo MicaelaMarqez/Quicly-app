@@ -3,7 +3,7 @@ const HOST = 'https://quickly-food.herokuapp.com'
 
 const adminOrderActions = {
   getOrders: () => {
-    let token = localStorage.getItem('token')
+    // let token = localStorage.getItem('token')
     return async (dispatch) => {
       let response = await axios.get(`${HOST}/api/admin/orders`, {
         headers: {
@@ -17,7 +17,7 @@ const adminOrderActions = {
     }
   },
   updateOrder: (updated, orderId) => {
-    let token = localStorage.getItem('token')
+    // let token = localStorage.getItem('token')
     return async (dispatch) => {
       let response = await axios.put(`${HOST}/api/admin/order/` + orderId, updated, {
         headers: {
@@ -31,7 +31,7 @@ const adminOrderActions = {
     }
   },
   deleteOrder: (orderId) => {
-    let token = localStorage.getItem('token')
+    // let token = localStorage.getItem('token')
     return async (dispatch) => {
       let response = await axios.delete(`${HOST}/api/admin/order/` + orderId, {
         headers: {

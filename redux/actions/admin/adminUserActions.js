@@ -2,7 +2,7 @@ import axios from 'axios'
 const HOST = 'https://quickly-food.herokuapp.com'
 const adminUsersActions = {
   getUsers: () => {
-    let token = localStorage.getItem('token')
+    // let token = localStorage.getItem('token')
     return async (dispatch) => {
       let response = await axios.get(`${HOST}/api/admin/users`, {
         headers: {
@@ -16,7 +16,7 @@ const adminUsersActions = {
     }
   },
   createUser: (user) => {
-    let token = localStorage.getItem('token')
+    // let token = localStorage.getItem('token')
     return async (dispatch) => {
       let response = await axios.post(`${HOST}/api/admin/users`, user, {
         headers: {
@@ -30,7 +30,7 @@ const adminUsersActions = {
     }
   },
   updateUser: (newUser, userId) => {
-    let token = localStorage.getItem('token')
+    // let token = localStorage.getItem('token')
     return async (dispatch) => {
       let response = await axios.put(`${HOST}/api/admin/user/` + userId, newUser, {
         headers: {
@@ -45,7 +45,7 @@ const adminUsersActions = {
   },
 
   deleteUser: (userId) => {
-    let token = localStorage.getItem('token')
+    // let token = localStorage.getItem('token')
     return async (dispatch) => {
       let response = await axios.delete(`${HOST}/api/admin/user/` + userId, {
         headers: {
