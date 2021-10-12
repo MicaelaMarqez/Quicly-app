@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Contact from './components/Contact'
+import buyConfirmation from './components/buyConfirmation'
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Contact />
+      <buyConfirmation />
      
       <StatusBar style="auto" />
     </View>
