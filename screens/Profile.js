@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import { Text, View, StyleSheet, ImageBackground, Image,TouchableOpacity,ScrollView, Pressable} from "react-native"
 import HistoryProfile from "../components/HistoryProfile"
-import HelpProfile from "../components/HelpProfile"
 import PaymentProfile from "../components/PaymentProfile"
 import DataProfile from "../components/DataProfile"
 import AddAddress from "../components/AddAddress"
+import Contact from '../components/Contact'
 
 const Profile = (props) => {
 	const [changeComponent, setChangeComponent] = useState(<DataProfile/>)
@@ -12,7 +12,7 @@ const Profile = (props) => {
 	if(changeComponent === "data"){
 		setChangeComponent(<DataProfile/>)
 	}else if(changeComponent === "help"){
-		setChangeComponent(<HelpProfile/>)
+		setChangeComponent(<Contact />)
 	}else if(changeComponent === "history"){
 		setChangeComponent(<HistoryProfile/>)
 	}else if(changeComponent === "payment"){

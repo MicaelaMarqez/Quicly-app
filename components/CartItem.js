@@ -1,46 +1,39 @@
-import React, { useState } from 'react'
-import { View, StyleSheet, Text, Dimensions, ImageBackground, ScrollView, Pressable } from 'react-native';
+import React from 'react'
+import { View, StyleSheet, Text, SafeAreaView, StatusBar, Platform, Dimensions, ImageBackground, ScrollView, Pressable } from 'react-native';
 
-const CategoryList = (props) => {
-    const { img, name, ingredients, price } = props.product
-
-    const [slide, setSlide] = useState(0)
-    const sliderWidth = Dimensions.get('screen').width - 30
+const CartItem = (props) => {
     return (
-        <View style={styles.container}>
-            <View style={styles.slide}>
-                <ImageBackground source={{ uri: `https://quickly-food.herokuapp.com${img}` }} style={styles.background}>
-                </ImageBackground>
-                <View style={styles.infoContainer}>
-                    <Text style={styles.productName}>{name}</Text>
-                    <Text style={styles.productIngredients}>{ingredients}</Text>
-                    <View style={styles.containerPrice}>
-                        <Text style={styles.textPrice}>${price}</Text>
-                        <Pressable style={styles.button}>
-                            <Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }} onPress={() => props.navigation.navigate('Menu')}>+</Text>
-                        </Pressable>
-                    </View>
+        <View style={styles.slide} key={index}>
+            <ImageBackground source={{ uri: `https://quickly-food.herokuapp.com${item.img}` }} style={styles.background}>
+            </ImageBackground>
+            <View style={styles.infoContainer}>
+                <Text style={styles.productName}>{item.name}</Text>
+                <Text style={styles.productIngredients}>{item.ingredients}</Text>
+                <View style={styles.containerPrice}>
+                    <Text style={styles.textPrice}>${item.price}</Text>
+                    <Pressable style={styles.button}>
+                        <Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }} onPress={() => props.navigation.navigate('Menu')}>+</Text>
+                    </Pressable>
                 </View>
             </View>
         </View>
-
     )
 }
-
-export default CategoryList
+export default CartItem
 
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        padding: 10,
-
+        marginBottom: 10,
+        padding: 5,
     },
     slide: {
         width: '100%',
-        height: 120,
+        height: 160,
+        marginVertical: 5,
         borderRadius: 10,
         alignItems: 'center',
-        // padding: 8,
+        padding: 8,
         flexDirection: 'row',
         shadowColor: "#000",
         shadowOffset: {
@@ -55,8 +48,9 @@ const styles = StyleSheet.create({
     background: {
         width: 120,
         height: 120,
-        borderTopStartRadius: 10,
-        borderBottomStartRadius: 10,
+        borderRadius: 10,
+        // borderTopStartRadius: 10,
+        // borderBottomStartRadius: 10,
         marginRight: 5,
         overflow: 'hidden'
     },
