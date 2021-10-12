@@ -17,6 +17,12 @@ const productActions = {
       }
     }
   },
+  getFilteredList: (search) => {
+    console.log(search)
+    return (dispatch) => {
+      dispatch({ type: "GET_FILTERED", payload: search });
+    };
+  },
 }
 
 export default productActions
