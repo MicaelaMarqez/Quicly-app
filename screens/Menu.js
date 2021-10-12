@@ -12,7 +12,14 @@ import { NativeBaseProvider, Button } from 'native-base';
 const Menu = (props) => {
 	const [loader, setLoader] = useState(true)
 
-	const categories = ['Hamburguesas', 'Pizzas', 'Lomos', 'Empanadas']
+	// const categories = ['Hamburguesas', 'Pizzas', 'Lomos', 'Empanadas']
+
+	const categories = []
+	props.products.map(product => {
+		if (!categories.includes(product.category)) {
+			return categories.push(product.category)
+		}
+	})
 
 	const getProducts = async () => {
 		try {
