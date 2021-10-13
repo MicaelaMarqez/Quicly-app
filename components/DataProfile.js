@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native'
-
+import { Text, View, StyleSheet, ImageBackground,Pressable, Modal, TextInput} from "react-native"
+import AddAddress from "../components/AddAddress"
 const DataProfile = (props) => {
+	const [modalVisible, setModalVisible] = useState(false)
     const [updateData, setUpdateData] = useState({
 		firstName: "Juan",
 		lastName: "Carlos",
 	})
-	console.log(updateData)
 	const inputHandler = (e, campo, value) => {
 		setUpdateData({
 			...updateData,
@@ -22,7 +22,7 @@ const DataProfile = (props) => {
 	}
 
 	const dataUpdate = () => {
-		let verification = Object.values(updateData).some((prop) => prop === "")
+		let verification = Object.values(updateData).some((prop) => prop === "" || !prop)
 		if(verification) return console.log("no podes modificar esto sin nada")
 		console.log(updateData)
 	}
@@ -64,8 +64,37 @@ const DataProfile = (props) => {
 						<Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }}>Cambiar</Text>
 					</Pressable>
 				</View>
+				<View style={styles.containerTitleAddress}>
+					<Text style={styles.titleAddress}>
+						Mis Direcciones
+					</Text>
+				</View>
+				<View style={styles.containerAddress}>
+					<View style={styles.cardAddress}>
+
+					</View>
+				</View>
 			</View>
-		
+			<View style={styles.containerAddAddress}>
+				<Pressable style={styles.buttonAdd} onPress={() => setModalVisible(!modalVisible)}>
+					<ImageBackground resizeMode="cover" style={styles.imageAdd} source={{uri: "https://i.postimg.cc/hvXnHK15/descarga-removebg-preview.png"}}>
+					</ImageBackground>
+				</Pressable>	
+			</View>
+			<View style={styles.centeredView}>
+				<Modal
+					animationType="fade"
+					transparent={true}
+					visible={modalVisible}
+					onRequestClose={() => setModalVisible(!modalVisible)}
+				>
+					<ImageBackground  resizeMode="cover" style={styles.centeredView} source={{uri: "https://thumbs.dreamstime.com/z/consolador-incons%C3%BAtil-del-modelo-en-el-fondo-blanco-70952881.jpg"}}>
+						<View style={styles.modalView}>
+							{<AddAddress setModalVisible={setModalVisible}/>}
+						</View>
+					</ImageBackground>
+				</Modal>
+			</View>	
 		</View>
     )
 }
@@ -78,7 +107,6 @@ const styles = StyleSheet.create({
 		height: 600,
 		alignItems: "center",
 		paddingTop: 20,
-
 	},
 	containInputs:{
 		width: "95%",
@@ -134,5 +162,58 @@ const styles = StyleSheet.create({
 		shadowRadius: 15,
 		elevation: 5,
 		margin: 5,
-	}
+	},
+	containerAddAddress:{
+		width: "100%",
+		minHeight: 200,
+	},
+	imageAdd:{
+		height: 50,
+		width: 50,
+	},
+	buttonAdd:{
+		width: "100%",
+		alignItems: "flex-end",
+		paddingEnd: 15,
+	},
+	centeredView: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+		marginTop: 22
+	},
+	modalView: {
+	width: "90%",
+	margin: 20,
+	backgroundColor: 'rgba(252, 252, 252, 0.5)',
+	borderRadius: 11,
+	padding: 35,
+	alignItems: "center",
+	shadowColor: "#000",
+	shadowOffset: {
+		width: 0,
+		height: 2
+	},
+	shadowOpacity: 0.25,
+	shadowRadius: 4,
+	elevation: 5
+	},
+	textStyle: {
+	color: "white",
+	fontWeight: "bold",
+	textAlign: "center"
+	},
+	modalText: {
+	marginBottom: 15,
+	textAlign: "center"
+	},
+	containerTitleAddress:{
+		width: "100%",
+		alignItems: "center",
+	},
+	titleAddress:{
+		marginTop: 10,
+		fontSize: 30,
+		fontWeight: "bold"
+	},
 })
