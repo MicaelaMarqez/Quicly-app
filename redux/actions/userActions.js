@@ -7,7 +7,6 @@ const userActions = {
     return async (dispatch) => {
       try {
         let res = await axios.post(`${HOST}/api/user/signUp`, user)
-        console.log(res.data)
         if (res.data.success) {
           const { user, userData, token } = res.data
           await AsyncStorage.setItem('token', token)
@@ -66,7 +65,6 @@ const userActions = {
   },
   manageCart: (body) => {
     return async (dispatch) => {
-      console.log(body)
       let token = localStorage.getItem('token')
       if (!token) {
         let cart = JSON.parse(localStorage.getItem('cart'))
@@ -107,7 +105,7 @@ const userActions = {
   },
   updateUser: ({ action, userData, fileImg, currentPassword, password, newPaymentCard, paymentCardId, newAddress, addressId }) => {
     return async (dispatch) => {
-      let token = localStorage.getItem('token')
+     let token = await AsyncStorage.getItem('token')
       let body = fileImg || {
         action,
         userData,
@@ -124,10 +122,11 @@ const userActions = {
             Authorization: 'Bearer ' + token,
           },
         })
-        return dispatch({
+        dispatch({
           type: 'LOG_IN',
           payload: { ...res.data, token, keep: true },
         })
+        return res.data 
       } catch (error) {
         console.log(error)
         // return dispatch({ type: 'LOG_OUT' })

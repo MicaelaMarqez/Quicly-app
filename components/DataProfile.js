@@ -1,12 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, View, StyleSheet, ImageBackground,Pressable, Modal, TextInput} from "react-native"
+import { connect } from 'react-redux'
 import AddAddress from "../components/AddAddress"
-const DataProfile = (props) => {
+import userActions from '../redux/actions/userActions'
+import CardAddress from './CardAddress'
+const DataProfile = ({userData, updateUser}) => {
 	const [modalVisible, setModalVisible] = useState(false)
+	const [addressProfile, setAddressProfile] = useState(userData?.addresses)
     const [updateData, setUpdateData] = useState({
-		firstName: "Juan",
-		lastName: "Carlos",
+		firstName: userData?.data.firstName,
+		lastName: userData?.data.lastName,
 	})
+
+	useEffect(() =>{
+		setUpdateData({
+			firstName: userData?.data.firstName,
+			lastName: userData?.data.lastName,
+		})
+		setAddressProfile(userData?.addresses)
+	},[userData])
+
 	const inputHandler = (e, campo, value) => {
 		setUpdateData({
 			...updateData,
@@ -16,15 +29,22 @@ const DataProfile = (props) => {
 
 	const cancelUpadte = () => {
 		setUpdateData({
-		firstName: "Juan",
-		lastName: "Carlos"
+			firstName: userData?.data.firstName,
+			lastName: userData?.data.lastName,
 		})
 	}
 
-	const dataUpdate = () => {
+	const dataUpdate =  async () => {
 		let verification = Object.values(updateData).some((prop) => prop === "" || !prop)
 		if(verification) return console.log("no podes modificar esto sin nada")
 		console.log(updateData)
+		try{
+			let response = await updateUser({ action: 'updateData', updateData })
+			console.log(response)
+		}catch(e){
+			console.log(e)
+		}
+		
 	}
     return (
 		<View style={styles.containAll}>
@@ -50,11 +70,10 @@ const DataProfile = (props) => {
 				<Text style={styles.textTitleInputs}>Email</Text>
 				<TextInput 
 				placeholder="Email"
-				defaultValue={"Juancarlos@gmail.com"}
+				defaultValue={userData?.data.email}
 				placeholderTextColor="#333333"
 				color="black"
 				style={styles.inputSignUp}
-				onChangeText={(e) => inputHandler(e, "email")}
 				/>
 				<View style={styles.containerButtons}>
 					<Pressable style={styles.button} onPress={cancelUpadte}>
@@ -64,23 +83,35 @@ const DataProfile = (props) => {
 						<Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }}>Cambiar</Text>
 					</Pressable>
 				</View>
-				<View style={styles.containerTitleAddress}>
+		
+			</View>
+			<View style={styles.containerTitleAddress}>
 					<Text style={styles.titleAddress}>
 						Mis Direcciones
 					</Text>
 				</View>
 				<View style={styles.containerAddress}>
 					<View style={styles.cardAddress}>
-
+						{addressProfile.length !== 0 
+						?
+						 addressProfile.map((address) =>{
+							 return(
+								<CardAddress updateUser={updateUser} setAddressProfile={setAddressProfile} address={address}/>
+							 )
+						 })
+						:
+						 <View style={styles.containerAddressText}>
+							<Text style={styles.textAddress}>No tenes Direcciones</Text>
+						 </View>
+						}
 					</View>
 				</View>
-			</View>
-			<View style={styles.containerAddAddress}>
-				<Pressable style={styles.buttonAdd} onPress={() => setModalVisible(!modalVisible)}>
-					<ImageBackground resizeMode="cover" style={styles.imageAdd} source={{uri: "https://i.postimg.cc/hvXnHK15/descarga-removebg-preview.png"}}>
-					</ImageBackground>
-				</Pressable>	
-			</View>
+				<View style={styles.containerAddAddress}>
+					<Pressable style={styles.buttonAdd} onPress={() => setModalVisible(!modalVisible)}>
+						<ImageBackground resizeMode="cover" style={styles.imageAdd} source={{uri: "https://i.postimg.cc/hvXnHK15/descarga-removebg-preview.png"}}>
+						</ImageBackground>
+					</Pressable>	
+				</View>
 			<View style={styles.centeredView}>
 				<Modal
 					animationType="fade"
@@ -90,7 +121,7 @@ const DataProfile = (props) => {
 				>
 					<ImageBackground  resizeMode="cover" style={styles.centeredView} source={{uri: "https://thumbs.dreamstime.com/z/consolador-incons%C3%BAtil-del-modelo-en-el-fondo-blanco-70952881.jpg"}}>
 						<View style={styles.modalView}>
-							{<AddAddress setModalVisible={setModalVisible}/>}
+							{<AddAddress updateUser={updateUser} setAddressProfile={setAddressProfile} setModalVisible={setModalVisible}/>}
 						</View>
 					</ImageBackground>
 				</Modal>
@@ -98,8 +129,10 @@ const DataProfile = (props) => {
 		</View>
     )
 }
-
-export default DataProfile
+const mapDispatchToProps = {
+	updateUser: userActions.updateUser,
+}
+export default connect(null, mapDispatchToProps)(DataProfile)
 
 const styles = StyleSheet.create({
 	containAll:{
@@ -165,15 +198,17 @@ const styles = StyleSheet.create({
 	},
 	containerAddAddress:{
 		width: "100%",
-		minHeight: 200,
+		minHeight: 90,
+		justifyContent: "center"
 	},
 	imageAdd:{
-		height: 50,
-		width: 50,
+		height: 65,
+		width: 65,
 	},
 	buttonAdd:{
 		width: "100%",
-		alignItems: "flex-end",
+		alignItems: "center",
+		justifyContent: "center",
 		paddingEnd: 15,
 	},
 	centeredView: {
@@ -215,5 +250,49 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		fontSize: 30,
 		fontWeight: "bold"
+	}, boxCard: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        padding: '5%',
+        width: '90%',
+        borderRadius: 10,
+        shadowColor: "#000",
+		shadowOffset: {
+		width: 5,
+		height: 5,
+		},
+		shadowOpacity: 1,
+		shadowRadius: 15,
+		elevation: 5,
+        marginVertical: '2%'
+    },
+    addressTitle: {
+        fontSize: 16,
+        marginBottom: '2%'
+    },
+    address: {
+        fontWeight: 'bold',
+        fontSize: 16
+    },
+    containAddress: {
+        width: '80%'
+    },
+    btnText: {
+        color: 'tomato',
+        fontWeight: 'bold'
+    },
+	containerAddressText:{
+		height: 150,
+		width: "100%",
+		alignItems: "center",
+		justifyContent: "center",
 	},
+	textAddress:{
+		color: "#fe6849",
+		textAlign: "center",
+		fontWeight: "bold",
+		fontSize: 19,
+	}
 })
