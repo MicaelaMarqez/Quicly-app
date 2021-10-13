@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
-import Back from 'react-native-vector-icons/Entypo';
+import Back from 'react-native-vector-icons/Entypo'
 import { View, Text, StyleSheet, ImageBackground } from 'react-native'
-import { RadioButton, Checkbox, TextInput } from 'react-native-paper';
+import { RadioButton, Checkbox, TextInput } from 'react-native-paper'
 
 
-const Product = (props) => {
+const Product = ({/*edit, editCartItem, ...*/props}) => {
     const friesSizes = [
         { size: 'Chicas', cost: 0 },
         { size: 'Medianas', cost: 30 },
@@ -40,7 +40,7 @@ const Product = (props) => {
         score: 3.7,
         stock: 5
     }
-    const [cartItem, setCartItem] = useState({
+    const initialCartItem = {
         productId: product._id,
         clarifications: '',
         fries: friesSizes[0],
@@ -49,8 +49,8 @@ const Product = (props) => {
         unitaryPrice: product.price,
         totalAmount: 1,
         totalPrice: product.price,
-    })
-    const [clarifications, setClarifications] = useState('')
+    }
+    const [cartItem, setCartItem] = useState(/*edit ? editCartItem :*/ initialCartItem)
 
     const addExtras = (extra, e) => {
         if (e === 'checked') {
@@ -175,15 +175,11 @@ const Product = (props) => {
                         </View>}
                         <TextInput
                             mode='outlined'
-                            // underlineColor='#fe6849'
-                            // outlineColor='#fe6849'
-                            // placeholderTextColor='#fe6849'
-                            // selectionColor='#fe6849'
                             multiline={true}
                             numberOfLines={5}
                             label="Aclaraciones"
-                            value={clarifications}
-                            onChangeText={clarifications => setClarifications(clarifications)}
+                            value={cartItem.clarifications}
+                            onChangeText={clarifications => setCartItem({ ...cartItem, clarifications})}
                             style={styles.textInput}
                         />
                 </View>
@@ -200,7 +196,10 @@ const Product = (props) => {
                                 +
                             </Text>
                         </View>
-                        <Text style={styles.text}>Agregar a mi orden</Text>
+                        <Text style={styles.text}
+                        onPress={addToCart}>
+                            {edit ? "Guardar edición" : "Agregar a mi orden"}
+                        </Text>
                     </View>
                     <View style={styles.order}>
                         <Text style={styles.text}>Unidad: ${cartItem.unitaryPrice}</Text>
