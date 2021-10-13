@@ -5,7 +5,6 @@ import React from 'react'
 import Profile from '../screens/Profile'
 import SignUp from '../screens/SignUp'
 import Menu from '../screens/Menu'
-import PaymentScreen from '../screens/Card'
 const Stack = createNativeStackNavigator()
 
 const Navigator = () => {

@@ -1,14 +1,14 @@
 import React, { useState } from "react"
-import { Text, View, StyleSheet, ImageBackground, Image,TouchableOpacity,ScrollView, Pressable} from "react-native"
+import { Text, View, StyleSheet, ImageBackground,ScrollView, Pressable} from "react-native"
 import HistoryProfile from "../components/HistoryProfile"
 import PaymentProfile from "../components/PaymentProfile"
 import DataProfile from "../components/DataProfile"
-import AddAddress from "../components/AddAddress"
+
 import Contact from '../components/Contact'
 
 const Profile = (props) => {
 	const [changeComponent, setChangeComponent] = useState(<DataProfile/>)
-	console.log(props)
+	
 	if(changeComponent === "data"){
 		setChangeComponent(<DataProfile/>)
 	}else if(changeComponent === "help"){
@@ -89,12 +89,7 @@ const Profile = (props) => {
 					{changeComponent}
 				</View>
 			</View>
-			<View style={styles.containerAddAddress}>
-				<ImageBackground resizeMode="cover" style={styles.imageAdd} source={{uri: "https://i.postimg.cc/hvXnHK15/descarga-removebg-preview.png"}}>
-
-				</ImageBackground>
-				{<AddAddress/>}
-			</View>
+		
 		</ScrollView>
 	)
 }
@@ -203,19 +198,12 @@ const styles = StyleSheet.create({
 		width: "100%",
 		justifyContent: "center",
 		alignItems: "center",
+		marginBottom: 50,
 	},
 	componentContainer:{
 		width: "95%",
 		borderRadius: 15,
 		backgroundColor: "white",
 	},
-	containerAddAddress:{
-		width: "100%",
-		minHeight: 200,
-		backgroundColor: "red"
-	},
-	imageAdd:{
-		height: 50,
-		width: 50,
-	},
+	
   });

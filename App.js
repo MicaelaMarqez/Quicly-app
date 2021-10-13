@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import Navigator from './navigation/MainNavBottom'
 import { NavigationContainer } from '@react-navigation/native'
-
 import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
