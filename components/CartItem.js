@@ -3,19 +3,22 @@ import { View, StyleSheet, Text, SafeAreaView, StatusBar, Platform, Dimensions, 
 
 const CartItem = (props) => {
     return (
-        <View style={styles.slide} key={index}>
-            <ImageBackground source={{ uri: `https://quickly-food.herokuapp.com${item.img}` }} style={styles.background}>
-            </ImageBackground>
-            <View style={styles.infoContainer}>
+        <View style={styles.slide}>
+            {/* <View style={styles.infoContainer}>
                 <Text style={styles.productName}>{item.name}</Text>
-                <Text style={styles.productIngredients}>{item.ingredients}</Text>
                 <View style={styles.containerPrice}>
                     <Text style={styles.textPrice}>${item.price}</Text>
                     <Pressable style={styles.button}>
                         <Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }} onPress={() => props.navigation.navigate('Menu')}>+</Text>
                     </Pressable>
                 </View>
+            </View> */}
+            <View style={{ width: '15%' }}><Text>1x</Text></View>
+            <View style={{ width: '65%' }}>
+                <Text>Lomito Italiano</Text>
+                <Text>$1.320</Text>
             </View>
+            <View style={{ width: '20%', alignItems: 'flex-end' }}><Text>$1.320</Text></View>
         </View>
     )
 }
@@ -29,11 +32,12 @@ const styles = StyleSheet.create({
     },
     slide: {
         width: '100%',
-        height: 160,
+        // height: 160,
         marginVertical: 5,
-        borderRadius: 10,
+        borderRadius: 5,
         alignItems: 'center',
-        padding: 8,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
         flexDirection: 'row',
         shadowColor: "#000",
         shadowOffset: {
@@ -44,6 +48,7 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         elevation: 2,
         backgroundColor: "white",
+        justifyContent: 'space-between'
     },
     background: {
         width: 120,

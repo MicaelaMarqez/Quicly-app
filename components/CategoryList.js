@@ -23,7 +23,6 @@ const CategoryList = (props) => {
                 </View>
             </View>
         </View>
-
     )
 }
 
@@ -38,6 +37,7 @@ const styles = StyleSheet.create({
     slide: {
         width: '100%',
         height: 120,
+        // marginVertical: 5,
         borderRadius: 10,
         alignItems: 'center',
         // padding: 8,

@@ -6,6 +6,7 @@ import Profile from '../screens/Profile'
 import SignUp from '../screens/SignUp'
 import Menu from '../screens/Menu'
 import Card from '../screens/Card.tsx'
+import Cart from '../screens/Cart'
 
 const Bottom = createBottomTabNavigator()
 
@@ -17,7 +18,7 @@ const Navigator = () => {
       <Bottom.Screen name='Menu' component={Menu} />
       <Bottom.Screen name='Profile' component={Profile} />
       <Bottom.Screen name='SignUp' component={SignUp} />
-      <Bottom.Screen name='LogIn' component={LogIn} />
+      <Bottom.Screen name='LogIn' component={Cart} />
     </Bottom.Navigator>
   )
 }
