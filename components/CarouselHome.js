@@ -36,7 +36,7 @@ const CarouselHome = () => {
       data={items}
       renderItem={_renderItem}
       sliderWidth={sliderWidth}
-      itemWidth={sliderWidth}
+      itemWidth={sliderWidth} git a
       layout={'default'}
       loop={true}
       autoplay={true}

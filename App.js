@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react'
 import Navigator from './navigation/MainNavDrawer'
 import { NavigationContainer } from '@react-navigation/native'
@@ -10,6 +11,7 @@ import { initStripe } from '@stripe/stripe-react-native'
 import { NativeBaseProvider } from "native-base"
 
 import { LogBox } from 'react-native'
+import buyConfirmation from './components/Confirmation'
 LogBox.ignoreAllLogs(true)
 
 const theme = {
@@ -23,6 +25,7 @@ const theme = {
 
 const globalStore = createStore(rootReducer, applyMiddleware(thunk))
 
+
 export default function App() {
   useEffect(() => {
     initStripe({
@@ -31,6 +34,8 @@ export default function App() {
   }, [])
 
   return (
+
+
     <NavigationContainer>
       <Provider store={globalStore}>
         <PaperProvider theme={theme}>
