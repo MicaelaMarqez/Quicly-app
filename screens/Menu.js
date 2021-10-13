@@ -62,7 +62,6 @@ const Menu = (props) => {
 		<NativeBaseProvider>
 			<ScrollView style={styles.container}>
 				<ImageBackground style={styles.image} source={{ uri: 'https://innovacioneconomica.com/wp-content/uploads/2021/01/Captura-de-Pantalla-2021-01-19-a-las-11.56.09.png' }}>
-					<Text style={styles.title}>Nuestros Productos</Text>
 				</ImageBackground>
 				<TextInput placeholder="¿Qué quieres pedir?" style={styles.searcher} onChange={(e) => getFiltered(e.nativeEvent.text)} />
 				<View style={styles.categoriesCards}>
@@ -137,13 +136,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		marginBottom: 50
 	},
-	title: {
-		backgroundColor: 'rgba(255, 255, 255, 0.5)',
-		paddingVertical: 5,
-		paddingHorizontal: 8,
-		textAlign: 'center',
-		fontSize: 25
-	}, message: {
+	message: {
 		alignItems: 'center',
 		marginTop: 20
 	},

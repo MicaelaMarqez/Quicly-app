@@ -20,10 +20,12 @@ import { connect } from "react-redux"
 
 const Drawer = createDrawerNavigator()
 
-const MainNavDrawer = ({ resetUser, user, ...props }) => {
-  useEffect(() => {
-    props.validateToken()
-  }, [])
+const MainNavDrawer = ({ user, ...props }) => {
+  // useEffect(() => {
+  //   props.validateToken()
+  // }, [])
+
+  console.log(user)
 
   const DrawerInsta = (props) => (
     <DrawerContentScrollView {...props}>
@@ -37,9 +39,9 @@ const MainNavDrawer = ({ resetUser, user, ...props }) => {
           }}
         >
           <>
-            {user && (
+            {user && user.src && (
               <Image
-                source={{ uri: user.img }}
+                source={{ uri: user.src }}
                 style={{
                   width: 50,
                   height: 50,
@@ -50,12 +52,12 @@ const MainNavDrawer = ({ resetUser, user, ...props }) => {
             )}
             <Text
               style={{
-                fontFamily: "LatoRegular",
+                // fontFamily: "LatoRegular",
                 fontSize: 24,
                 textAlign: "center",
               }}
             >
-              {user ? "Hi " + user.first_name + "!" : "MyTinerary"}
+              {user ? "Hi " + user.firstName + "!" : "Quickly"}
             </Text>
           </>
         </View>
@@ -68,14 +70,18 @@ const MainNavDrawer = ({ resetUser, user, ...props }) => {
           )}
           label="Log Out"
           onPress={() => {
-            resetUser()
+            // resetUser()
             props.navigation.navigate("home")
           }}
-          labelStyle={{ fontFamily: "Lato", fontSize: 18, color: "black" }}
+          labelStyle={{
+            // fontFamily: "Lato", 
+            fontSize: 18, color: "black"
+          }}
         />
       )}
     </DrawerContentScrollView>
   );
+
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -85,11 +91,14 @@ const MainNavDrawer = ({ resetUser, user, ...props }) => {
         },
         drawerLabelStyle: {
           color: "black",
-          fontFamily: "Lato",
+          // fontFamily: "Lato",
           fontSize: 18,
         },
         drawerActiveBackgroundColor: "rgba(185,166,152,0.3)",
-        headerTitleStyle: { fontFamily: "LatoRegular", fontSize: 24 },
+        headerTitleStyle: {
+          // fontFamily: "LatoRegular", 
+          fontSize: 24
+        },
         headerStyle: {
           height: 80,
           backgroundColor: "#d4c9be",
@@ -97,118 +106,124 @@ const MainNavDrawer = ({ resetUser, user, ...props }) => {
       }}
       drawerContent={(props) => <DrawerInsta {...props} />}
     >
-      <Drawer.Screen
-        name="home"
-        component={Home}
-        options={{
-          headerRight: () => (
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Text
-                style={{
-                  fontFamily: "LatoRegular",
-                  fontSize: 20,
-                  textAlign: "center",
-                  marginRight: 15,
-                }}
-              >
-                {user ? "Hi " + user.first_name + "!" : "MyTinerary"}
-              </Text>
-              {user && (
-                <Image
-                  source={{ uri: user.img }}
-                  style={{
-                    width: 45,
-                    height: 45,
-                    borderRadius: 45,
-                    marginRight: 15,
-                    borderWidth: 1,
-                    borderColor: "black",
-                  }}
-                />
-              )}
-            </View>
-          ),
-          title: "Home",
-          drawerIcon: () => (
-            <Ionicons name="home-outline" size={24} color="black" />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="menu"
-        component={Menu}
-        options={({ navigation }) => {
-          return {
-            title: "Cities",
-            drawerIcon: () => (
-              <MaterialCommunityIcons
-                name="city-variant-outline"
-                size={24}
-                color="black"
-              />
-            ),
-            headerTitle: "Explore all our Cities!",
-            headerLeft: () => (
-              <Pressable
-                onPress={() => {
-                  navigation.goBack()
-                }}
-              >
-                <View style={{ marginHorizontal: 20 }}>
-                  <AntDesign name="back" size={24} color="black" />
-                </View>
-              </Pressable>
-            ),
-          };
-        }}
-      />
-      {!user && (
+      {user && (
         <>
           <Drawer.Screen
-            name="signup"
-            component={SignUp}
-            options={({ navigation }) => {
-              return {
-                title: "Sign Up",
-                headerTitle: "Create an account!",
-                drawerIcon: () => (
-                  <Ionicons name="person-add-outline" size={24} color="black" />
-                ),
-                headerLeft: () => (
-                  <View style={{ marginHorizontal: 20 }}>
-                    <Pressable
-                      onPress={() => {
-                        navigation.goBack()
+            name="home"
+            component={Home}
+            options={{
+              headerRight: () => (
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Text
+                    style={{
+                      // fontFamily: "LatoRegular",
+                      fontSize: 20,
+                      textAlign: "center",
+                      marginRight: 15,
+                    }}
+                  >
+                    {user ? "Hi " + user.firstName + "!" : "Quickly"}
+                  </Text>
+                  {user && (
+                    <Image
+                      source={{ uri: user.src }}
+                      style={{
+                        width: 45,
+                        height: 45,
+                        borderRadius: 45,
+                        marginRight: 15,
+                        borderWidth: 1,
+                        borderColor: "black",
                       }}
-                    >
-                      <AntDesign name="back" size={24} color="black" />
-                    </Pressable>
-                  </View>
-                )
-              }
+                    />
+                  )}
+                </View>
+              ),
+              title: "Inicio",
+              drawerIcon: () => (
+                <Ionicons name="home-outline" size={24} color="black" />
+              ),
             }}
           />
+          <Drawer.Screen
+            name="menu"
+            component={Menu}
+            options={({ navigation }) => {
+              return {
+                title: "Menú",
+                drawerIcon: () => (
+                  <Ionicons
+                    name="fast-food-outline"
+                    size={24}
+                    color="black"
+                  />
+                ),
+                headerTitle: "Nuestros Productos",
+                headerLeft: () => (
+                  <Pressable
+                    onPress={() => {
+                      navigation.goBack()
+                    }}
+                  >
+                    <View style={{ marginHorizontal: 20 }}>
+                      <AntDesign name="back" size={24} color="black" />
+                    </View>
+                  </Pressable>
+                ),
+              };
+            }}
+          />
+          <Drawer.Screen
+            name="profile"
+            component={Profile}
+            options={({ navigation }) => {
+              return {
+                title: "Perfil",
+                drawerIcon: () => (
+                  <Ionicons name="person-outline" size={24} color="black" />
+                ),
+                headerTitle: "Perfil de usuario",
+                headerLeft: () => (
+                  <Pressable
+                    onPress={() => {
+                      navigation.goBack()
+                    }}
+                  >
+                    <View style={{ marginHorizontal: 20 }}>
+                      <AntDesign name="back" size={24} color="black" />
+                    </View>
+                  </Pressable>
+                ),
+              };
+            }}
+          />
+        </>
+      )}
+      {!user && (
+        <>
           <Drawer.Screen
             name="login"
             component={LogIn}
             options={({ navigation }) => {
               return {
-                title: "Sign In",
-                headerTitle: "Welcome back!",
+                title: "Ingresar",
+                headerTitle: "Bienvenido",
                 drawerIcon: () => (
                   <Ionicons name="log-in-outline" size={24} color="black" />
                 ),
-                headerLeft: () => (
-                  <View style={{ marginHorizontal: 20 }}>
-                    <Pressable
-                      onPress={() => {
-                        navigation.goBack()
-                      }}
-                    >
-                      <AntDesign name="back" size={24} color="black" />
-                    </Pressable>
-                  </View>
-                )
+              }
+            }}
+          />
+          <Drawer.Screen
+            name="signup"
+            component={SignUp}
+            options={({ navigation }) => {
+              return {
+                title: "Registrarse",
+                headerTitle: "Creá tu cuenta",
+                drawerIcon: () => (
+                  <Ionicons name="person-add-outline" size={24} color="black" />
+                ),
               }
             }}
           />
@@ -220,7 +235,7 @@ const MainNavDrawer = ({ resetUser, user, ...props }) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.users.user,
+    user: state.users.userData?.data,
   }
 }
 const mapDispatchToProps = {

@@ -1,6 +1,6 @@
 import axios from 'axios'
-import Swal from 'sweetalert2'
-import io from 'socket.io-client'
+// import Swal from 'sweetalert2'
+// import io from 'socket.io-client'
 const HOST = 'https://quickly-food.herokuapp.com'
 
 const userActions = {
@@ -8,36 +8,14 @@ const userActions = {
     return async (dispatch) => {
       try {
         let res = await axios.post(`${HOST}/api/user/signUp`, user)
-        console.log(res)
+        console.log(res.data)
         if (res.data.success) {
           const { user, userData, token } = res.data
-          let keep = false
-          localStorage.getItem('cart') &&
-            JSON.parse(localStorage.getItem('cart')).length > 0 &&
-            Swal.fire({
-              title: 'Desea conservar el carrito actual?',
-              icon: 'question',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Sí',
-              denyButtonText: 'No',
-            }).then((result) => {
-              if (result.isConfirmed) {
-                keep = true
-              }
-            })
-          window.scrollTo(0, 0)
-          props.history.push('/')
-          localStorage.setItem('socket', userData._id)
-          let socket = io(`${HOST}`, {
-            query: { socketId: userData._id, admin: userData.data.admin.flag },
-          })
-          dispatch({ type: 'SET_SOCKET', payload: { socket } })
-          return dispatch({
+          dispatch({
             type: 'LOG_IN',
-            payload: { user, userData, token, keep },
+            payload: { user, userData, token },
           })
+          return res.data
         }
       } catch (error) {
         console.log(error)
@@ -50,33 +28,12 @@ const userActions = {
         let res = await axios.post(`${HOST}/api/user/logIn`, { ...user })
         if (res.data.success) {
           const { user, userData, token } = res.data
-          let keep = false
-          localStorage.getItem('cart') &&
-            JSON.parse(localStorage.getItem('cart')).length > 0 &&
-            Swal.fire({
-              title: 'Desea conservar el carrito actual?',
-              icon: 'question',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Sí',
-              denyButtonText: 'No',
-            }).then((result) => {
-              if (result.isConfirmed) {
-                keep = true
-              }
-            })
-          window.scrollTo(0, 0)
-          props.history.push('/')
-          localStorage.setItem('socket', userData._id)
-          let socket = io(HOST, {
-            query: { socketId: userData._id, admin: userData.data.admin.flag },
-          })
-          dispatch({ type: 'SET_SOCKET', payload: { socket } })
-          return dispatch({
+
+          dispatch({
             type: 'LOG_IN',
-            payload: { user, userData, token, keep },
+            payload: { user, userData, token },
           })
+          return res.data
         }
       } catch (error) {
         console.log(error)

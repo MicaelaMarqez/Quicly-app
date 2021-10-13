@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Navigator from './navigation/MainNavBottom'
+import Navigator from './navigation/MainNavDrawer'
 import { NavigationContainer } from '@react-navigation/native'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
 import { applyMiddleware, createStore } from 'redux'
