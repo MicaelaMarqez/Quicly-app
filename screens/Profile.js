@@ -3,8 +3,9 @@ import { Text, View, StyleSheet, ImageBackground, ScrollView, Pressable } from "
 import HistoryProfile from "../components/HistoryProfile"
 import PaymentProfile from "../components/PaymentProfile"
 import DataProfile from "../components/DataProfile"
-
+import userActions from "../redux/actions/userActions"
 import Contact from '../components/Contact'
+import { connect } from "react-redux"
 
 const Profile = (props) => {
 	const [changeComponent, setChangeComponent] = useState(<DataProfile />)
@@ -93,8 +94,18 @@ const Profile = (props) => {
 		</ScrollView>
 	)
 }
+const mapStateToProps = (state) => {
+	return{
+		userData: state.users.userData
+	}	
+}
+const mapDispachToProps = {
+	
+}
 
-export default Profile
+export default connect(mapStateToProps, mapDispachToProps)(Profile)
+
+
 
 const styles = StyleSheet.create({
 	containerAllProfile: {
