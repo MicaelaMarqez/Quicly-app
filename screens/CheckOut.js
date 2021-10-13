@@ -55,13 +55,16 @@ const CheckOut = (props) => {
                             <Text style={styles.paymentTitle}>Método de pago</Text>
                             <Text style={styles.btnText}>Cambiar</Text>
                         </View>
-                        <View style={styles.paymentMethod}>
-                            <Icon
-                            name='credit-card-alt'
-                            size={20}
-                            color='tomato'
-                            />
-                            <Text style={styles.method}>Aca el metodo</Text>
+                        <View style={styles.cardLine}>
+                            <View style={styles.paymentMethod}>
+                                <Icon
+                                name='credit-card-alt'
+                                size={20}
+                                color='tomato'
+                                />
+                                <Text style={styles.method}>Aca el metodo</Text>
+                            </View>
+                            <View style={styles.line}></View>
                         </View>
                     </View>
                 </View>
@@ -261,6 +264,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         width: '45%',
+    },
+    cardLine: {
+        marginTop: '4%'
     }
 
 })
