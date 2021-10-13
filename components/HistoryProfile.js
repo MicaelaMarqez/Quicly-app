@@ -57,7 +57,6 @@ const HistoryProfile = (props) => {
     return (
         <View style={styles.containerAll}>
 			{item.map((i) => 
-
                     <View style={styles.container}>               
                         {i.map((product) => 
                             <View style={styles.containerCard}>
@@ -66,16 +65,14 @@ const HistoryProfile = (props) => {
                                     </ImageBackground>
                                 </View>
                                 <View style={styles.containerCards}>
-                                    <Text>{product.titulo}</Text>
+                                    <Text style={styles.textCard}>{product.titulo}</Text>
                                 </View>
                                 <View style={styles.containerCards}>
-                                    <Text>$ {product.total}</Text>
+                                    <Text style={styles.textCard}>$ {product.total}</Text>
                                 </View>
-
                             </View>
                         )}                 
                     </View>
-
             )}
         </View>
     )
@@ -88,29 +85,38 @@ const styles = StyleSheet.create({
         width:"100%",
         marginBottom: 20,
         minHeight: 200,
-        alignItems: "center"
+        alignItems: "center",
+        padding: 10
     },  
     imageHystorial:{
         height: 50,
         width: 50,
+        overflow: "hidden",
+        borderRadius: 10
     },
     container:{
         width: "100%",
         minHeight: 150,
         padding: 15,
         margin: 10, 
-        borderWidth: 1,
-        borderColor: "red"   
-
+        borderWidth: 0.5,
+        borderColor: "grey",
+        borderRadius: 15,  
     },
     containerCard:{
         width: "100%",
         height: 70,
-        flexDirection: "row"
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center"
 
     },
     containerCards:{
         width: "35%",
         height: "100%",   
     },
+    textCard:{
+        textAlign: "center",
+        
+    }
 })
