@@ -66,7 +66,7 @@ const Menu = (props) => {
 						: props.filtered.map(product => <CategoryList product={product} key={product._id} />)
 					: categories.map(category => {
 						let products = props.products.filter(product => product.category === category)
-						return <CategorySection products={products} key={category} category={category} />
+						return <CategorySection navigation={props.navigation} products={products} key={category} category={category} />
 					})}
 			</ScrollView>
 		</NativeBaseProvider>

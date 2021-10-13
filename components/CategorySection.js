@@ -22,7 +22,7 @@ const CategorySection = (props) => {
                 />
             </View>
             {view
-                ? <CategoryCarousel products={props.products} />
+                ? <CategoryCarousel navigation={props.navigation} products={props.products} />
                 : props.products.map(product => <CategoryList product={product} key={product._id} />)
             }
         </View>
