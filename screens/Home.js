@@ -5,7 +5,7 @@ import CarouselHome from "../components/CarouselHome"
 
 const Home = (props) => {
 	return(
-		<ScrollView >
+		<ScrollView>
 				<View style={styles.containHeader}>
 				<View style={styles.containerCarouselBody}>
 					<CarouselHome/>
@@ -38,7 +38,7 @@ const Home = (props) => {
             			<Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }} onPress={() => props.navigation.navigate('Menu')}>Ver mas</Text>
         			</Pressable>
 				</View>
-				
+
 		</ScrollView>
 	)
 }
@@ -46,6 +46,7 @@ const Home = (props) => {
 export default Home
 
 const styles = StyleSheet.create({
+
 	logo:{
 		marginTop: 30,
 		height: 30,
