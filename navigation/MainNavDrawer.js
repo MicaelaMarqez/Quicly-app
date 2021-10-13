@@ -20,6 +20,7 @@ import { connect } from "react-redux"
 import userActions from "../redux/actions/userActions"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Preloader from "../components/Preloader"
+import CheckOut from '../screens/CheckOut'
 
 const Drawer = createDrawerNavigator()
 
@@ -121,7 +122,7 @@ const MainNavDrawer = ({ user, ...props }) => {
         <>
           <Drawer.Screen
             name="home"
-            component={Home}
+            component={CheckOut}
             options={{
               headerRight: () => (
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
