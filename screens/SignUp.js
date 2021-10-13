@@ -3,10 +3,10 @@ import { Text, View, StyleSheet, TextInput, Pressable, TouchableOpacity } from "
 import { connect } from "react-redux"
 import userActions from "../redux/actions/userActions"
 
-import { Input, Stack, Center, Heading, NativeBaseProvider } from "native-base"
-
+import { useToast, Box } from "native-base"
 
 const SignUp = (props) => {
+	const toast = useToast()
 	const [user, setUser] = useState({
 		firstName: '',
 		lastName: '',
@@ -26,11 +26,11 @@ const SignUp = (props) => {
 		})
 	}
 
+
 	const submit = async () => {
 		let inputs = Object.values(user).some((input) => input === "")
+		let message
 		if (!inputs) {
-			console.log(user.password)
-			console.log(repPass)
 			let verification = user.password === repPass ? true : false
 			try {
 				if (!verification) throw new Error('Las contaseñas deben coincidir')
@@ -38,14 +38,24 @@ const SignUp = (props) => {
 				if (response.error) {
 					return response.error.map(error => console.log(error))
 				} else if (response.success) {
-					console.log('resgistrado')
+					message = 'Usuario creado exitosamente'
 				}
 			} catch (error) {
-				console.log(error)
+				message = error.message
 			}
 		} else {
-			console.log("tenes que llenar los campos padre")
+			message = 'Todos los campos son obligatorios.'
 		}
+		toast.show({
+			placement: 'top',
+			render: () => {
+				return (
+					<Box bg="warning.600" px="4" py="15" rounded="sm" mb={5}>
+						{message}
+					</Box>
+				)
+			},
+		})
 	}
 
 
@@ -54,28 +64,28 @@ const SignUp = (props) => {
 			<View style={styles.containInputs}>
 				<TextInput
 					placeholder="Nombre"
-					placeholderTextColor="#333333"
+					placeholderTextColor="#aaa"
 					color="black"
 					style={styles.inputSignUp}
 					onChangeText={(e) => inputHandler(e, "firstName")}
 				/>
 				<TextInput
 					placeholder="Apellido"
-					placeholderTextColor="#333333"
+					placeholderTextColor="#aaa"
 					color="black"
 					style={styles.inputSignUp}
 					onChangeText={(e) => inputHandler(e, "lastName")}
 				/>
 				<TextInput
 					placeholder="Email"
-					placeholderTextColor="#333333"
+					placeholderTextColor="#aaa"
 					color="black"
 					style={styles.inputSignUp}
 					onChangeText={(e) => inputHandler(e, "email")}
 				/>
 				<TextInput
 					placeholder="Contraseña"
-					placeholderTextColor="#333333"
+					placeholderTextColor="#aaa"
 					color="black"
 					secureTextEntry={true}
 					password={true}
@@ -83,20 +93,20 @@ const SignUp = (props) => {
 					onChangeText={(e) => inputHandler(e, "password")}
 				/>
 				<TextInput
-					placeholder="Repite Contraseña"
-					placeholderTextColor="#333333"
+					placeholder="Repite contraseña"
+					placeholderTextColor="#aaa"
 					color="black"
 					secureTextEntry={true}
 					password={true}
 					style={styles.inputSignUp}
 					onChangeText={(e) => setRepPass(e)}
 				/>
-				<Input size="xl" placeholder="xl Input" />
 			</View>
-			<TouchableOpacity style={styles.button}>
-				<Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }} onPress={submit}>Crear Cuenta</Text>
+
+			<TouchableOpacity style={styles.button} onPress={submit}>
+				<Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }}>Crear Cuenta</Text>
 			</TouchableOpacity>
-			<Text style={{ color: 'black', fontSize: 14, textAlign: 'center' }}>Tenes cuenta ?</Text>
+			<Text style={{ color: 'black', fontSize: 14, textAlign: 'center' }}>¿Tenes cuenta?</Text>
 			<Pressable onPress={() => props.navigation.navigate('login')}>
 				<Text style={{ color: "#fe6849", fontSize: 19, textAlign: 'center', textDecorationLine: 'underline' }}>Ingresar</Text>
 			</Pressable>
@@ -116,7 +126,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: "center",
 		paddingTop: 20,
-
 	},
 	containInputs: {
 		width: "90%",
@@ -127,7 +136,7 @@ const styles = StyleSheet.create({
 	inputSignUp: {
 		backgroundColor: 'white',
 		width: '75%',
-		height: "13%",
+		height: 70,
 		borderRadius: 10,
 		paddingBottom: 5,
 		paddingLeft: 15,

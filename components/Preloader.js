@@ -2,12 +2,11 @@ import React from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 
 
-const Preloader = () => {
+const Preloader = (props) => {
     return (
         <View style={styles.container}>
             <Image style={styles.preloaderImage} source={{ uri: 'https://quickly-food.herokuapp.com/assets/preloader.gif' }} />
-            <Text style={styles.text}>Cargando...</Text>
-            {/* <Progress value={45} mx="4" /> */}
+            <Text style={styles.text}>{props.message}</Text>
         </View>
     )
 }
@@ -27,6 +26,7 @@ const styles = StyleSheet.create({
     },
     text: {
         color: '#fe6849',
-        fontSize: 25
+        fontSize: 25,
+        fontWeight: '600'
     }
 })

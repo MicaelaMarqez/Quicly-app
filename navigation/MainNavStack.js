@@ -6,6 +6,7 @@ import Profile from '../screens/Profile'
 import SignUp from '../screens/SignUp'
 import Menu from '../screens/Menu'
 import PaymentScreen from '../screens/Card'
+import Product from '../screens/Product'
 
 const Stack = createNativeStackNavigator()
 
@@ -17,6 +18,7 @@ const Navigator = () => {
       <Stack.Screen name='ProfileStack' component={Profile} />
       <Stack.Screen name='SignUpStack' component={SignUp} />
       <Stack.Screen name='LogInStack' component={LogIn} />
+      <Stack.Screen name='Product' component={Product} />
     </Stack.Navigator>
   )
 }

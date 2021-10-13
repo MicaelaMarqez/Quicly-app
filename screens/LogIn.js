@@ -1,15 +1,15 @@
 import React, { useState } from "react"
-import { Text, View, StyleSheet, TextInput, Pressable } from "react-native"
+import { Text, View, StyleSheet, TextInput, Pressable, TouchableOpacity } from "react-native"
 import { connect } from "react-redux"
 import userActions from "../redux/actions/userActions"
-
+import { useToast, Box } from "native-base"
 
 const LogIn = (props) => {
+	const toast = useToast()
 	const [user, setUser] = useState({
 		email: '',
 		password: '',
 	})
-
 
 	const inputHandler = (e, campo, value) => {
 		setUser({
@@ -20,19 +20,31 @@ const LogIn = (props) => {
 
 	const submit = async () => {
 		let inputs = Object.values(user).some((input) => input === "")
+		let message
 		if (!inputs) {
 			try {
 				let response = await props.logUser(user)
 				if (response.success) {
-					console.log('ingresado')
+					message = 'Ingreso correcto.'
+				} else {
+					message = 'Correo y/o contraseña incorrecto.'
 				}
 			} catch (error) {
-
+				message = 'Ocurrió un problema. Intente más tarde.'
 			}
-			console.log("entre aca, esta todo bien, hacer el sign aca, mapear los errores abajo, segun la respuesta")
 		} else {
-			console.log("tenes que llenar los campos padre")
+			message = 'Todos los campos son obligatorios.'
 		}
+		toast.show({
+			placement: 'top',
+			render: () => {
+				return (
+					<Box bg="warning.600" px="4" py="15" rounded="sm" mb={5}>
+						{message}
+					</Box>
+				)
+			},
+		})
 	}
 
 
@@ -41,14 +53,14 @@ const LogIn = (props) => {
 			<View style={styles.containInputs}>
 				<TextInput
 					placeholder="Email"
-					placeholderTextColor="#333333"
+					placeholderTextColor="#aaa"
 					color="black"
 					style={styles.inputLogIn}
 					onChangeText={(e) => inputHandler(e, "email")}
 				/>
 				<TextInput
 					placeholder="Contraseña"
-					placeholderTextColor="#333333"
+					placeholderTextColor="#aaa"
 					color="black"
 					secureTextEntry={true}
 					password={true}
@@ -56,10 +68,10 @@ const LogIn = (props) => {
 					onChangeText={(e) => inputHandler(e, "password")}
 				/>
 			</View>
-			<Pressable style={styles.button}>
-				<Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }} onPress={submit}>Ingresar</Text>
-			</Pressable>
-			<Text style={{ color: 'black', fontSize: 14, textAlign: 'center' }}>No tenes cuenta ?</Text>
+			<TouchableOpacity style={styles.button} onPress={submit}>
+				<Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }} >Ingresar</Text>
+			</TouchableOpacity>
+			<Text style={{ color: 'black', fontSize: 14, textAlign: 'center' }}>¿No tenes cuenta?</Text>
 			<Pressable onPress={() => props.navigation.navigate('signup')}>
 				<Text style={{ color: "#fe6849", fontSize: 19, textAlign: 'center', textDecorationLine: 'underline' }}>Crear cuenta</Text>
 			</Pressable>
@@ -90,7 +102,7 @@ const styles = StyleSheet.create({
 	inputLogIn: {
 		backgroundColor: 'white',
 		width: '75%',
-		height: "13%",
+		height: 70,
 		borderRadius: 10,
 		paddingBottom: 5,
 		paddingLeft: 15,

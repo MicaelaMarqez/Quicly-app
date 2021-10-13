@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import rootReducer from './redux/reducers/rootReducer'
 import { initStripe } from '@stripe/stripe-react-native'
-import { Input, Stack, Center, Heading, NativeBaseProvider } from "native-base"
+import { NativeBaseProvider } from "native-base"
 
 import { LogBox } from 'react-native'
 LogBox.ignoreAllLogs(true)

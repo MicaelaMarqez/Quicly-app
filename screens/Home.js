@@ -34,9 +34,9 @@ const Home = (props) => {
 						</View>
 					</View>
 				</View>
-				<Pressable style={styles.button}>
-					<Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }} onPress={() => props.navigation.navigate('menu')}>Ver mas</Text>
-				</Pressable>
+				<TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('menu')}>
+					<Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }}>Ver mas</Text>
+				</TouchableOpacity>
 			</View>
 
 		</ScrollView>
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
 	containHeader: {
 		flex: 1,
 		alignItems: "center",
+		width: '100%'
 		// paddingTop: 20,
 	},
 	containerCard: {
@@ -107,7 +108,6 @@ const styles = StyleSheet.create({
 	},
 	containerCarouselBody: {
 		height: 200,
-		borderRadius: 5,
 		width: "100%",
 		shadowColor: "#000",
 		shadowOffset: {
@@ -117,7 +117,6 @@ const styles = StyleSheet.create({
 		shadowOpacity: 1,
 		shadowRadius: 15,
 		elevation: 5,
-
 	}
 });
 

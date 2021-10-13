@@ -15,8 +15,8 @@ const userActions = {
             type: 'LOG_IN',
             payload: { user, userData, token },
           })
-          return res.data
         }
+        return res.data
       } catch (error) {
         console.log(error)
       }
@@ -33,15 +33,14 @@ const userActions = {
             type: 'LOG_IN',
             payload: { user, userData, token },
           })
-          return res.data
         }
+        return res.data
       } catch (error) {
         console.log(error)
       }
     }
   },
   logOut: () => {
-    console.log('entro')
     return async (dispatch) => {
       await AsyncStorage.clear()
       return dispatch({ type: 'LOG_OUT' })

@@ -38,7 +38,7 @@ const Menu = (props) => {
 	}, [])
 
 	if (loader) {
-		return <Preloader />
+		return <Preloader message='Cargando...' />
 	}
 	const getFiltered = (word) => {
 		if (word.length) {

@@ -1,30 +1,33 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
+import { Image, Pressable, Text, View } from "react-native"
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItem,
   DrawerItemList,
 } from "@react-navigation/drawer"
+
 import Home from '../screens/Home'
-import LogIn from '../screens/LogIn'
-import Profile from '../screens/Profile'
-import SignUp from '../screens/SignUp'
 import Menu from '../screens/Menu'
-import { Image, Pressable, Text, View } from "react-native"
+import Profile from '../screens/Profile'
+import LogIn from '../screens/LogIn'
+import SignUp from '../screens/SignUp'
+import Preloader from "../components/Preloader"
+
 import {
   AntDesign,
   Ionicons,
-  MaterialCommunityIcons,
 } from "@expo/vector-icons"
 import { connect } from "react-redux"
 import userActions from "../redux/actions/userActions"
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Preloader from "../components/Preloader"
 import CheckOut from '../screens/CheckOut'
 
 const Drawer = createDrawerNavigator()
 
 const MainNavDrawer = ({ user, ...props }) => {
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     const verificate = async () => {
       const token = await AsyncStorage.getItem("token")
@@ -34,9 +37,16 @@ const MainNavDrawer = ({ user, ...props }) => {
     verificate()
   }, [])
 
-  console.log(user)
   const resetUser = () => {
+    setLoading(true)
     props.logOut()
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000)
+  }
+
+  if (loading) {
+    return <Preloader message='Hasta pronto...' />
   }
 
   const DrawerInsta = (props) => (
@@ -122,7 +132,7 @@ const MainNavDrawer = ({ user, ...props }) => {
         <>
           <Drawer.Screen
             name="home"
-            component={CheckOut}
+            component={Home}
             options={{
               headerRight: () => (
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
