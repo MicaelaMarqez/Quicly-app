@@ -57,11 +57,11 @@ const userReducer = (state = initialState, action) => {
         cart: action.payload.cart,
       }
     case 'LOG_OUT':
-      localStorage.removeItem('token')
-      localStorage.removeItem('socket')
-      localStorage.setItem('cart', JSON.stringify([]))
-      localStorage.setItem('orders', JSON.stringify([]))
-      return initialState
+      return {
+        token: null,
+        user: null,
+        userData: null
+      }
 
     default:
       return state

@@ -17,15 +17,26 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons"
 import { connect } from "react-redux"
+import userActions from "../redux/actions/userActions"
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Preloader from "../components/Preloader"
 
 const Drawer = createDrawerNavigator()
 
 const MainNavDrawer = ({ user, ...props }) => {
-  // useEffect(() => {
-  //   props.validateToken()
-  // }, [])
+  useEffect(() => {
+    const verificate = async () => {
+      const token = await AsyncStorage.getItem("token")
+      if (!token) return false
+      props.validateToken(token)
+    }
+    verificate()
+  }, [])
 
   console.log(user)
+  const resetUser = () => {
+    props.logOut()
+  }
 
   const DrawerInsta = (props) => (
     <DrawerContentScrollView {...props}>
@@ -70,7 +81,7 @@ const MainNavDrawer = ({ user, ...props }) => {
           )}
           label="Log Out"
           onPress={() => {
-            // resetUser()
+            resetUser()
             props.navigation.navigate("home")
           }}
           labelStyle={{
@@ -239,5 +250,7 @@ const mapStateToProps = (state) => {
   }
 }
 const mapDispatchToProps = {
+  validateToken: userActions.verifyToken,
+  logOut: userActions.logOut
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MainNavDrawer)

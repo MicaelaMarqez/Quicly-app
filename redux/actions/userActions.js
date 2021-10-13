@@ -1,7 +1,6 @@
 import axios from 'axios'
-// import Swal from 'sweetalert2'
-// import io from 'socket.io-client'
 const HOST = 'https://quickly-food.herokuapp.com'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const userActions = {
   createUser: (user, props) => {
@@ -11,6 +10,7 @@ const userActions = {
         console.log(res.data)
         if (res.data.success) {
           const { user, userData, token } = res.data
+          await AsyncStorage.setItem('token', token)
           dispatch({
             type: 'LOG_IN',
             payload: { user, userData, token },
@@ -28,7 +28,7 @@ const userActions = {
         let res = await axios.post(`${HOST}/api/user/logIn`, { ...user })
         if (res.data.success) {
           const { user, userData, token } = res.data
-
+          await AsyncStorage.setItem('token', token)
           dispatch({
             type: 'LOG_IN',
             payload: { user, userData, token },
@@ -41,27 +41,20 @@ const userActions = {
     }
   },
   logOut: () => {
-    return (dispatch) => {
+    console.log('entro')
+    return async (dispatch) => {
+      await AsyncStorage.clear()
       return dispatch({ type: 'LOG_OUT' })
     }
   },
-  verifyToken: () => {
+  verifyToken: (token) => {
     return async (dispatch) => {
-      let token = localStorage.getItem('token')
       try {
         let response = await axios.get(`${HOST}/api/user/token`, {
           headers: {
             Authorization: 'Bearer ' + token,
           },
         })
-        localStorage.setItem('socket', response.data.userData._id)
-        let socket = io(HOST, {
-          query: {
-            socketId: response.data.userData._id,
-            admin: response.data.userData.data.admin.flag,
-          },
-        })
-        dispatch({ type: 'SET_SOCKET', payload: { socket } })
         dispatch({
           type: 'LOG_IN',
           payload: { ...response.data, token },
