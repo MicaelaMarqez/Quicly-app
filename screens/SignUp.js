@@ -1,7 +1,9 @@
-import React, { useRef, useState } from "react"
-import { Text, View, StyleSheet, TextInput, Pressable } from "react-native"
+import React, { useState } from "react"
+import { Text, View, StyleSheet, TextInput, Pressable, TouchableOpacity } from "react-native"
 import { connect } from "react-redux"
 import userActions from "../redux/actions/userActions"
+
+import { Input, Stack, Center, Heading, NativeBaseProvider } from "native-base"
 
 
 const SignUp = (props) => {
@@ -12,6 +14,8 @@ const SignUp = (props) => {
 		password: '',
 		src: 'https://quickly-food.herokuapp.com/assets/user.png',
 		google: false,
+		action: 'sign'
+
 	})
 	const [repPass, setRepPass] = useState('')
 
@@ -87,10 +91,11 @@ const SignUp = (props) => {
 					style={styles.inputSignUp}
 					onChangeText={(e) => setRepPass(e)}
 				/>
+				<Input size="xl" placeholder="xl Input" />
 			</View>
-			<Pressable style={styles.button}>
+			<TouchableOpacity style={styles.button}>
 				<Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }} onPress={submit}>Crear Cuenta</Text>
-			</Pressable>
+			</TouchableOpacity>
 			<Text style={{ color: 'black', fontSize: 14, textAlign: 'center' }}>Tenes cuenta ?</Text>
 			<Pressable onPress={() => props.navigation.navigate('login')}>
 				<Text style={{ color: "#fe6849", fontSize: 19, textAlign: 'center', textDecorationLine: 'underline' }}>Ingresar</Text>
