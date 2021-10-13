@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Text, View, StyleSheet, ImageBackground, ScrollView, Pressable } from "react-native"
 import HistoryProfile from "../components/HistoryProfile"
 import PaymentProfile from "../components/PaymentProfile"
@@ -7,17 +7,17 @@ import userActions from "../redux/actions/userActions"
 import Contact from '../components/Contact'
 import { connect } from "react-redux"
 
-const Profile = (props) => {
-	const [changeComponent, setChangeComponent] = useState(<DataProfile />)
+const Profile = ({userData}) => {
+	const [changeComponent, setChangeComponent] = useState(<DataProfile userData={userData} />)
 
 	if (changeComponent === "data") {
-		setChangeComponent(<DataProfile />)
+		setChangeComponent(<DataProfile userData={userData} />)
 	} else if (changeComponent === "help") {
-		setChangeComponent(<Contact />)
+		setChangeComponent(<Contact userData={userData} />)
 	} else if (changeComponent === "history") {
-		setChangeComponent(<HistoryProfile />)
+		setChangeComponent(<HistoryProfile userData={userData} />)
 	} else if (changeComponent === "payment") {
-		setChangeComponent(<PaymentProfile />)
+		setChangeComponent(<PaymentProfile userData={userData} />)
 	}
 
 	return (
@@ -26,10 +26,10 @@ const Profile = (props) => {
 				<View style={styles.containerProfile}>
 					<View style={styles.containerProfileName}>
 						<Text style={styles.titleHi}>Hola</Text>
-						<Text style={styles.profileName}>Juan Carlos</Text>
+						<Text style={styles.profileName}>{userData.data.firstName} {userData.data.lastName}</Text>
 					</View>
 					<View style={styles.containerProfileImage}>
-						<ImageBackground style={styles.imageProfile} onPress={() => setChangeComponent("data")} resizeMode="cover" source={{ uri: "https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2018/08/fotos-perfil-whatsapp_16.jpg?itok=fl2H3Opv" }}>
+						<ImageBackground style={styles.imageProfile} onPress={() => setChangeComponent("data")} resizeMode="cover" source={{ uri: userData.data.src }}>
 						</ImageBackground>
 					</View>
 				</View>
@@ -210,11 +210,13 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 		marginBottom: 50,
+		minHeight: 500,
 	},
 	componentContainer: {
 		width: "95%",
 		borderRadius: 15,
 		backgroundColor: "white",
+		height: 1000,
 	},
 
 });

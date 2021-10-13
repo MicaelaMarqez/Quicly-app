@@ -25,8 +25,6 @@ const SignUp = (props) => {
 	const submit = async () => {
 		let inputs = Object.values(user).some((input) => input === "")
 		if (!inputs) {
-			console.log(user.password)
-			console.log(repPass)
 			let verification = user.password === repPass ? true : false
 			try {
 				if (!verification) throw new Error('Las contaseñas deben coincidir')

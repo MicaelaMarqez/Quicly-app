@@ -5,8 +5,6 @@ import { connect } from 'react-redux'
 import userActions from '../redux/actions/userActions'
 
 const CheckOut = (props) => {
-    
-    console.log(props)
 
     return (
         <ScrollView>

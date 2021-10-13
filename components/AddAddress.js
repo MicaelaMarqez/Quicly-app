@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, Pressable, TextInput, ImageBackground } from 'react-native'
 
-const AddAddress = ({setModalVisible}) => {
-	const [addAddress, setAddAddress] = useState({
+
+const AddAddress = ({setModalVisible, updateUser,setAddressProfile}, ) => {
+	const [newAddress, setNewAddress] = useState({
 		alias: "",
 		street: "",
 		number: "",
@@ -11,20 +12,29 @@ const AddAddress = ({setModalVisible}) => {
 	})
 
 	const inputHandler = (e, campo, value) => {
-		setAddAddress({
-			...addAddress,
+		setNewAddress({
+			...newAddress,
 			[campo]: e || value
 		})
 	} 
 
-	const dataUpdate = () => {
-		let verification = Object.values(addAddress).some((prop) => prop === "" || !prop)
+	const dataUpdate = async () => {
+		let verification = Object.values(newAddress).some((prop) => prop === "" || !prop)
 		if(verification) return console.log("LLENA LOS CAMPOS PETE")
-		console.log(addAddress)
+		try{
+			let response = await updateUser({ action: 'addAddress', newAddress})
+			console.log(response.success)
+			if(!response.success) throw new Error()
+			setAddressProfile(response.userData.addresses)
+			setModalVisible(false)
+		}catch(e){
+			console.log(e)
+		}
+		
 	}
 
 	const confirm = () => {
-		let verification = Object.values(addAddress).some((prop) => prop !== "")
+		let verification = Object.values(newAddress).some((prop) => prop !== "")
 		if(verification) console.log("tenes cambios, frenar a la persona aca y preguntar si esta seguro")
 		setModalVisible(false)
 	}
@@ -42,35 +52,35 @@ const AddAddress = ({setModalVisible}) => {
 					placeholder="Alias"
 					placeholderTextColor="#333333"
 					color="black"
-					style={styles.inputAddAddress}
+					style={styles.inputNewAddress}
 					onChangeText={(e) => inputHandler(e, "alias")}
 					/>
 					<TextInput 
 					placeholder="Calle"
 					placeholderTextColor="#333333"
 					color="black"
-					style={styles.inputAddAddress}
+					style={styles.inputNewAddress}
 					onChangeText={(e) => inputHandler(e, "street")}
 					/>
 					<TextInput 
 					placeholder="Numeración"
 					placeholderTextColor="#333333"
 					color="black"
-					style={styles.inputAddAddress}
+					style={styles.inputNewAddress}
 					onChangeText={(e) => inputHandler(e, "number")}
 					/>
 					<TextInput 
 					placeholder="Departamento"
 					placeholderTextColor="#333333"
 					color="black"
-					style={styles.inputAddAddress}
+					style={styles.inputNewAddress}
 					onChangeText={(e) => inputHandler(e, "apartment")}
 					/>
 					<TextInput 
 					placeholder="Barrio / Partido / Localidad"
 					placeholderTextColor="#333333"
 					color="black"
-					style={styles.inputAddAddress}
+					style={styles.inputNewAddress}
 					onChangeText={(e) => inputHandler(e, "neighborhood")}
 					/>
 					<View style={styles.containerButton}>
@@ -83,13 +93,14 @@ const AddAddress = ({setModalVisible}) => {
     )
 }
 
+
 export default AddAddress
 
 const styles = StyleSheet.create({
     container: {
         width:"100%",
     },
-	inputAddAddress:{
+	inputNewAddress:{
 		backgroundColor: 'white',
 		width: '100%',
 		height: "11%",

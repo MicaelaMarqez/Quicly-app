@@ -34,7 +34,6 @@ const MainNavDrawer = ({ user, ...props }) => {
     verificate()
   }, [])
 
-  console.log(user)
   const resetUser = () => {
     props.logOut()
   }
