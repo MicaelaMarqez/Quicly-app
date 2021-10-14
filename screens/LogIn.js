@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, TextInput, Pressable, TouchableOpacity } from "
 import { connect } from "react-redux"
 import userActions from "../redux/actions/userActions"
 import { useToast, Box } from "native-base"
+import { flex } from "styled-system"
 
 const LogIn = (props) => {
 	const toast = useToast()
@@ -50,31 +51,33 @@ const LogIn = (props) => {
 
 	return (
 		<View style={styles.containAll}>
-			<View style={styles.containInputs}>
-				<TextInput
-					placeholder="Email"
-					placeholderTextColor="#aaa"
-					color="black"
-					style={styles.inputLogIn}
-					onChangeText={(e) => inputHandler(e, "email")}
-				/>
-				<TextInput
-					placeholder="Contraseña"
-					placeholderTextColor="#aaa"
-					color="black"
-					secureTextEntry={true}
-					password={true}
-					style={styles.inputLogIn}
-					onChangeText={(e) => inputHandler(e, "password")}
-				/>
+			<View style={styles.boxSign}>
+				<View style={styles.containInputs}>
+					<TextInput
+						placeholder="Email"
+						placeholderTextColor="#aaa"
+						color="black"
+						style={styles.inputLogIn}
+						onChangeText={(e) => inputHandler(e, "email")}
+					/>
+					<TextInput
+						placeholder="Contraseña"
+						placeholderTextColor="#aaa"
+						color="black"
+						secureTextEntry={true}
+						password={true}
+						style={styles.inputLogIn}
+						onChangeText={(e) => inputHandler(e, "password")}
+					/>
+				</View>
+				<TouchableOpacity style={styles.button} onPress={submit}>
+					<Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }} >Ingresar</Text>
+				</TouchableOpacity>
+				<Text style={{ color: 'black', fontSize: 14, textAlign: 'center' }}>¿No tenes cuenta?</Text>
+				<Pressable onPress={() => props.navigation.navigate('signup')}>
+					<Text style={{ color: "#fe6849", fontSize: 19, textAlign: 'center', textDecorationLine: 'underline' }}>Crear cuenta</Text>
+				</Pressable>
 			</View>
-			<TouchableOpacity style={styles.button} onPress={submit}>
-				<Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }} >Ingresar</Text>
-			</TouchableOpacity>
-			<Text style={{ color: 'black', fontSize: 14, textAlign: 'center' }}>¿No tenes cuenta?</Text>
-			<Pressable onPress={() => props.navigation.navigate('signup')}>
-				<Text style={{ color: "#fe6849", fontSize: 19, textAlign: 'center', textDecorationLine: 'underline' }}>Crear cuenta</Text>
-			</Pressable>
 		</View>
 	)
 }
@@ -89,8 +92,15 @@ const styles = StyleSheet.create({
 		width: "100%",
 		flex: 1,
 		alignItems: "center",
+		justifyContent: 'center',
 		paddingTop: 20,
 
+	},
+	boxSign: {
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: 'red'
 	},
 	containInputs: {
 		width: "90%",
