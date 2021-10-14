@@ -1,3 +1,5 @@
+import AsyncStorage from "@react-native-async-storage/async-storage"
+
 let initialState = {
   token: null,
   user: null,
@@ -50,7 +52,7 @@ const userReducer = (state = initialState, action) => {
         socket,
       }
     case 'HANDLE_CART':
-      localStorage.setItem('cart', JSON.stringify(action.payload.cart))
+      AsyncStorage.setItem('cart', JSON.stringify(action.payload.cart))
       return {
         ...state,
         userData: action.payload,
