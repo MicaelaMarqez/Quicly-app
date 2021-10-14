@@ -6,6 +6,11 @@ import DataProfile from "../components/DataProfile"
 import userActions from "../redux/actions/userActions"
 import Contact from '../components/Contact'
 import { connect } from "react-redux"
+import { FontAwesome } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
+
 
 const Profile = ({ userData, navigation }) => {
 
@@ -38,8 +43,9 @@ const Profile = ({ userData, navigation }) => {
 					<View style={styles.containBoxComponent}>
 						<Pressable style={styles.boxComponent} onPress={() => setChangeComponent("data")}>
 							<View style={styles.containerImageBox}>
-								<ImageBackground style={styles.imageBox} resizeMode="cover" source={{ uri: "https://www.latercera.com/resizer/nq_sgXHp2LhgY71dV9CHtzoUvIo=/200x200/smart/arc-anglerfish-arc2-prod-copesa.s3.amazonaws.com/public/Z2NK6DYAPBHO3BVPUE25LQ22ZA.jpg" }}>
-								</ImageBackground>
+								{/* <ImageBackground style={styles.imageBox} resizeMode="cover" source={{ uri: "https://www.latercera.com/resizer/nq_sgXHp2LhgY71dV9CHtzoUvIo=/200x200/smart/arc-anglerfish-arc2-prod-copesa.s3.amazonaws.com/public/Z2NK6DYAPBHO3BVPUE25LQ22ZA.jpg" }}>
+								</ImageBackground> */}
+								<FontAwesome name="user" size={30} color="tomato" />
 							</View>
 							<View>
 								<Text style={styles.textBox}>Datos</Text>
@@ -48,8 +54,9 @@ const Profile = ({ userData, navigation }) => {
 						</Pressable>
 						<Pressable style={styles.boxComponent} onPress={() => setChangeComponent("help")}>
 							<View style={styles.containerImageBox}>
-								<ImageBackground style={styles.imageBox} resizeMode="cover" source={{ uri: "https://www.latercera.com/resizer/nq_sgXHp2LhgY71dV9CHtzoUvIo=/200x200/smart/arc-anglerfish-arc2-prod-copesa.s3.amazonaws.com/public/Z2NK6DYAPBHO3BVPUE25LQ22ZA.jpg" }}>
-								</ImageBackground>
+								{/* <ImageBackground style={styles.imageBox} resizeMode="cover" source={{ uri: "https://www.latercera.com/resizer/nq_sgXHp2LhgY71dV9CHtzoUvIo=/200x200/smart/arc-anglerfish-arc2-prod-copesa.s3.amazonaws.com/public/Z2NK6DYAPBHO3BVPUE25LQ22ZA.jpg" }}>
+								</ImageBackground> */}
+								<MaterialCommunityIcons name="headphones" size={30} color="tomato" />
 							</View>
 							<View>
 								<Text style={styles.textBox}>Centro</Text>
@@ -58,8 +65,9 @@ const Profile = ({ userData, navigation }) => {
 						</Pressable>
 						<Pressable style={styles.boxComponent} onPress={() => setChangeComponent("history")}>
 							<View style={styles.containerImageBox}>
-								<ImageBackground style={styles.imageBox} resizeMode="cover" source={{ uri: "https://www.latercera.com/resizer/nq_sgXHp2LhgY71dV9CHtzoUvIo=/200x200/smart/arc-anglerfish-arc2-prod-copesa.s3.amazonaws.com/public/Z2NK6DYAPBHO3BVPUE25LQ22ZA.jpg" }}>
-								</ImageBackground>
+								{/* <ImageBackground style={styles.imageBox} resizeMode="cover" source={{ uri: "https://www.latercera.com/resizer/nq_sgXHp2LhgY71dV9CHtzoUvIo=/200x200/smart/arc-anglerfish-arc2-prod-copesa.s3.amazonaws.com/public/Z2NK6DYAPBHO3BVPUE25LQ22ZA.jpg" }}>
+								</ImageBackground> */}
+								<MaterialIcons name="history" size={35} color="tomato" />
 							</View>
 							<View>
 								<Text style={styles.textBox}>Historial</Text>
@@ -68,8 +76,9 @@ const Profile = ({ userData, navigation }) => {
 						</Pressable>
 						<Pressable style={styles.boxComponent} onPress={() => setChangeComponent("payment")}>
 							<View style={styles.containerImageBox}>
-								<ImageBackground style={styles.imageBox} resizeMode="cover" source={{ uri: "https://www.latercera.com/resizer/nq_sgXHp2LhgY71dV9CHtzoUvIo=/200x200/smart/arc-anglerfish-arc2-prod-copesa.s3.amazonaws.com/public/Z2NK6DYAPBHO3BVPUE25LQ22ZA.jpg" }}>
-								</ImageBackground>
+								{/* <ImageBackground style={styles.imageBox} resizeMode="cover" source={{ uri: "https://www.latercera.com/resizer/nq_sgXHp2LhgY71dV9CHtzoUvIo=/200x200/smart/arc-anglerfish-arc2-prod-copesa.s3.amazonaws.com/public/Z2NK6DYAPBHO3BVPUE25LQ22ZA.jpg" }}>
+								</ImageBackground> */}
+								<Entypo name="wallet" size={30} color="tomato" />
 							</View>
 							<View>
 								<Text style={styles.textBox}>Métodos</Text>
