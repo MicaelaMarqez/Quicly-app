@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Text, View, StyleSheet, TextInput, Pressable} from "react-native"
+import { Text, View, StyleSheet, TextInput, Pressable, ImageBackground} from "react-native"
 // import { connect } from "react-redux"
 // import userActions from "../redux/actions/userActions"
 
@@ -31,6 +31,7 @@ const LogIn = (props) => {
 
 	return(
 		<View style={styles.containAll}>
+			<ImageBackground source={{ uri: 'https://i.postimg.cc/JzBMCJ7d/comida.png' }} style={styles.imageHero}>
 			<View style={styles.containInputs}>
 				<TextInput 
 				placeholder="Email"
@@ -56,6 +57,7 @@ const LogIn = (props) => {
         	<Pressable onPress={() => props.navigation.navigate('SignUp')}>
           		<Text style={{ color: "#fe6849", fontSize: 19, textAlign: 'center', textDecorationLine: 'underline' }}>Crear cuenta</Text>
         	</Pressable>	
+		</ImageBackground>
 		</View>
 	)
 }
@@ -75,6 +77,10 @@ const styles = StyleSheet.create({
 		paddingTop: 20,
 
 	},
+	imageHero: {
+        width: '100%',
+        height: 760,
+    },
 	containInputs:{
 		width: "90%",
 		height: "75%",

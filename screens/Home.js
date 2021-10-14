@@ -38,7 +38,6 @@ const Home = (props) => {
             			<Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }} onPress={() => props.navigation.navigate('Menu')}>Ver mas</Text>
         			</Pressable>
 				</View>
-
 		</ScrollView>
 	)
 }
