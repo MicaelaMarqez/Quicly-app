@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, StyleSheet, Text, Dimensions, ImageBackground, ScrollView, Pressable } from 'react-native';
 
 const CategoryList = (props) => {
-    const { img, name, ingredients, price } = props.product
+    const { img, name, ingredients, price, _id } = props.product
 
     const [slide, setSlide] = useState(0)
     const sliderWidth = Dimensions.get('screen').width - 30
@@ -16,8 +16,8 @@ const CategoryList = (props) => {
                     <Text style={styles.productIngredients}>{ingredients}</Text>
                     <View style={styles.containerPrice}>
                         <Text style={styles.textPrice}>${price}</Text>
-                        <Pressable style={styles.button}>
-                            <Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }} onPress={() => props.navigation.navigate('Menu')}>+</Text>
+                        <Pressable style={styles.button} onPress={() => props.navigation.navigate('product', { id: _id })}>
+                            <Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }}>+</Text>
                         </Pressable>
                     </View>
                 </View>

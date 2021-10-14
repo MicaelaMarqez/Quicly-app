@@ -2,9 +2,17 @@ import React, { useEffect, useState } from "react"
 import Back from 'react-native-vector-icons/Entypo'
 import { View, Text, StyleSheet, ImageBackground } from 'react-native'
 import { RadioButton, Checkbox, TextInput } from 'react-native-paper'
+import { connect } from "react-redux"
+import productActions from "../redux/actions/productActions"
 
 
-const Product = ({/*edit, editCartItem, ...*/props}) => {
+const Product = (props) => {
+    const [chosen, setChosen] = useState({})
+    useEffect(() => {
+        let chosenProduct = props.products.filter(product => product._id === props.route.params.id)
+        setChosen(chosenProduct[0])
+    }, [])
+    console.log(chosen)
     const friesSizes = [
         { size: 'Chicas', cost: 0 },
         { size: 'Medianas', cost: 30 },
@@ -26,12 +34,12 @@ const Product = ({/*edit, editCartItem, ...*/props}) => {
         category: "Lomos",
         description: "Increible sabor",
         extras: true,
-        favs: Array [
+        favs: Array[
             "615f7629bc3b2e7315f0088f"
         ],
         fries: true,
         img: "/assets/products/6161fd027018fe35545892a1.jpg",
-        ingredients: Array [
+        ingredients: Array[
             "cerdo, lechuga, huevo, queso, jamon, tomate"
         ],
         multipleDrinks: false,
@@ -88,7 +96,7 @@ const Product = ({/*edit, editCartItem, ...*/props}) => {
                 alert('ha llegado al límite de este producto')
             }
         } else {
-            if (totalAmount > 1){
+            if (totalAmount > 1) {
                 setCartItem({
                     ...cartItem,
                     totalAmount: totalAmount - 1,
@@ -103,117 +111,123 @@ const Product = ({/*edit, editCartItem, ...*/props}) => {
     }
 
     return (
-            <View style={styles.card}>
-                <Back
-                    name='arrow-bold-left'
-                    size={30}
-                    color='black'
-                    style={styles.back}
-                    onPress={() => props.navigation.navigate('Menu')}
-                />
-                <View style={styles.cardTitle}>
-                    <Text style={styles.h1}>{product.name}</Text>
-                </View>
-                <View style={styles.image}>
-                    <ImageBackground source={{ uri: `https://quickly-food.herokuapp.com${product.img}` }} style={styles.img}>
-                    </ImageBackground>
-                </View>
-                <View style={styles.description}>
-                    <Text style={styles.h3}>Descripción:</Text>
-                    <Text style={styles.text}>{product.description}</Text>
-                </View>
-                <View style={styles.choices}>
-                    {product.fries && <View style={styles.column_1}>
-                        <Text style={styles.h3}>Tamaño Papas:</Text>
-                        <View>
-                            {friesSizes.map((option, index) => (
-                                <View key={index} style={styles.option}>
-                                    <RadioButton
-                                        color="#fe6849"
-                                        value={option.size}
-                                        status={ cartItem.fries.size === option.size ? 'checked' : 'unchecked' }
-                                        onPress={() => setCartItem({ ...cartItem, fries: option})}
-                                    />
-                                    <Text style={styles.text}>{option.size} {option.cost !== 0 && `$${option.cost}`}</Text>
-                                </View>
-                            ))}
-                        </View>
-                    </View>}
-
-                    <View style={(product.fries || product.extras) ? styles.column_2 : styles.no_column}>
-                        <Text style={styles.h3}>Gaseosa:</Text>
-                        <View>
-                            {drinkChoices.map((option, index) => (
-                                <View key={index} style={styles.option}>
-                                    <RadioButton
-                                        color="#fe6849"
-                                        value={option.type}
-                                        status={ cartItem.drink.type === option.type ? 'checked' : 'unchecked' }
-                                        onPress={() => setCartItem({ ...cartItem, drink: option})}
-                                    />
-                                    <Text style={styles.text}>{option.type} {option.cost !== 0 && `$${option.cost}`}</Text>
-                                </View>
-                            ))}
-                        </View>
-                    </View>
-
-                    {product.extras && <View style={styles.column_1}>
-                            <Text style={styles.h3}>Extras:</Text>
-                            <View>
-                                {extrasChoices.map((option, index) => (
-                                    <View key={index} style={styles.option}>
-                                        <Checkbox
-                                            color="#fe6849"
-                                            value={option.type}
-                                            status={ cartItem.extras.find(o => o.type === option.type) ? 'checked' : 'unchecked' }
-                                            onPress={() => addExtras(option, !cartItem.extras.find(o => o.type === option.type) ? 'checked' : 'unchecked')}
-                                        />
-                                        <Text style={styles.text}>{option.type} {option.cost !== 0 && `$${option.cost}`}</Text>
-                                    </View>
-                                ))}
+        <View style={styles.card}>
+            <Back
+                name='arrow-bold-left'
+                size={30}
+                color='black'
+                style={styles.back}
+                onPress={() => props.navigation.navigate('Menu')}
+            />
+            <View style={styles.cardTitle}>
+                <Text style={styles.h1}>{chosen.name}</Text>
+            </View>
+            <View style={styles.image}>
+                <ImageBackground source={{ uri: `https://quickly-food.herokuapp.com${chosen.img}` }} style={styles.img}>
+                </ImageBackground>
+            </View>
+            <View style={styles.description}>
+                <Text style={styles.h3}>Descripción:</Text>
+                <Text style={styles.text}>{chosen.description}</Text>
+            </View>
+            <View style={styles.choices}>
+                {chosen.fries && <View style={styles.column_1}>
+                    <Text style={styles.h3}>Tamaño Papas:</Text>
+                    <View>
+                        {friesSizes.map((option, index) => (
+                            <View key={index} style={styles.option}>
+                                <RadioButton
+                                    color="#fe6849"
+                                    value={option.size}
+                                    status={cartItem.fries.size === option.size ? 'checked' : 'unchecked'}
+                                    onPress={() => setCartItem({ ...cartItem, fries: option })}
+                                />
+                                <Text style={styles.text}>{option.size} {option.cost !== 0 && `$${option.cost}`}</Text>
                             </View>
-                        </View>}
-                        <TextInput
-                            mode='outlined'
-                            multiline={true}
-                            numberOfLines={5}
-                            label="Aclaraciones"
-                            value={cartItem.clarifications}
-                            onChangeText={clarifications => setCartItem({ ...cartItem, clarifications})}
-                            style={styles.textInput}
-                        />
+                        ))}
+                    </View>
+                </View>}
+
+                <View style={(product.fries || product.extras) ? styles.column_2 : styles.no_column}>
+                    <Text style={styles.h3}>Gaseosa:</Text>
+                    <View>
+                        {drinkChoices.map((option, index) => (
+                            <View key={index} style={styles.option}>
+                                <RadioButton
+                                    color="#fe6849"
+                                    value={option.type}
+                                    status={cartItem.drink.type === option.type ? 'checked' : 'unchecked'}
+                                    onPress={() => setCartItem({ ...cartItem, drink: option })}
+                                />
+                                <Text style={styles.text}>{option.type} {option.cost !== 0 && `$${option.cost}`}</Text>
+                            </View>
+                        ))}
+                    </View>
                 </View>
-                <View style={styles.addToCart}>
-                    <View style={styles.order}>
-                        <View style={styles.amount}>
-                            <Text style={styles.text}
-                            onPress={() => amount('res')}>
-                                -
-                            </Text>
-                            <Text style={styles.text}>{cartItem.totalAmount}</Text>
-                            <Text style={styles.text}
-                            onPress={() => amount('sum')}>
-                                +
-                            </Text>
-                        </View>
+
+                {product.extras && <View style={styles.column_1}>
+                    <Text style={styles.h3}>Extras:</Text>
+                    <View>
+                        {extrasChoices.map((option, index) => (
+                            <View key={index} style={styles.option}>
+                                <Checkbox
+                                    color="#fe6849"
+                                    value={option.type}
+                                    status={cartItem.extras.find(o => o.type === option.type) ? 'checked' : 'unchecked'}
+                                    onPress={() => addExtras(option, !cartItem.extras.find(o => o.type === option.type) ? 'checked' : 'unchecked')}
+                                />
+                                <Text style={styles.text}>{option.type} {option.cost !== 0 && `$${option.cost}`}</Text>
+                            </View>
+                        ))}
+                    </View>
+                </View>}
+                <TextInput
+                    mode='outlined'
+                    multiline={true}
+                    numberOfLines={5}
+                    label="Aclaraciones"
+                    value={cartItem.clarifications}
+                    onChangeText={clarifications => setCartItem({ ...cartItem, clarifications })}
+                    style={styles.textInput}
+                />
+            </View>
+            <View style={styles.addToCart}>
+                <View style={styles.order}>
+                    <View style={styles.amount}>
                         <Text style={styles.text}
-                        onPress={addToCart}>
-                            {edit ? "Guardar edición" : "Agregar a mi orden"}
+                            onPress={() => amount('res')}>
+                            -
+                        </Text>
+                        <Text style={styles.text}>{cartItem.totalAmount}</Text>
+                        <Text style={styles.text}
+                            onPress={() => amount('sum')}>
+                            +
                         </Text>
                     </View>
-                    <View style={styles.order}>
-                        <Text style={styles.text}>Unidad: ${cartItem.unitaryPrice}</Text>
-                        <Text style={styles.text}>Total: ${cartItem.totalPrice}</Text>
-                    </View>
+                    {/* <Text style={styles.text}
+                        onPress={addToCart}>
+                            {edit ? "Guardar edición" : "Agregar a mi orden"}
+                        </Text> */}
+                </View>
+                <View style={styles.order}>
+                    <Text style={styles.text}>Unidad: ${cartItem.unitaryPrice}</Text>
+                    <Text style={styles.text}>Total: ${cartItem.totalPrice}</Text>
                 </View>
             </View>
+        </View>
     )
 }
 
-export default Product
+const mapStateToProps = state => {
+    return {
+        products: state.products.products
+    }
+}
+
+export default connect(mapStateToProps)(Product)
 
 const styles = StyleSheet.create({
-    card:{
+    card: {
         width: "100%",
         height: "100%",
         display: "flex",
@@ -223,75 +237,75 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 10
     },
-    back:{
+    back: {
         alignSelf: "flex-start"
     },
-    h1:{
+    h1: {
         fontSize: 30,
         fontWeight: "bold",
-        color:'#fe6849'
+        color: '#fe6849'
     },
-    image:{
+    image: {
         width: "90%",
         height: "30%"
     },
-    img:{
-        width:"100%",
-        height:"100%"
+    img: {
+        width: "100%",
+        height: "100%"
     },
-    description:{
+    description: {
         width: "90%",
     },
-    h3:{
+    h3: {
         fontSize: 20,
         fontWeight: "700",
-        color:'#fe6849',
+        color: '#fe6849',
         textAlign: "left"
     },
-    text:{
-        fontSize:16,
+    text: {
+        fontSize: 16,
         textAlign: "justify"
     },
-    choices:{
-        width:"90%",
-        display:"flex",
-        flexDirection:"row",
-        flexWrap:"wrap",
-        justifyContent:"space-between"
+    choices: {
+        width: "90%",
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "space-between"
     },
-    column_1:{
-        width:"40%"
+    column_1: {
+        width: "40%"
     },
-    column_2:{
-        width:"55%"
+    column_2: {
+        width: "55%"
     },
-    no_column:{
-        width:"90%",
-        display:"flex",
-        alignItems:"center"
+    no_column: {
+        width: "90%",
+        display: "flex",
+        alignItems: "center"
     },
-    option:{
-        display:"flex",
-        flexDirection:"row"
+    option: {
+        display: "flex",
+        flexDirection: "row"
     },
-    textInput:{
-        width:"55%"
+    textInput: {
+        width: "55%"
     },
-    addToCart:{
-        width:"90%",
-        display:"flex",
-        flexDirection:"row",
-        justifyContent:"space-between"
+    addToCart: {
+        width: "90%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between"
     },
-    order:{
-        width:"50%",
-        display:"flex",
-        alignItems:"center"
+    order: {
+        width: "50%",
+        display: "flex",
+        alignItems: "center"
     },
-    amount:{
-        width:"30%",
-        display:"flex",
-        flexDirection:"row",
-        justifyContent:"space-between"
+    amount: {
+        width: "30%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between"
     }
 })

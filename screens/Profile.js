@@ -7,7 +7,8 @@ import userActions from "../redux/actions/userActions"
 import Contact from '../components/Contact'
 import { connect } from "react-redux"
 
-const Profile = ({userData}) => {
+const Profile = ({ userData, navigation }) => {
+
 	const [changeComponent, setChangeComponent] = useState(<DataProfile userData={userData} />)
 
 	if (changeComponent === "data") {
@@ -78,7 +79,7 @@ const Profile = ({userData}) => {
 					</View>
 				</View>
 				<View style={styles.containerBanner}>
-					<Pressable style={styles.bannerContainer} onPress={() => props.navigation.navigate('menu')}>
+					<Pressable style={styles.bannerContainer} onPress={() => navigation.navigate('menu')}>
 						<ImageBackground resizeMode="cover" style={styles.imageBanner} source={{ uri: "https://i.postimg.cc/bYB6CVjF/burguer-Cris.png" }}>
 							<Text style={styles.titleProduct}>Productos</Text>
 						</ImageBackground>
@@ -95,12 +96,12 @@ const Profile = ({userData}) => {
 	)
 }
 const mapStateToProps = (state) => {
-	return{
+	return {
 		userData: state.users.userData
-	}	
+	}
 }
 const mapDispachToProps = {
-	
+
 }
 
 export default connect(mapStateToProps, mapDispachToProps)(Profile)

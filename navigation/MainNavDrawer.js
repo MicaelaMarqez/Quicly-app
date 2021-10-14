@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Image, Pressable, Text, View } from "react-native"
+import { HomeStack, MenuStack, LoginStack, SignUpStack, ProfileStack, ProductStack } from './MainNavStack'
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -7,12 +8,12 @@ import {
   DrawerItemList,
 } from "@react-navigation/drawer"
 
-import Home from '../screens/Home'
-import Menu from '../screens/Menu'
-import Profile from '../screens/Profile'
-import LogIn from '../screens/LogIn'
-import SignUp from '../screens/SignUp'
-import Preloader from "../components/Preloader"
+// import Home from '../screens/Home'
+// import Menu from '../screens/Menu'
+// import Profile from '../screens/Profile'
+// import LogIn from '../screens/LogIn'
+// import SignUp from '../screens/SignUp'
+// import Preloader from "../components/Preloader"
 
 import {
   AntDesign,
@@ -131,8 +132,8 @@ const MainNavDrawer = ({ user, ...props }) => {
       {user && (
         <>
           <Drawer.Screen
-            name="home"
-            component={Home}
+            name="Home"
+            component={HomeStack}
             options={{
               headerRight: () => (
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -168,8 +169,8 @@ const MainNavDrawer = ({ user, ...props }) => {
             }}
           />
           <Drawer.Screen
-            name="menu"
-            component={Menu}
+            name="Menu"
+            component={MenuStack}
             options={({ navigation }) => {
               return {
                 title: "Menú",
@@ -196,8 +197,8 @@ const MainNavDrawer = ({ user, ...props }) => {
             }}
           />
           <Drawer.Screen
-            name="profile"
-            component={Profile}
+            name="Profile"
+            component={ProfileStack}
             options={({ navigation }) => {
               return {
                 title: "Perfil",
@@ -219,13 +220,14 @@ const MainNavDrawer = ({ user, ...props }) => {
               };
             }}
           />
+          {/* <Drawer.Screen name='product' component={ProductStack} /> */}
         </>
       )}
       {!user && (
         <>
           <Drawer.Screen
-            name="login"
-            component={LogIn}
+            name="Login"
+            component={LoginStack}
             options={({ navigation }) => {
               return {
                 title: "Ingresar",
@@ -237,8 +239,8 @@ const MainNavDrawer = ({ user, ...props }) => {
             }}
           />
           <Drawer.Screen
-            name="signup"
-            component={SignUp}
+            name="Signup"
+            component={SignUpStack}
             options={({ navigation }) => {
               return {
                 title: "Registrarse",

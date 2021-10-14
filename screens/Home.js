@@ -34,7 +34,7 @@ const Home = (props) => {
 						</View>
 					</View>
 				</View>
-				<TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('menu')}>
+				<TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Menu')}>
 					<Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }}>Ver mas</Text>
 				</TouchableOpacity>
 			</View>
