@@ -203,48 +203,29 @@ const Product = (props) => {
         <View style={styles.addToCart}>
           <View style={styles.order}>
             <View style={styles.amount}>
-              <Text style={styles.price} onPress={() => amount('res')}>
-                -
-              </Text>
-              <Text style={styles.price}>{cartItem.totalAmount}</Text>
-              <Text style={styles.price} onPress={() => amount('sum')}>
-                +
-              </Text>
+              <View style={styles.sign}>
+                <Text style={styles.price} onPress={() => amount('res')}>
+                  -
+                </Text>
+              </View>
+              <View style={styles.number}>
+                <Text style={styles.numer}>{cartItem.totalAmount}</Text>
+              </View>
+              <View style={styles.sign}>
+                <Text style={styles.price} onPress={() => amount('sum')}>
+                  +
+                </Text>
+              </View>
             </View>
-            <View style={styles.addToCart}>
-                <View style={styles.order}>
-                    <View style={styles.amount}>
-                        <View style={styles.sign}>
-                            <Text style={styles.price}
-                                onPress={() => amount('res')}>
-                                -
-                            </Text>
-                        </View>
-                        <View style={styles.number}>
-                            <Text style={styles.numer}>{cartItem.totalAmount}</Text>
-                        </View>
-                        <View style={styles.sign}>
-                            <Text style={styles.price}
-                                onPress={() => amount('sum')}>
-                                +
-                            </Text>
-                        </View>
-                    </View>
-                    {/* <Text style={styles.text}
+            {/* <Text style={styles.text}
                         onPress={addToCart}>
                             {edit ? "Guardar edición" : "Agregar a mi orden"}
                         </Text> */}
-                </View>
-                <View style={styles.order}>
-                    <Text style={styles.price2}>Unidad: ${cartItem.unitaryPrice}</Text>
-                    <Text style={styles.price2}>Total: ${cartItem.totalPrice}</Text>
-                </View>
-            </View>
-            <TouchableOpacity>
-                <Text style={styles.addProduct} onPress={() => addToCart()}>
-                    {edit ? "Guardar edición" : "Agregar a mi orden"}
-                </Text>
-            </TouchableOpacity>
+          </View>
+          <View style={styles.order}>
+            <Text style={styles.price2}>Unidad: ${cartItem.unitaryPrice}</Text>
+            <Text style={styles.price2}>Total: ${cartItem.totalPrice}</Text>
+          </View>
         </View>
         <TouchableOpacity>
           <Text style={styles.addProduct} onPress={() => addToCart()}>
@@ -269,118 +250,119 @@ const mapDispatchToProps = {
 export default connect(mapStateToProps, mapDispatchToProps)(Product)
 
 const styles = StyleSheet.create({
-card: {
+  card: {
     width: Dimensions.get('window').width,
-    minHeight: Dimensions.get('window').height,
+    minHeight: 850,
+    flex: 1,
     alignItems: 'center',
     // justifyContent: "space-between",
     paddingHorizontal: 10,
     paddingVertical: 10,
   },
-    back: {
-        alignSelf: "flex-start"
-    },
-    h1: {
-        fontSize: 30,
-        fontWeight: "bold",
-        color: '#fe6849'
-    },
-    image: {
-        width: "90%",
-        height: "25%",
-        marginVertical: 15,
-        borderRadius: 15,
-        overflow: 'hidden'
-    },
-    img: {
-        width: "100%",
-        height: "100%"
-    },
-    description: {
-        width: "90%",
-        marginBottom: 20
-    },
-    h3: {
-        fontSize: 20,
-        fontWeight: "700",
-        color: '#fe6849',
-        textAlign: "left"
-    },
-    text: {
-        fontSize: 16,
-        textAlign: "justify"
-    },
-    choices: {
-        width: "90%",
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "space-between"
-    },
-    column_1: {
-        width: "40%",
-    },
-    column_2: {
-        width: "55%"
-    },
-    no_column: {
-        width: "100%",
-        display: "flex",
-        alignItems: "center"
-    },
-    option: {
-        flexDirection: "row",
-        alignItems: 'center'
-    },
-    textInput: {
-        width: "100%"
-    },
-    addToCart: {
-        width: "90%",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between"
-    },
-    order: {
-        width: "50%",
-        display: "flex",
-        alignItems: "flex-start",
-        justifyContent: 'center',
-        marginLeft: '3%',
-        marginTop: '-13%'
-    },
-    amount: {
-        width: "50%",
-        height: '20%',
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: 'center',
-        borderWidth: 1,
-        borderColor: 'grey'
-    },
-    addProduct: {
-        backgroundColor: '#fe6849',
-        color: "white",
-        paddingHorizontal: 10,
-        paddingVertical: 8,
-        borderRadius:16
-    },
-    price:{
-        fontSize:16,
-        fontWeight: "700",
-        color: 'white'
-    },
-    sign: {
-        width: '30%',
-        height: '100%',
-        backgroundColor: 'tomato',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    price2: {
-        color: 'grey',
-        fontWeight: 'bold'
-    }
+  back: {
+    alignSelf: 'flex-start',
+  },
+  h1: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#fe6849',
+  },
+  image: {
+    width: '90%',
+    height: '25%',
+    marginVertical: 15,
+    borderRadius: 15,
+    overflow: 'hidden',
+  },
+  img: {
+    width: '100%',
+    height: '100%',
+  },
+  description: {
+    width: '90%',
+    marginBottom: 20,
+  },
+  h3: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#fe6849',
+    textAlign: 'left',
+  },
+  text: {
+    fontSize: 16,
+    textAlign: 'justify',
+  },
+  choices: {
+    width: '90%',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  column_1: {
+    width: '40%',
+  },
+  column_2: {
+    width: '55%',
+  },
+  no_column: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  option: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  textInput: {
+    width: '100%',
+  },
+  addToCart: {
+    width: '90%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  order: {
+    width: '50%',
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    marginLeft: '3%',
+    marginTop: '-13%',
+  },
+  amount: {
+    width: '50%',
+    height: '20%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'grey',
+  },
+  addProduct: {
+    backgroundColor: '#fe6849',
+    color: 'white',
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderRadius: 16,
+  },
+  price: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: 'white',
+  },
+  sign: {
+    width: '30%',
+    height: '100%',
+    backgroundColor: 'tomato',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  price2: {
+    color: 'grey',
+    fontWeight: 'bold',
+  },
 })

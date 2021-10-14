@@ -10,21 +10,21 @@ const Home = (props) => {
           <View style={styles.boxCard}>
             <View style={styles.cardHome}>
               <ImageBackground resizeMode='contain' source={{ uri: 'https://i.postimg.cc/pr9w1gTY/hamburguesas.webp' }} style={styles.imageCard}></ImageBackground>
-              <Text style={styles.category}>Categoria</Text>
+              <Text style={styles.category}>Hamburguesas</Text>
             </View>
             <View style={styles.cardHome}>
               <ImageBackground resizeMode='contain' source={{ uri: 'https://i.postimg.cc/13zjWkjg/pizza.webp' }} style={styles.imageCard}></ImageBackground>
-              <Text style={styles.category}>Categoria</Text>
+              <Text style={styles.category}>Pizzas</Text>
             </View>
           </View>
           <View style={styles.boxCard}>
             <View style={styles.cardHome}>
               <ImageBackground resizeMode='contain' source={{ uri: 'https://i.postimg.cc/wTwWsWj9/saludable.webp' }} style={styles.imageCard}></ImageBackground>
-              <Text style={styles.category}>Categoria</Text>
+              <Text style={styles.category}>Ensaladas</Text>
             </View>
             <View style={styles.cardHome}>
               <ImageBackground resizeMode='contain' source={{ uri: 'https://i.postimg.cc/HsdnRzHD/milanesas.webp' }} style={styles.imageCard}></ImageBackground>
-              <Text style={styles.category}>Categoria</Text>
+              <Text style={styles.category}>Milanesas</Text>
             </View>
           </View>
         </View>
@@ -40,11 +40,12 @@ export default Home
 
 const styles = StyleSheet.create({
   logo: {
-    marginTop: 15,
+    marginTop: 10,
     height: 200,
     width: '100%',
   },
   containHeader: {
+    // paddingBottom: 15,
     flex: 1,
     alignItems: 'center',
     width: '100%',

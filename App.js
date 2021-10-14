@@ -11,6 +11,8 @@ import { NativeBaseProvider } from 'native-base'
 import { LogBox } from 'react-native'
 
 import buyConfirmation from './components/Confirmation'
+import { useFonts } from 'expo-font'
+import Preloader from './components/Preloader'
 LogBox.ignoreAllLogs(true)
 
 const theme = {
@@ -30,6 +32,14 @@ export default function App() {
       publishableKey: 'pk_test_51JiHmiD8MtlvyDMXOy1Xz9IRz7S6hXvSX3YorvlFJSNbByoEHqgmIhvVuOuYgA3PiOR9hxBM0QzQcf6OlJs4VYgI00pB5OSjXZ',
     })
   }, [])
+
+  const [loaded] = useFonts({
+    Lato: require('./assets/Lato-Light.ttf'),
+    LatoRegular: require('./assets/Lato-Regular.ttf'),
+  })
+  if (!loaded) {
+    return <Preloader />
+  }
 
   // Ignore log notification by message
   LogBox.ignoreLogs(['Warning: ...'])

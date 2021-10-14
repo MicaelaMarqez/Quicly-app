@@ -17,6 +17,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import CheckOut from '../screens/CheckOut'
 import LogIn from '../screens/LogIn'
 import SignUp from '../screens/SignUp'
+import Hero from '../screens/Hero'
 
 const Drawer = createDrawerNavigator()
 
@@ -132,7 +133,7 @@ const MainNavDrawer = ({ user, ...props }) => {
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Text
                     style={{
-                      // fontFamily: "LatoRegular",
+                      fontFamily: 'LatoRegular',
                       fontSize: 20,
                       textAlign: 'center',
                       marginRight: 15,
@@ -155,6 +156,7 @@ const MainNavDrawer = ({ user, ...props }) => {
                   )}
                 </View>
               ),
+              headerStyle: { height: 60 },
               title: 'Inicio',
               drawerIcon: () => <Ionicons name='home-outline' size={24} color='black' />,
             }}
@@ -197,28 +199,24 @@ const MainNavDrawer = ({ user, ...props }) => {
       {!user && (
         <>
           <Drawer.Screen
+            name='hero'
+            component={Hero}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Drawer.Screen
             name='Login'
             component={LogIn}
-            options={({ navigation }) => {
-              return {
-                headerShown: false,
-                title: 'Ingresar',
-                headerTitle: 'Bienvenido',
-                drawerActiveBackgroundColor: 'transparent',
-                drawerIcon: () => <Ionicons name='log-in-outline' size={24} color='black' />,
-              }
+            options={{
+              headerShown: false,
             }}
           />
           <Drawer.Screen
             name='Signup'
             component={SignUp}
-            options={({ navigation }) => {
-              return {
-                headerShown: false,
-                title: 'Registrarse',
-                headerTitle: 'Creá tu cuenta',
-                drawerIcon: () => <Ionicons name='person-add-outline' size={24} color='black' />,
-              }
+            options={{
+              headerShown: false,
             }}
           />
         </>
