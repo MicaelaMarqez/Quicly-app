@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react"
 import Back from 'react-native-vector-icons/Entypo'
-import { View, Text, StyleSheet, ImageBackground } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native'
 import { RadioButton, Checkbox, TextInput } from 'react-native-paper'
 import { connect } from "react-redux"
-import productActions from "../redux/actions/productActions"
 
 
 const Product = (props) => {
-    const [chosen, setChosen] = useState({})
-    useEffect(() => {
-        let chosenProduct = props.products.filter(product => product._id === props.route.params.id)
-        setChosen(chosenProduct[0])
-    }, [])
+    const edit = false
+    // const [chosen, setChosen] = useState({})
+    // useEffect(() => {
+    //     let chosenProduct = props.products.filter(product => product._id === props.route.params.id)
+    //     setChosen(chosenProduct[0])
+    // }, [])
     console.log(chosen)
     const friesSizes = [
         { size: 'Chicas', cost: 0 },
@@ -29,6 +29,25 @@ const Product = (props) => {
         { type: 'Sprite (500cc)', cost: 100 },
         { type: 'Fanta (500cc)', cost: 100 },
     ]
+    const [chosen, setChosen] = useState({
+        _id: "6161fd027018fe35545892a1",
+        category: "Lomos",
+        description: "Increible sabor",
+        extras: true,
+        favs: Array [
+            "615f7629bc3b2e7315f0088f"
+        ],
+        fries: true,
+        img: "/assets/products/6161fd027018fe35545892a1.jpg",
+        ingredients: Array [
+            "cerdo, lechuga, huevo, queso, jamon, tomate"
+        ],
+        multipleDrinks: false,
+        name: "Lomo de Cerdo Completo",
+        price: 680,
+        score: 3.7,
+        stock: 5
+    })
     const initialCartItem = {
         productId: chosen._id,
         clarifications: '',
@@ -39,12 +58,11 @@ const Product = (props) => {
         totalAmount: 1,
         totalPrice: chosen.price,
     }
-    const [cartItem, setCartItem] = useState(initialCartItem)
+    const [cartItem, setCartItem] = useState(edit ? editItem : initialCartItem)
     useEffect(() => {
         setCartItem(initialCartItem)
     }, [chosen])
 
-    console.log(cartItem.unitaryPrice)
     const addExtras = (extra, e) => {
         if (e === 'checked') {
             setCartItem({ ...cartItem, extras: [...cartItem.extras, extra] })
@@ -92,13 +110,12 @@ const Product = (props) => {
     }
 
     const addToCart = () => {
-        manageCart({
-            cartItem,
-            action: edit ? 'editCartItem' : 'add',
-            _id: userData?._id,
-            dif: edit ? editCartItem.totalAmount - cartItem.totalAmount : null,
-        })
-        setMod(false)
+        // manageCart({
+        //     cartItem,
+        //     action: edit ? 'editCartItem' : 'add',
+        //     _id: userData?._id,
+        //     dif: edit ? editCartItem.totalAmount - cartItem.totalAmount : null,
+        // })
         //   setCardTost({
         //     time: 2000,
         //     icon: 'success',
@@ -184,12 +201,12 @@ const Product = (props) => {
             <View style={styles.addToCart}>
                 <View style={styles.order}>
                     <View style={styles.amount}>
-                        <Text style={styles.text}
+                        <Text style={styles.price}
                             onPress={() => amount('res')}>
                             -
                         </Text>
-                        <Text style={styles.text}>{cartItem.totalAmount}</Text>
-                        <Text style={styles.text}
+                        <Text style={styles.price}>{cartItem.totalAmount}</Text>
+                        <Text style={styles.price}
                             onPress={() => amount('sum')}>
                             +
                         </Text>
@@ -200,13 +217,15 @@ const Product = (props) => {
                         </Text> */}
                 </View>
                 <View style={styles.order}>
-                    <Text style={styles.text}>Unidad: ${cartItem.unitaryPrice}</Text>
-                    <Text style={styles.text}>Total: ${cartItem.totalPrice}</Text>
+                    <Text style={styles.price}>Unidad: ${cartItem.unitaryPrice}</Text>
+                    <Text style={styles.price}>Total: ${cartItem.totalPrice}</Text>
                 </View>
             </View>
-            <Text className={styles.addProduct} onClick={addToCart}>
-                Agregar a mi orden
-            </Text>
+            <TouchableOpacity>
+                <Text style={styles.addProduct} onClick={addToCart}>
+                    {edit ? "Guardar edición" : "Agregar a mi orden"}
+                </Text>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -306,6 +325,14 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     addProduct: {
-        backgroundColor: 'red'
+        backgroundColor: '#fe6849',
+        color: "white",
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        borderRadius:16
+    },
+    price:{
+        fontSize:16,
+        fontWeight: "700"
     }
 })
