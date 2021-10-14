@@ -6,6 +6,7 @@ import Profile from '../screens/Profile'
 import SignUp from '../screens/SignUp'
 import Menu from '../screens/Menu'
 import Card from '../screens/Card.tsx'
+import Hero from '../screens/Hero'
 
 const Bottom = createBottomTabNavigator()
 
@@ -18,6 +19,7 @@ const Navigator = () => {
       <Bottom.Screen name='Profile' component={Profile} />
       <Bottom.Screen name='SignUp' component={SignUp} />
       <Bottom.Screen name='LogIn' component={LogIn} />
+      <Bottom.Screen name='Hero' component={Hero} />
     </Bottom.Navigator>
   )
 }
