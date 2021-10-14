@@ -1,28 +1,22 @@
-import React, { useEffect, useState } from "react"
-import { Image, Pressable, Text, View } from "react-native"
-import { HomeStack, MenuStack, LoginStack, SignUpStack, ProfileStack, ProductStack } from './MainNavStack'
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItem,
-  DrawerItemList,
-} from "@react-navigation/drawer"
+import React, { useEffect, useState } from 'react'
+import { Image, Pressable, Text, View } from 'react-native'
+import { HomeStack, MenuStack, ProfileStack } from './MainNavStack'
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 
 // import Home from '../screens/Home'
 // import Menu from '../screens/Menu'
 // import Profile from '../screens/Profile'
 // import LogIn from '../screens/LogIn'
 // import SignUp from '../screens/SignUp'
-import Preloader from "../components/Preloader"
+import Preloader from '../components/Preloader'
 
-import {
-  AntDesign,
-  Ionicons,
-} from "@expo/vector-icons"
-import { connect } from "react-redux"
-import userActions from "../redux/actions/userActions"
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AntDesign, Ionicons } from '@expo/vector-icons'
+import { connect } from 'react-redux'
+import userActions from '../redux/actions/userActions'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import CheckOut from '../screens/CheckOut'
+import LogIn from '../screens/LogIn'
+import SignUp from '../screens/SignUp'
 
 const Drawer = createDrawerNavigator()
 
@@ -31,7 +25,7 @@ const MainNavDrawer = ({ user, ...props }) => {
 
   useEffect(() => {
     const verificate = async () => {
-      const token = await AsyncStorage.getItem("token")
+      const token = await AsyncStorage.getItem('token')
       if (!token) return false
       props.validateToken(token)
     }
@@ -55,10 +49,10 @@ const MainNavDrawer = ({ user, ...props }) => {
       {
         <View
           style={{
-            flexDirection: "row",
+            flexDirection: 'row',
             marginVertical: 30,
-            justifyContent: "center",
-            alignItems: "center",
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           <>
@@ -77,10 +71,10 @@ const MainNavDrawer = ({ user, ...props }) => {
               style={{
                 // fontFamily: "LatoRegular",
                 fontSize: 24,
-                textAlign: "center",
+                textAlign: 'center',
               }}
             >
-              {user ? "Hi " + user.firstName + "!" : "Quickly"}
+              {user ? 'Hi ' + user.firstName + '!' : 'Quickly'}
             </Text>
           </>
         </View>
@@ -88,43 +82,42 @@ const MainNavDrawer = ({ user, ...props }) => {
       <DrawerItemList {...props} />
       {user && (
         <DrawerItem
-          icon={() => (
-            <Ionicons name="log-out-outline" size={24} color="black" />
-          )}
-          label="Log Out"
+          icon={() => <Ionicons name='log-out-outline' size={24} color='black' />}
+          label='Log Out'
           onPress={() => {
             resetUser()
-            props.navigation.navigate("home")
+            props.navigation.navigate('home')
           }}
           labelStyle={{
-            // fontFamily: "Lato", 
-            fontSize: 18, color: "black"
+            // fontFamily: "Lato",
+            fontSize: 18,
+            color: 'black',
           }}
         />
       )}
     </DrawerContentScrollView>
-  );
+  )
 
   return (
     <Drawer.Navigator
       screenOptions={{
         drawerStyle: {
-          backgroundColor: "#F2EBEA",
+          backgroundColor: '#F2EBEA',
           width: 240,
         },
         drawerLabelStyle: {
-          color: "black",
+          color: 'black',
           // fontFamily: "Lato",
           fontSize: 18,
         },
-        drawerActiveBackgroundColor: "rgba(185,166,152,0.3)",
+        drawerActiveBackgroundColor: 'rgba(185,166,152,0.3)',
         headerTitleStyle: {
-          // fontFamily: "LatoRegular", 
-          fontSize: 24
+          // fontFamily: "LatoRegular",
+          fontSize: 24,
         },
         headerStyle: {
           height: 80,
-          backgroundColor: "#d4c9be",
+          backgroundColor: 'whitesmoke',
         },
       }}
       drawerContent={(props) => <DrawerInsta {...props} />}
@@ -132,20 +125,20 @@ const MainNavDrawer = ({ user, ...props }) => {
       {user && (
         <>
           <Drawer.Screen
-            name="Home"
+            name='Home'
             component={HomeStack}
             options={{
               headerRight: () => (
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Text
                     style={{
                       // fontFamily: "LatoRegular",
                       fontSize: 20,
-                      textAlign: "center",
+                      textAlign: 'center',
                       marginRight: 15,
                     }}
                   >
-                    {user ? "Hi " + user.firstName + "!" : "Quickly"}
+                    {user ? 'Hi ' + user.firstName + '!' : 'Quickly'}
                   </Text>
                   {user && (
                     <Image
@@ -156,56 +149,35 @@ const MainNavDrawer = ({ user, ...props }) => {
                         borderRadius: 45,
                         marginRight: 15,
                         borderWidth: 1,
-                        borderColor: "black",
+                        borderColor: 'black',
                       }}
                     />
                   )}
                 </View>
               ),
-              title: "Inicio",
-              drawerIcon: () => (
-                <Ionicons name="home-outline" size={24} color="black" />
-              ),
+              title: 'Inicio',
+              drawerIcon: () => <Ionicons name='home-outline' size={24} color='black' />,
             }}
           />
           <Drawer.Screen
-            name="Menu"
+            name='Menu'
             component={MenuStack}
             options={({ navigation }) => {
               return {
-                title: "Menú",
-                drawerIcon: () => (
-                  <Ionicons
-                    name="fast-food-outline"
-                    size={24}
-                    color="black"
-                  />
-                ),
-                headerTitle: "Nuestros Productos",
-                headerLeft: () => (
-                  <Pressable
-                    onPress={() => {
-                      navigation.goBack()
-                    }}
-                  >
-                    <View style={{ marginHorizontal: 20 }}>
-                      <AntDesign name="back" size={24} color="black" />
-                    </View>
-                  </Pressable>
-                ),
-              };
+                title: 'Menú',
+                drawerIcon: () => <Ionicons name='fast-food-outline' size={24} color='black' />,
+                headerShown: false,
+              }
             }}
           />
           <Drawer.Screen
-            name="Profile"
+            name='Profile'
             component={ProfileStack}
             options={({ navigation }) => {
               return {
-                title: "Perfil",
-                drawerIcon: () => (
-                  <Ionicons name="person-outline" size={24} color="black" />
-                ),
-                headerTitle: "Perfil de usuario",
+                title: 'Perfil',
+                drawerIcon: () => <Ionicons name='person-outline' size={24} color='black' />,
+                headerTitle: 'Perfil de usuario',
                 headerLeft: () => (
                   <Pressable
                     onPress={() => {
@@ -213,11 +185,11 @@ const MainNavDrawer = ({ user, ...props }) => {
                     }}
                   >
                     <View style={{ marginHorizontal: 20 }}>
-                      <AntDesign name="back" size={24} color="black" />
+                      <AntDesign name='back' size={24} color='black' />
                     </View>
                   </Pressable>
                 ),
-              };
+              }
             }}
           />
         </>
@@ -225,29 +197,27 @@ const MainNavDrawer = ({ user, ...props }) => {
       {!user && (
         <>
           <Drawer.Screen
-            name="Login"
-            component={LoginStack}
+            name='Login'
+            component={LogIn}
             options={({ navigation }) => {
               return {
-                title: "Ingresar",
-                headerTitle: "Bienvenido",
+                headerShown: false,
+                title: 'Ingresar',
+                headerTitle: 'Bienvenido',
                 drawerActiveBackgroundColor: 'transparent',
-                drawerIcon: () => (
-                  <Ionicons name="log-in-outline" size={24} color="black" />
-                ),
+                drawerIcon: () => <Ionicons name='log-in-outline' size={24} color='black' />,
               }
             }}
           />
           <Drawer.Screen
-            name="Signup"
-            component={SignUpStack}
+            name='Signup'
+            component={SignUp}
             options={({ navigation }) => {
               return {
-                title: "Registrarse",
-                headerTitle: "Creá tu cuenta",
-                drawerIcon: () => (
-                  <Ionicons name="person-add-outline" size={24} color="black" />
-                ),
+                headerShown: false,
+                title: 'Registrarse',
+                headerTitle: 'Creá tu cuenta',
+                drawerIcon: () => <Ionicons name='person-add-outline' size={24} color='black' />,
               }
             }}
           />
@@ -264,6 +234,6 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = {
   validateToken: userActions.verifyToken,
-  logOut: userActions.logOut
+  logOut: userActions.logOut,
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MainNavDrawer)
