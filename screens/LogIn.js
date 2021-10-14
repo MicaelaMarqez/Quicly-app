@@ -1,9 +1,11 @@
 import React, { useState } from "react"
-import { Text, View, StyleSheet, TextInput, Pressable, TouchableOpacity } from "react-native"
+import { StyleSheet, Text, View, ImageBackground, TouchableHighlight, SafeAreaView, TouchableOpacity, TouchableWithoutFeedback} from 'react-native'
 import { connect } from "react-redux"
 import userActions from "../redux/actions/userActions"
 import { useToast, Box } from "native-base"
-import { flex } from "styled-system"
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Input } from 'react-native-elements';
+
 
 const LogIn = (props) => {
 	const toast = useToast()
@@ -26,7 +28,7 @@ const LogIn = (props) => {
 			try {
 				let response = await props.logUser(user)
 				if (response.success) {
-					message = 'Ingreso correcto.'
+					message = 'Bienvenido!'
 				} else {
 					message = 'Correo y/o contraseña incorrecto.'
 				}
@@ -50,37 +52,76 @@ const LogIn = (props) => {
 
 
 	return (
-		<View style={styles.containAll}>
-			<View style={styles.boxSign}>
-				<View style={styles.containInputs}>
-					<TextInput
+		<SafeAreaView style={styles.mainContainer}>
+		<ImageBackground source={{uri:'https://i.postimg.cc/BvCyVC9f/fondosign-3.png'}} style={styles.background}>
+		<View style={styles.mainForm} action="/users/signup" method="POST">
+			<View style={styles.form}>
+					<Text style={styles.title}>Bienvenido!</Text>
+					<Text style={styles.subtitle}>Ingresá para encontrar tus platos favoritos</Text>
+					<TouchableWithoutFeedback onPress={() => {
+							Keyboard.dismiss()
+						}}>
+						<>
+						<Input
+						style={styles.input}
+						leftIcon={
+							<Icon
+							name='at'
+							size={24}
+							color='white'
+							/>
+						}
+						name="email"
+						type="email"
 						placeholder="Email"
-						placeholderTextColor="#aaa"
-						color="black"
-						style={styles.inputLogIn}
 						onChangeText={(e) => inputHandler(e, "email")}
-					/>
-					<TextInput
-						placeholder="Contraseña"
-						placeholderTextColor="#aaa"
-						color="black"
+						errorStyle={{ color: 'transparent' }}
+						errorMessage='ENTER A VALID ERROR HERE'
+						color= 'white'
+						placeholderTextColor= 'white'
+						/>
+						<Input
+						style={styles.input}
+						leftIcon={
+							<Icon
+							name='lock'
+							size={24}
+							color='white'
+							/>
+						}
 						secureTextEntry={true}
-						password={true}
-						style={styles.inputLogIn}
+						name="password"
+						type="password"
+						placeholder="Contraseña"
 						onChangeText={(e) => inputHandler(e, "password")}
-					/>
-				</View>
-				<TouchableOpacity style={styles.button} onPress={submit}>
-					<Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }} >Ingresar</Text>
+						keyboardType= 'numeric'
+						errorStyle={{ color: 'transparent' }}
+						errorMessage='ENTER A VALID ERROR HERE'
+						color= 'white'
+						placeholderTextColor= 'white'
+						/>
+						</>
+					</TouchableWithoutFeedback>
+			</View>
+			<View style={styles.botonera}>
+				<TouchableOpacity>
+					<View style={styles.boxButton}>
+						<Text style={styles.button} onPress={submit}>Sign In</Text>
+					</View>
 				</TouchableOpacity>
-				<Text style={{ color: 'black', fontSize: 14, textAlign: 'center' }}>¿No tenes cuenta?</Text>
-				<Pressable onPress={() => props.navigation.navigate('signup')}>
-					<Text style={{ color: "#fe6849", fontSize: 19, textAlign: 'center', textDecorationLine: 'underline' }}>Crear cuenta</Text>
-				</Pressable>
+				<View style={styles.boxTextLogueo}>
+					<Text style={styles.textLogueo}>¿No tenes cuenta?</Text>
+					<TouchableHighlight style={styles.botonAction}>
+						<Text style={styles.textAction} onPress={() => {props.navigation.navigate('Signup')}}>Crear cuenta</Text>
+					</TouchableHighlight>
+				</View>
 			</View>
 		</View>
+		</ImageBackground>
+	</SafeAreaView>
 	)
 }
+
 const mapDispatchToProps = {
 	logUser: userActions.logUser
 }
@@ -88,54 +129,87 @@ const mapDispatchToProps = {
 export default connect(null, mapDispatchToProps)(LogIn)
 
 const styles = StyleSheet.create({
-	containAll: {
-		width: "100%",
-		flex: 1,
-		alignItems: "center",
+    mainContainer: {
+        backgroundColor: 'white',
+        flex: 1
+    },
+    mainForm: {
+        justifyContent: 'center',
+        alignItems: 'center',
+		height: '100%'
+    },
+    background: {
+        height: '100%',
+        resizeMode: 'cover',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
+    title: {
+        textAlign: 'center',
+        color: 'white',
+        fontSize: 28,
+        fontWeight: 'bold'
+    },
+    subtitle: {
+        textAlign: 'center',
+        color: 'white',
+        fontSize: 20,
+        fontWeight: '400',
+        marginBottom: '10%'
+    },
+	form: {
+		width: 300,
 		justifyContent: 'center',
-		paddingTop: 20,
-
+		alignItems: 'center'
 	},
-	boxSign: {
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: 'red'
-	},
-	containInputs: {
-		width: "90%",
-		height: "75%",
-		alignItems: "center",
-		justifyContent: "center",
-		paddingTop: 25,
-	},
-	inputLogIn: {
-		backgroundColor: 'white',
-		width: '75%',
-		height: 70,
-		borderRadius: 10,
-		paddingBottom: 5,
-		paddingLeft: 15,
-		paddingRight: 15,
-		paddingTop: 6,
-		marginBottom: 20,
-		fontSize: 22,
-		textAlign: "center",
-		shadowColor: "#000",
-		shadowOffset: {
-			width: 5,
-			height: 5,
-		},
-		shadowOpacity: 1,
-		shadowRadius: 15,
-		elevation: 5,
-	},
-	button: {
-		marginTop: 25,
-		marginBottom: 25,
-		backgroundColor: "#fe6849",
-		width: "50%",
-		borderRadius: 10,
-		padding: 10
-	}
-});
+    input: {
+        marginLeft: '5%',
+		width: '100%'
+    },
+    botonera: {
+		flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    boxButton: {
+        backgroundColor: 'white',
+        width: '40%',
+        padding: 6,
+        paddingHorizontal: 20,
+        borderRadius: 25,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        marginTop: '4%'
+    },
+    button: {
+        fontSize: 18,
+        textAlign: 'center',
+        fontWeight: '600',
+        color: 'tomato',
+		fontWeight: 'bold',
+		paddingHorizontal: 10,
+		paddingVertical: 0
+    },
+    boxTextLogueo: {
+        width: '80%',
+        flexDirection: 'column',
+        justifyContent: 'center',
+		alignItems: 'center'
+    },
+    textLogueo: {
+        color: 'white',
+        fontSize: 16,
+        marginTop: '6%'
+    },
+    textAction: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: '600',
+    },
+})

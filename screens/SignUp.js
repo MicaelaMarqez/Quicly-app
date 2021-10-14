@@ -1,9 +1,10 @@
 import React, { useState } from "react"
-import { Text, View, StyleSheet, TextInput, Pressable, TouchableOpacity } from "react-native"
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback, Keyboard, ImageBackground } from 'react-native'
 import { connect } from "react-redux"
 import userActions from "../redux/actions/userActions"
-
 import { useToast, Box } from "native-base"
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Input } from 'react-native-elements';
 
 const SignUp = (props) => {
 	const toast = useToast()
@@ -60,57 +61,129 @@ const SignUp = (props) => {
 
 
 	return (
-		<View style={styles.containAll}>
-			<View style={styles.containInputs}>
-				<TextInput
-					placeholder="Nombre"
-					placeholderTextColor="#aaa"
-					color="black"
-					style={styles.inputSignUp}
-					onChangeText={(e) => inputHandler(e, "firstName")}
+		<SafeAreaView style={styles.mainContainer}>
+		<ImageBackground source={{uri:'https://i.postimg.cc/BvCyVC9f/fondosign-3.png'}} style={styles.background}>
+		<View style={styles.mainForm} action="/users/signup" method="POST">
+			<View style={styles.form}>
+			<TouchableWithoutFeedback onPress={() => {
+				Keyboard.dismiss()
+			}}>
+				<>
+				<Input
+				style={styles.input}
+				leftIcon={
+					<Icon
+					name='user'
+					size={24}
+					color='white'
+					/>
+				}
+				name="nombre"
+				type="text"
+				placeholder="Nombre"
+				onChangeText={(e) => inputHandler(e, "firstName")}
+				errorStyle={{ color: 'transparent' }}
+				errorMessage='ENTER A VALID ERROR HERE'
+				color= 'white'
+				placeholderTextColor= 'white'
 				/>
-				<TextInput
-					placeholder="Apellido"
-					placeholderTextColor="#aaa"
-					color="black"
-					style={styles.inputSignUp}
-					onChangeText={(e) => inputHandler(e, "lastName")}
+				<Input
+				style={styles.input}
+				leftIcon={
+					<Icon
+					name='user'
+					size={24}
+					color='white'
+					/>
+				}
+				name="lastName"
+				type="text"
+				placeholder="Apellido"
+				onChangeText={(e) => inputHandler(e, "lastName")}
+				errorStyle={{ color: 'transparent' }}
+				errorMessage='ENTER A VALID ERROR HERE'
+				color= 'white'
+				placeholderTextColor= 'white'
 				/>
-				<TextInput
-					placeholder="Email"
-					placeholderTextColor="#aaa"
-					color="black"
-					style={styles.inputSignUp}
-					onChangeText={(e) => inputHandler(e, "email")}
+				<Input
+				style={styles.input}
+				leftIcon={
+					<Icon
+					name='at'
+					size={24}
+					color='white'
+					/>
+				}
+				name="email"
+				type="email"
+				placeholder="Email"
+				onChangeText={(e) => inputHandler(e, "email")}
+				errorStyle={{ color: 'transparent' }}
+				errorMessage='ENTER A VALID ERROR HERE'
+				color= 'white'
+				placeholderTextColor= 'white'
 				/>
-				<TextInput
-					placeholder="Contraseña"
-					placeholderTextColor="#aaa"
-					color="black"
-					secureTextEntry={true}
-					password={true}
-					style={styles.inputSignUp}
-					onChangeText={(e) => inputHandler(e, "password")}
+				<Input
+				style={styles.input}
+				leftIcon={
+					<Icon
+					name='lock'
+					size={24}
+					color='white'
+					/>
+				}
+				secureTextEntry={true}
+				password={true}
+				name="password"
+				type="password"
+				placeholder="Contraseña"
+				onChangeText={(e) => inputHandler(e, "password")}
+				keyboardType= 'numeric'
+				errorStyle={{ color: 'transparent' }}
+				errorMessage='ENTER A VALID ERROR HERE'
+				color= 'white'
+				placeholderTextColor= 'white'
 				/>
-				<TextInput
-					placeholder="Repite contraseña"
-					placeholderTextColor="#aaa"
-					color="black"
-					secureTextEntry={true}
-					password={true}
-					style={styles.inputSignUp}
-					onChangeText={(e) => setRepPass(e)}
+				<Input
+				style={styles.input}
+				leftIcon={
+					<Icon
+					name='lock'
+					size={24}
+					color='white'
+					/>
+				}
+				secureTextEntry={true}
+				password={true}
+				name="password"
+				type="password"
+				placeholder="Repite contraseña"
+				onChangeText={(e) => setRepPass(e)}
+				keyboardType= 'numeric'
+				errorStyle={{ color: 'transparent' }}
+				errorMessage='ENTER A VALID ERROR HERE'
+				color= 'white'
+				placeholderTextColor= 'white'
 				/>
+				</>
+			</TouchableWithoutFeedback>        
 			</View>
-
-			<TouchableOpacity style={styles.button} onPress={submit}>
-				<Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }}>Crear Cuenta</Text>
-			</TouchableOpacity>
-			<Text style={{ color: 'black', fontSize: 14, textAlign: 'center' }}>¿Tenes cuenta?</Text>
-			<Pressable onPress={() => props.navigation.navigate('login')}>
-				<Text style={{ color: "#fe6849", fontSize: 19, textAlign: 'center', textDecorationLine: 'underline' }}>Ingresar</Text>
-			</Pressable>
+			<View style={styles.botonera}>
+				<TouchableOpacity>
+					<View style={styles.boxButton}>
+						<Text style={styles.button} onPress={submit}>Crear Cuenta</Text>
+					</View>
+				</TouchableOpacity>
+				<View style={styles.boxTextLogueo}>
+					<Text style={styles.textLogueo}>¿Tenes cuenta?</Text>
+					<TouchableHighlight>
+						<Text style={styles.textAction} onPress={() => {props.navigation.navigate('Login')}}>Ingresar</Text>
+					</TouchableHighlight>
+				</View>
+			</View>
 		</View>
+		</ImageBackground>
+	</SafeAreaView>
 	)
 }
 const mapDispatchToProps = {
@@ -121,45 +194,74 @@ export default connect(null, mapDispatchToProps)(SignUp)
 
 
 const styles = StyleSheet.create({
-	containAll: {
-		width: "100%",
-		flex: 1,
-		alignItems: "center",
-		paddingTop: 20,
+    mainContainer: {
+        backgroundColor: 'white',
+        flex: 1,
+    },
+    mainForm: {
+        justifyContent: 'center',
+        alignItems: 'center',
+		height: '100%'
+    },
+    background: {
+        height: '100%',
+        resizeMode: 'cover',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
+	form: {
+		width: 300,
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
-	containInputs: {
-		width: "90%",
-		height: "75%",
-		alignItems: "center",
-		paddingTop: 25,
-	},
-	inputSignUp: {
-		backgroundColor: 'white',
-		width: '75%',
-		height: 70,
-		borderRadius: 10,
-		paddingBottom: 5,
-		paddingLeft: 15,
-		paddingRight: 15,
-		paddingTop: 6,
-		marginBottom: 20,
-		fontSize: 22,
-		textAlign: "center",
-		shadowColor: "#000",
-		shadowOffset: {
-			width: 5,
-			height: 5,
-		},
-		shadowOpacity: 1,
-		shadowRadius: 15,
-		elevation: 5,
-	},
-	button: {
-		marginTop: 25,
-		marginBottom: 25,
-		backgroundColor: "#fe6849",
-		width: "50%",
-		borderRadius: 10,
-		padding: 10
-	}
-});
+    input: {
+        marginLeft: '5%',
+		width: '100%'
+    },
+    botonera: {
+		flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    boxButton: {
+        backgroundColor: 'white',
+        width: '60%',
+        padding: 6,
+        paddingHorizontal: 20,
+        borderRadius: 25,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 20,
+        elevation: 5,
+        marginTop: '2%'
+    },
+    button: {
+        fontSize: 18,
+        textAlign: 'center',
+        fontWeight: '600',
+        color: 'tomato',
+		fontWeight: 'bold',
+		paddingHorizontal: 10,
+		paddingVertical: 0
+    },
+    boxTextLogueo: {
+        width: '80%',
+        flexDirection: 'column',
+        justifyContent: 'center',
+		alignItems: 'center'
+    },
+    textLogueo: {
+        color: 'white',
+        fontSize: 16,
+        marginTop: '6%'
+    },
+    textAction: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: '600',
+    },
+})

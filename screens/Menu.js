@@ -61,9 +61,10 @@ const Menu = (props) => {
 	return (
 		<NativeBaseProvider>
 			<ScrollView style={styles.container}>
-				<ImageBackground style={styles.image} source={{ uri: 'https://innovacioneconomica.com/wp-content/uploads/2021/01/Captura-de-Pantalla-2021-01-19-a-las-11.56.09.png' }}>
+				<ImageBackground style={styles.image} source={{ uri: 'https://i.postimg.cc/DwvFPSkY/comida.gif' }}>
+					<ImageBackground style={styles.logo} source={{ uri: 'https://i.postimg.cc/zv3pNmMr/loguito-2.png' }}></ImageBackground>
+					<TextInput placeholder="¿Qué quieres pedir?" style={styles.searcher} onChange={(e) => getFiltered(e.nativeEvent.text)} />
 				</ImageBackground>
-				<TextInput placeholder="¿Qué quieres pedir?" style={styles.searcher} onChange={(e) => getFiltered(e.nativeEvent.text)} />
 				<View style={styles.categoriesCards}>
 					{categories.map(category => {
 						return (
@@ -132,9 +133,17 @@ const styles = StyleSheet.create({
 	image: {
 		width: '100%',
 		height: 200,
-		justifyContent: 'center',
+		justifyContent: 'flex-end',
 		alignItems: 'center',
 		marginBottom: 50
+	},
+	logo: {
+		width: '50%',
+		height: 25,
+		justifyContent: 'flex-end',
+		alignSelf: 'flex-start',
+		marginBottom: 10,
+		marginLeft: '10%'
 	},
 	message: {
 		alignItems: 'center',

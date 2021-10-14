@@ -10,8 +10,6 @@ import rootReducer from './redux/reducers/rootReducer'
 import { initStripe } from '@stripe/stripe-react-native'
 import { NativeBaseProvider } from "native-base"
 
-import Login from './screens/LogIn'
-
 import { LogBox } from 'react-native'
 import buyConfirmation from './components/Confirmation'
 LogBox.ignoreAllLogs(true)
@@ -37,15 +35,14 @@ export default function App() {
 
   return (
 
-    
+
     <NavigationContainer>
       <Provider store={globalStore}>
-        {/* <PaperProvider theme={theme}>
+        <PaperProvider theme={theme}>
           <NativeBaseProvider>
-          <Navigator />
+            <Navigator />
           </NativeBaseProvider>
-        </PaperProvider> */}
-        <Login/>
+        </PaperProvider>
       </Provider>
     </NavigationContainer>
   )

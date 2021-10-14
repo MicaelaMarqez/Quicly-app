@@ -1,36 +1,35 @@
 import React from "react"
-import { Text, View, StyleSheet, ImageBackground, Image, TouchableOpacity, ScrollView, Pressable } from "react-native"
-import MyCarousel from "../components/Carousel"
-import CarouselHome from "../components/CarouselHome"
+import { Text, View, StyleSheet, ImageBackground, TouchableOpacity, ScrollView } from "react-native"
 
 const Home = (props) => {
 	return (
 		<ScrollView >
 			<View style={styles.containHeader}>
-				<View style={styles.containerCarouselBody}>
-					<CarouselHome />
-				</View>
-				<ImageBackground style={styles.logo} resizeMode="contain" source={{ uri: 'https://quickly-food.herokuapp.com/assets/quicklyLogo.png' }} >
+				<ImageBackground style={styles.logo} resizeMode="contain" source={{ uri: 'https://i.postimg.cc/k4DZHwVH/loguito.png' }} >
 				</ImageBackground>
 				<View style={styles.containerCard}>
 					<View style={styles.boxCard}>
 						<View style={styles.cardHome}>
 							<ImageBackground resizeMode="contain" source={{ uri: "https://i.postimg.cc/pr9w1gTY/hamburguesas.webp" }} style={styles.imageCard}>
 							</ImageBackground>
+							<Text style={styles.category}>Categoria</Text>
 						</View>
 						<View style={styles.cardHome}>
 							<ImageBackground resizeMode="contain" source={{ uri: "https://i.postimg.cc/13zjWkjg/pizza.webp" }} style={styles.imageCard}>
 							</ImageBackground>
+							<Text style={styles.category}>Categoria</Text>
 						</View>
 					</View>
 					<View style={styles.boxCard}>
 						<View style={styles.cardHome}>
 							<ImageBackground resizeMode="contain" source={{ uri: "https://i.postimg.cc/wTwWsWj9/saludable.webp" }} style={styles.imageCard}>
 							</ImageBackground>
+							<Text style={styles.category}>Categoria</Text>
 						</View>
 						<View style={styles.cardHome}>
 							<ImageBackground resizeMode="contain" source={{ uri: "https://i.postimg.cc/HsdnRzHD/milanesas.webp" }} style={styles.imageCard}>
 							</ImageBackground>
+							<Text style={styles.category}>Categoria</Text>
 						</View>
 					</View>
 				</View>
@@ -38,7 +37,6 @@ const Home = (props) => {
 					<Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }}>Ver mas</Text>
 				</TouchableOpacity>
 			</View>
-
 		</ScrollView>
 	)
 }
@@ -47,15 +45,14 @@ export default Home
 
 const styles = StyleSheet.create({
 	logo: {
-		marginTop: 30,
-		height: 30,
+		marginTop: 15,
+		height: 200,
 		width: "100%",
 	},
 	containHeader: {
 		flex: 1,
 		alignItems: "center",
 		width: '100%'
-		// paddingTop: 20,
 	},
 	containerCard: {
 		height: 350,
@@ -66,16 +63,15 @@ const styles = StyleSheet.create({
 	boxCard: {
 		height: "40%",
 		width: "90%",
-		margin: 5,
+		margin: 15,
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "center",
-		padding: 5
 	},
 	cardHome: {
 		height: "100%",
 		width: "45%",
-		margin: 5,
+		margin: 10,
 		backgroundColor: "white",
 		borderRadius: 10,
 		shadowColor: "#000",
@@ -89,7 +85,11 @@ const styles = StyleSheet.create({
 	},
 	imageCard: {
 		height: "100%",
-		width: "100%"
+		width: "100%",
+		padding: '5%',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	button: {
 		backgroundColor: "#fe6849",
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
 		shadowOpacity: 1,
 		shadowRadius: 15,
 		elevation: 5,
-		marginBottom: 20,
+		marginTop: '10%'
 	},
 	containerCarouselBody: {
 		height: 200,
@@ -117,19 +117,12 @@ const styles = StyleSheet.create({
 		shadowOpacity: 1,
 		shadowRadius: 15,
 		elevation: 5,
+	},
+	category: {
+		textAlign: 'center',
+		padding: '1%',
+		color: 'tomato',
+		fontSize: 20
+
 	}
 });
-
-
-
-{/* <View style={styles.ContainCarousel}>
-					<MyCarousel style={styles.caru}/>
-				</View> */}
-
-				// ContainCarousel:{
-				// 	width: "50%",
-				// 	height: "100%",
-				// 	backgroundColor: "red",
-				// 	alignItems: "center",
-				// 	justifyContent: "flex-end"
-				// }

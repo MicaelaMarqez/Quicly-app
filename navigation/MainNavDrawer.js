@@ -13,7 +13,7 @@ import {
 // import Profile from '../screens/Profile'
 // import LogIn from '../screens/LogIn'
 // import SignUp from '../screens/SignUp'
-// import Preloader from "../components/Preloader"
+import Preloader from "../components/Preloader"
 
 import {
   AntDesign,
@@ -231,6 +231,7 @@ const MainNavDrawer = ({ user, ...props }) => {
               return {
                 title: "Ingresar",
                 headerTitle: "Bienvenido",
+                drawerActiveBackgroundColor: 'transparent',
                 drawerIcon: () => (
                   <Ionicons name="log-in-outline" size={24} color="black" />
                 ),
