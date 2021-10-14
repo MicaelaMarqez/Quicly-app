@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, Text, ImageBackground, StyleSheet } from 'react-native'
 const ProductCard = (props) => {
-    console.log(props.product)
     return (
         <View style={styles.container}>
             <ImageBackground style={styles.picture} source={{ uri: `https://quickly-food.herokuapp.com${props.product.img}` }}></ImageBackground>

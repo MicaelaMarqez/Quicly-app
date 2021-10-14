@@ -22,8 +22,8 @@ const CategorySection = (props) => {
                 />
             </View>
             {view
-                ? <CategoryCarousel products={props.products} />
-                : props.products.map(product => <CategoryList product={product} key={product._id} />)
+                ? <CategoryCarousel navigation={props.navigation} products={props.products} route={props.route} />
+                : props.products.map(product => <CategoryList product={product} key={product._id} route={props.route} />)
             }
         </View>
     )
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15
     },
     title: {
-        fontSize: 20,
+        fontSize: 25,
         marginBottom: 5,
         fontWeight: "700",
         color: "#fe6849",

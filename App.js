@@ -1,16 +1,27 @@
 
 import React, { useEffect } from 'react'
-import Navigator from './navigation/MainNavBottom'
+import Navigator from './navigation/MainNavDrawer'
 import { NavigationContainer } from '@react-navigation/native'
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
 import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import rootReducer from './redux/reducers/rootReducer'
 import { initStripe } from '@stripe/stripe-react-native'
+import { NativeBaseProvider } from "native-base"
 
 import { LogBox } from 'react-native'
 import buyConfirmation from './components/Confirmation'
 LogBox.ignoreAllLogs(true)
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#fe6849',
+    accent: 'black',
+  },
+};
 
 const globalStore = createStore(rootReducer, applyMiddleware(thunk))
 
@@ -27,8 +38,12 @@ export default function App() {
 
     <NavigationContainer>
       <Provider store={globalStore}>
-        <Navigator />
+        <PaperProvider theme={theme}>
+          <NativeBaseProvider>
+            <Navigator />
+          </NativeBaseProvider>
+        </PaperProvider>
       </Provider>
     </NavigationContainer>
   )
-  }
+}

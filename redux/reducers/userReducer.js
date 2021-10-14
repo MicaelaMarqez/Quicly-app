@@ -10,15 +10,15 @@ let initialState = {
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOG_IN':
-      let { token, userData, user, keep } = action.payload
-      localStorage.setItem('token', token)
-      !keep && localStorage.setItem('cart', JSON.stringify(userData.cart))
+      let { token, userData, user, } = action.payload
+      // localStorage.setItem('token', token)
+      // !keep && localStorage.setItem('cart', JSON.stringify(userData.cart))
       return {
         ...state,
         token: token,
         user: user,
         userData: userData,
-        cart: keep ? state.cart : userData.cart,
+        // cart: keep ? state.cart : userData.cart,
       }
     case 'CREATE_ORDER':
       state.socket.emit('createOrder')
@@ -57,11 +57,11 @@ const userReducer = (state = initialState, action) => {
         cart: action.payload.cart,
       }
     case 'LOG_OUT':
-      localStorage.removeItem('token')
-      localStorage.removeItem('socket')
-      localStorage.setItem('cart', JSON.stringify([]))
-      localStorage.setItem('orders', JSON.stringify([]))
-      return initialState
+      return {
+        token: null,
+        user: null,
+        userData: null
+      }
 
     default:
       return state

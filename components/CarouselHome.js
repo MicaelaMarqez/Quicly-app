@@ -1,5 +1,5 @@
 import React from "react"
-import { Text, View, StyleSheet,ImageBackground, Dimensions } from "react-native"
+import { Text, View, StyleSheet, ImageBackground, Dimensions, Image } from "react-native"
 import Carousel from "react-native-snap-carousel"
 
 
@@ -22,26 +22,25 @@ const CarouselHome = () => {
       id: '4'
     },
   ]
-const sliderWidth = Dimensions.get('screen').width
- const _renderItem = ({item}) => {
+  const sliderWidth = Dimensions.get('screen').width
+  const _renderItem = ({ item }) => {
     return (
-        <View style={styles.containerImage}  key={item.id} >
-                <ImageBackground resizeMode="cover" source={{uri : item.src}} style={styles.image}>
-                </ImageBackground>  
-        </View>
+      <View style={styles.containerImage} key={item.id} >
+        <ImageBackground source={{ uri: item.src }} style={styles.image} resizeMode='cover'></ImageBackground>
+      </View>
     );
-}
+  }
 
-  return(
+  return (
     <Carousel
-              data={items}
-              renderItem={_renderItem}
-              sliderWidth={sliderWidth}
-              itemWidth={600}
-              layout={'default'} 
-              loop={true}
-              autoplay={true}
-            /> 
+      data={items}
+      renderItem={_renderItem}
+      sliderWidth={sliderWidth}
+      itemWidth={sliderWidth} git a
+      layout={'default'}
+      loop={true}
+      autoplay={true}
+    />
   )
 
 }
@@ -56,11 +55,11 @@ const styles = StyleSheet.create({
   },
   containerImage: {
     width: "100%",
-	height: "100%",
+    height: "100%",
   },
-  slide:{
-	  height: "100%",
-	  width: "100%",
-	  backgroundColor: "red"
+  slide: {
+    height: "100%",
+    width: "100%",
+    backgroundColor: "red"
   }
 })
