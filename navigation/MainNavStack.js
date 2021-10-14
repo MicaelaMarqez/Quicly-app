@@ -7,6 +7,7 @@ import React from 'react'
 import Profile from '../screens/Profile'
 import Product from '../screens/Product'
 import PaymentScreen from '../screens/Card'
+import Hero from '../screens/Hero'
 
 const Stack = createNativeStackNavigator()
 
@@ -22,6 +23,15 @@ const Stack = createNativeStackNavigator()
 //     </Stack.Navigator>
 //   )
 // }
+
+// export const HeroStack = () => {
+//   return (
+//     <Stack.Navigator screenOptions={{ headerShown: false }}>
+//       <Stack.Screen name='hero' component={Hero} />
+//     </Stack.Navigator>
+//   )
+// }
+
 
 export const HomeStack = () => {
   return (

@@ -6,10 +6,9 @@ const Hero = () => {
         <ImageBackground source={{ uri: 'https://i.postimg.cc/C5T0P2YM/hamburguesa.png' }} style={styles.imageHero}>
             <StatusBar backgroundColor="#E6A07C" barStyle="light-content"/> 
             <View style={styles.contenedorHero}>
-                {/* <Image source={require('../assets/logooriginal.png')} style={styles.logo} /> */}
-                {/* <Text style={styles.titulo}>MYtinerary</Text> */}
+                <Text style={styles.titulo}>Quickly</Text>
                 <View style={styles.callToAction}>
-                    <TouchableOpacity onPress={() => props.navigation.navigate('home')} style={styles.button}>
+                    <TouchableOpacity onPress={() => props.navigation.navigate('login')} style={styles.button}>
                         <Text style={{ color: 'white', fontSize: 22, textAlign: 'center' }}>Get Started</Text>
                     </TouchableOpacity>
                 </View>
@@ -28,7 +27,6 @@ const styles = StyleSheet.create({
         height: 760,
     },
     titulo: {
-        fontFamily: 'Poppins_400Regular',
         fontSize: 60,
         fontWeight: 'bold',
         color: 'white'
