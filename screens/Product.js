@@ -29,37 +29,22 @@ const Product = (props) => {
         { type: 'Sprite (500cc)', cost: 100 },
         { type: 'Fanta (500cc)', cost: 100 },
     ]
-    const product = {
-        _id: "6161fd027018fe35545892a1",
-        category: "Lomos",
-        description: "Increible sabor",
-        extras: true,
-        favs: Array[
-            "615f7629bc3b2e7315f0088f"
-        ],
-        fries: true,
-        img: "/assets/products/6161fd027018fe35545892a1.jpg",
-        ingredients: Array[
-            "cerdo, lechuga, huevo, queso, jamon, tomate"
-        ],
-        multipleDrinks: false,
-        name: "Lomo de Cerdo Completo",
-        price: 680,
-        score: 3.7,
-        stock: 5
-    }
     const initialCartItem = {
-        productId: product._id,
+        productId: chosen._id,
         clarifications: '',
         fries: friesSizes[0],
         extras: [],
         drink: drinkChoices[0],
-        unitaryPrice: product.price,
+        unitaryPrice: chosen.price,
         totalAmount: 1,
-        totalPrice: product.price,
+        totalPrice: chosen.price,
     }
-    const [cartItem, setCartItem] = useState(/*edit ? editCartItem :*/ initialCartItem)
+    const [cartItem, setCartItem] = useState(initialCartItem)
+    useEffect(() => {
+        setCartItem(initialCartItem)
+    }, [chosen])
 
+    console.log(cartItem.unitaryPrice)
     const addExtras = (extra, e) => {
         if (e === 'checked') {
             setCartItem({ ...cartItem, extras: [...cartItem.extras, extra] })
@@ -76,17 +61,17 @@ const Product = (props) => {
         let extrasCost = extras.reduce((acc, extra) => acc + extra.cost, 0)
         setCartItem({
             ...cartItem,
-            unitaryPrice: product.price + fries.cost + extrasCost + (product.multipleDrinks ? drink.cost : 0),
-            totalPrice: product.multipleDrinks
-                ? (product.price + fries.cost + extrasCost + drink.cost) * totalAmount
-                : (product.price + fries.cost + extrasCost) * totalAmount + drink.cost,
+            unitaryPrice: chosen.price + fries.cost + extrasCost + (chosen.multipleDrinks ? drink.cost : 0),
+            totalPrice: chosen.multipleDrinks
+                ? (chosen.price + fries.cost + extrasCost + drink.cost) * totalAmount
+                : (chosen.price + fries.cost + extrasCost) * totalAmount + drink.cost,
         })
     }, [cartItem.fries, cartItem.extras, cartItem.drink])
 
     const amount = (operation) => {
         const { totalAmount, unitaryPrice } = cartItem
         if (operation === 'sum') {
-            if (totalAmount < product.stock) {
+            if (totalAmount < chosen.stock) {
                 setCartItem({
                     ...cartItem,
                     totalAmount: totalAmount + 1,
@@ -107,19 +92,24 @@ const Product = (props) => {
     }
 
     const addToCart = () => {
-        console.log(cartItem)
+        manageCart({
+            cartItem,
+            action: edit ? 'editCartItem' : 'add',
+            _id: userData?._id,
+            dif: edit ? editCartItem.totalAmount - cartItem.totalAmount : null,
+        })
+        setMod(false)
+        //   setCardTost({
+        //     time: 2000,
+        //     icon: 'success',
+        //     text: 'Producto agregado al carrito',
+        //     view: true,
+        //   })
     }
 
     return (
         <View style={styles.card}>
-            <Back
-                name='arrow-bold-left'
-                size={30}
-                color='black'
-                style={styles.back}
-                onPress={() => props.navigation.navigate('Menu')}
-            />
-            <View style={styles.cardTitle}>
+            <View>
                 <Text style={styles.h1}>{chosen.name}</Text>
             </View>
             <View style={styles.image}>
@@ -148,7 +138,7 @@ const Product = (props) => {
                     </View>
                 </View>}
 
-                <View style={(product.fries || product.extras) ? styles.column_2 : styles.no_column}>
+                <View style={(chosen.fries || chosen.extras) ? styles.column_2 : styles.no_column}>
                     <Text style={styles.h3}>Gaseosa:</Text>
                     <View>
                         {drinkChoices.map((option, index) => (
@@ -165,7 +155,7 @@ const Product = (props) => {
                     </View>
                 </View>
 
-                {product.extras && <View style={styles.column_1}>
+                {chosen.extras && <View style={styles.column_1}>
                     <Text style={styles.h3}>Extras:</Text>
                     <View>
                         {extrasChoices.map((option, index) => (
@@ -214,6 +204,9 @@ const Product = (props) => {
                     <Text style={styles.text}>Total: ${cartItem.totalPrice}</Text>
                 </View>
             </View>
+            <Text className={styles.addProduct} onClick={addToCart}>
+                Agregar a mi orden
+            </Text>
         </View>
     )
 }
@@ -233,7 +226,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "space-between",
+        // justifyContent: "space-between",
         paddingHorizontal: 10,
         paddingVertical: 10
     },
@@ -247,7 +240,10 @@ const styles = StyleSheet.create({
     },
     image: {
         width: "90%",
-        height: "30%"
+        height: "25%",
+        marginVertical: 15,
+        borderRadius: 15,
+        overflow: 'hidden'
     },
     img: {
         width: "100%",
@@ -255,6 +251,7 @@ const styles = StyleSheet.create({
     },
     description: {
         width: "90%",
+        marginBottom: 20
     },
     h3: {
         fontSize: 20,
@@ -274,7 +271,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     column_1: {
-        width: "40%"
+        width: "40%",
     },
     column_2: {
         width: "55%"
@@ -285,8 +282,8 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     option: {
-        display: "flex",
-        flexDirection: "row"
+        flexDirection: "row",
+        alignItems: 'center'
     },
     textInput: {
         width: "55%"
@@ -307,5 +304,8 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between"
+    },
+    addProduct: {
+        backgroundColor: 'red'
     }
 })

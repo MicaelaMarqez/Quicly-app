@@ -84,10 +84,10 @@ const Menu = (props) => {
 							<Text style={styles.messageTitle}>Sin resultados</Text>
 							<Text style={styles.messageSubTitle}>Intente con otro término</Text>
 						</ScrollView>
-						: props.filtered.map(product => <CategoryList product={product} key={product._id} />)
+						: props.filtered.map(product => <CategoryList product={product} key={product._id} route={props.route} />)
 					: categories.filter(category => category.includes(selected)).map(category => {
 						let products = props.products.filter(product => product.category === category)
-						return <CategorySection navigation={props.navigation} products={products} key={category} category={category} />
+						return <CategorySection route={props.route} navigation={props.navigation} products={products} key={category} category={category} />
 					})}
 			</ScrollView>
 		</NativeBaseProvider>

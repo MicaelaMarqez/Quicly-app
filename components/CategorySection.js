@@ -22,8 +22,8 @@ const CategorySection = (props) => {
                 />
             </View>
             {view
-                ? <CategoryCarousel navigation={props.navigation} products={props.products} />
-                : props.products.map(product => <CategoryList product={product} key={product._id} />)
+                ? <CategoryCarousel navigation={props.navigation} products={props.products} route={props.route} />
+                : props.products.map(product => <CategoryList product={product} key={product._id} route={props.route} />)
             }
         </View>
     )

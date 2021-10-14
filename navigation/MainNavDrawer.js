@@ -220,7 +220,6 @@ const MainNavDrawer = ({ user, ...props }) => {
               };
             }}
           />
-          {/* <Drawer.Screen name='product' component={ProductStack} /> */}
         </>
       )}
       {!user && (
