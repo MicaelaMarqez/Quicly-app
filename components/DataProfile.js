@@ -39,7 +39,7 @@ const DataProfile = ({userData, updateUser}) => {
 		if(verification) return console.log("no podes modificar esto sin nada")
 		console.log(updateData)
 		try{
-			let response = await updateUser({ action: 'updateData', updateData })
+			let response = await updateUser({ action: 'updateData', userData: updateData })
 			console.log(response)
 		}catch(e){
 			console.log(e)

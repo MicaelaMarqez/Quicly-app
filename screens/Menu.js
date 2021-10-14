@@ -63,7 +63,7 @@ const Menu = (props) => {
 			<ScrollView style={styles.container}>
 				<ImageBackground style={styles.image} source={{ uri: 'https://innovacioneconomica.com/wp-content/uploads/2021/01/Captura-de-Pantalla-2021-01-19-a-las-11.56.09.png' }}>
 				</ImageBackground>
-				<TextInput placeholder="¿Qué quieres pedir?" style={styles.searcher} onChange={(e) => getFiltered(e.nativeEvent.text)} />
+				<TextInput placeholder="¿Qué quieres pedir?" style={styles.searcher} onChangeText={(text) => getFiltered(text)} />
 				<View style={styles.categoriesCards}>
 					{categories.map(category => {
 						return (

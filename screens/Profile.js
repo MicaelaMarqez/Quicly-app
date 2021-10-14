@@ -15,7 +15,7 @@ const Profile = ({userData}) => {
 	} else if (changeComponent === "help") {
 		setChangeComponent(<Contact userData={userData} />)
 	} else if (changeComponent === "history") {
-		setChangeComponent(<HistoryProfile userData={userData} />)
+		setChangeComponent(<HistoryProfile userData={userData.data?._id} />)
 	} else if (changeComponent === "payment") {
 		setChangeComponent(<PaymentProfile userData={userData} />)
 	}
@@ -96,7 +96,7 @@ const Profile = ({userData}) => {
 }
 const mapStateToProps = (state) => {
 	return{
-		userData: state.users.userData
+		userData: state.users.userData,
 	}	
 }
 const mapDispachToProps = {

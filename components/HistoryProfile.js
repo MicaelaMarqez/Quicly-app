@@ -1,122 +1,221 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Pressable, ImageBackground } from 'react-native'
-
-const HistoryProfile = (props) => {
-    const [view, setView] = useState(true)
-
-    const item = [
-        [{
-            src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRpxL52Kc_MRjvlRYE3jj6fPBWXmdgbykPgg3YVjlBQsjhga2v_rpES_LazZSFKAcK98k&usqp=CAU",
-            titulo: "Producto magic",
-            total: 1500,
-            id: 1,
-        },
-        {
-            src: "https://media.istockphoto.com/photos/hamburger-on-an-orange-background-3d-rendering-picture-id1268438591?b=1&k=6&m=1268438591&s=170667a&w=0&h=m6xM6v3JGHpZwo0jOx6XGdM6i7aeplvoygMIdxSE7c8=",
-            titulo: "Producto magic",
-            total: 1500,
-            id: 12,
-        },
-        {
-            src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRpxL52Kc_MRjvlRYE3jj6fPBWXmdgbykPgg3YVjlBQsjhga2v_rpES_LazZSFKAcK98k&usqp=CAU",
-            titulo: "Producto magic",
-            total: 1500,
-            id: 13,
-        }],
-        [{
-            src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRpxL52Kc_MRjvlRYE3jj6fPBWXmdgbykPgg3YVjlBQsjhga2v_rpES_LazZSFKAcK98k&usqp=CAU",
-            titulo: "Producto magic",
-            total: 1500,
-            id: 14,
-        },
-        {
-            src: "https://media.istockphoto.com/photos/hamburger-on-an-orange-background-3d-rendering-picture-id1268438591?b=1&k=6&m=1268438591&s=170667a&w=0&h=m6xM6v3JGHpZwo0jOx6XGdM6i7aeplvoygMIdxSE7c8=",
-            titulo: "Producto magic",
-            total: 1500,
-            id: 15,
-        }],
-        [{
-            src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRpxL52Kc_MRjvlRYE3jj6fPBWXmdgbykPgg3YVjlBQsjhga2v_rpES_LazZSFKAcK98k&usqp=CAU",
-            titulo: "Producto magic",
-            total: 1500,
-            id: 16,
-        },
-        {
-            src: "https://media.istockphoto.com/photos/hamburger-on-an-orange-background-3d-rendering-picture-id1268438591?b=1&k=6&m=1268438591&s=170667a&w=0&h=m6xM6v3JGHpZwo0jOx6XGdM6i7aeplvoygMIdxSE7c8=",
-            titulo: "Producto magic",
-            total: 1500,
-            id: 17,
-        },
-        {
-            src: "https://media.istockphoto.com/photos/hamburger-on-an-orange-background-3d-rendering-picture-id1268438591?b=1&k=6&m=1268438591&s=170667a&w=0&h=m6xM6v3JGHpZwo0jOx6XGdM6i7aeplvoygMIdxSE7c8=",
-            titulo: "Producto magic",
-            total: 1500,
-            id: 18,
-        }]
-    ]
+import { ScrollView } from 'react-native-gesture-handler'
+import { connect } from 'react-redux'
+import orderActions from '../redux/actions/orderActions'
+const HistoryProfile = ({userData, orders, getOrders}) => {
+    // useEffect(() => {
+    //     const getOrdersById = async () => {
+    //         try{    
+    //             let response = await getOrders(userData)
+    //             console.log(response)
+    //         }catch(e){
+    //             console.log(e)
+    //         }
+            
+    //     }
+    //     getOrdersById()
+    // },[])
+ 
     return (
-        <View style={styles.containerAll}>
-			{item.map((i) => 
-                    <View style={styles.container}>               
-                        {i.map((product) => 
-                            <View style={styles.containerCard}>
-                                <View style={styles.containerCards}>
-                                    <ImageBackground source={{uri: product.src}} style={styles.imageHystorial}>
-                                    </ImageBackground>
-                                </View>
-                                <View style={styles.containerCards}>
-                                    <Text style={styles.textCard}>{product.titulo}</Text>
-                                </View>
-                                <View style={styles.containerCards}>
-                                    <Text style={styles.textCard}>$ {product.total}</Text>
-                                </View>
-                            </View>
-                        )}                 
+        <ScrollView style={styles.containerAll}>
+            <View style={styles.containerCard}>
+                <View style={styles.containerTitle}>
+                    <Text style={styles.title}>Estado de pedido</Text>
+                </View>
+                <View style={styles.containerCardBody}>
+                    <View style={styles.containerImage}>
+                        <ImageBackground source={{uri: "https://i.postimg.cc/yxFkk4g3/moto.png"}} resizeMode="cover" style={styles.imageCard}> 
+                        </ImageBackground>
                     </View>
-            )}
-        </View>
+                    <View>
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>Estado: </Text>
+                            <Text>Cancelado</Text>
+                        </View>                       
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>N°: </Text>
+                            <Text>61684ee5d985aa2a04379900_ord0</Text>
+                        </View>                       
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>Precio: </Text>
+                            <Text>$ 1.350,00</Text>
+                        </View>                        
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>Punto de entrega: </Text>
+                            <Text>carlos 12 juan</Text>
+                        </View>                       
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>Hora estimada: </Text>
+                            <Text>16:14</Text>
+                        </View>      
+                    </View>
+                </View>
+            </View> 
+            <View style={styles.containerCard}>
+                <View style={styles.containerTitle}>
+                    <Text style={styles.title}>Estado de pedido</Text>
+                </View>
+                <View style={styles.containerCardBody}>
+                    <View style={styles.containerImage}>
+                        <ImageBackground source={{uri: "https://i.postimg.cc/yxFkk4g3/moto.png"}} resizeMode="cover" style={styles.imageCard}> 
+                        </ImageBackground>
+                    </View>
+                    <View>
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>Estado: </Text>
+                            <Text>Cancelado</Text>
+                        </View>                       
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>N°: </Text>
+                            <Text>61684ee5d985aa2a04379900_ord0</Text>
+                        </View>                       
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>Precio: </Text>
+                            <Text>$ 1.350,00</Text>
+                        </View>                        
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>Punto de entrega: </Text>
+                            <Text>carlos 12 juan</Text>
+                        </View>                       
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>Hora estimada: </Text>
+                            <Text>16:14</Text>
+                        </View>      
+                    </View>
+                </View>
+            </View>    
+            <View style={styles.containerCard}>
+                <View style={styles.containerTitle}>
+                    <Text style={styles.title}>Estado de pedido</Text>
+                </View>
+                <View style={styles.containerCardBody}>
+                    <View style={styles.containerImage}>
+                        <ImageBackground source={{uri: "https://i.postimg.cc/yxFkk4g3/moto.png"}} resizeMode="cover" style={styles.imageCard}> 
+                        </ImageBackground>
+                    </View>
+                    <View>
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>Estado: </Text>
+                            <Text>Cancelado</Text>
+                        </View>                       
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>N°: </Text>
+                            <Text>61684ee5d985aa2a04379900_ord0</Text>
+                        </View>                       
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>Precio: </Text>
+                            <Text>$ 1.350,00</Text>
+                        </View>                        
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>Punto de entrega: </Text>
+                            <Text>carlos 12 juan</Text>
+                        </View>                       
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>Hora estimada: </Text>
+                            <Text>16:14</Text>
+                        </View>      
+                    </View>
+                </View>
+            </View>    
+            <View style={styles.containerCard}>
+                <View style={styles.containerTitle}>
+                    <Text style={styles.title}>Estado de pedido</Text>
+                </View>
+                <View style={styles.containerCardBody}>
+                    <View style={styles.containerImage}>
+                        <ImageBackground source={{uri: "https://i.postimg.cc/yxFkk4g3/moto.png"}} resizeMode="cover" style={styles.imageCard}> 
+                        </ImageBackground>
+                    </View>
+                    <View>
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>Estado: </Text>
+                            <Text>Cancelado</Text>
+                        </View>                       
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>N°: </Text>
+                            <Text>61684ee5d985aa2a04379900_ord0</Text>
+                        </View>                       
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>Precio: </Text>
+                            <Text>$ 1.350,00</Text>
+                        </View>                        
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>Punto de entrega: </Text>
+                            <Text>carlos 12 juan</Text>
+                        </View>                       
+                        <View style={styles.containerText}>
+                            <Text style={styles.text}>Hora estimada: </Text>
+                            <Text>16:14</Text>
+                        </View>      
+                    </View>
+                </View>
+            </View>       
+        </ScrollView>
     )
 }
 
-export default HistoryProfile
+const mapDispachToProps = {
+    getOrders : orderActions.getUserOders
+}
+const mapStateToProps = state => {
+    return{
+        orders: state.orders.orders,
+    }
+}
+         
+export default connect(mapStateToProps, mapDispachToProps)(HistoryProfile)
 
 const styles = StyleSheet.create({
     containerAll: {
         width:"100%",
         marginBottom: 20,
         minHeight: 200,
-        alignItems: "center",
-        padding: 10
-    },  
-    imageHystorial:{
-        height: 50,
-        width: 50,
-        overflow: "hidden",
-        borderRadius: 10
+        padding: 10,
+        backgroundColor: 'rgba(200, 200, 200, 0.1)',
     },
-    container:{
+    title:{
         width: "100%",
-        minHeight: 150,
-        padding: 15,
-        margin: 10, 
-        borderWidth: 0.5,
-        borderColor: "grey",
-        borderRadius: 15,  
+        padding: 5,
+        textAlign: "center",
+        color: "#fe6849",
+        fontWeight: "bold",
+        fontSize: 20,
     },
     containerCard:{
         width: "100%",
-        height: 70,
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center"
-
-    },
-    containerCards:{
-        width: "35%",
-        height: "100%",   
-    },
-    textCard:{
-        textAlign: "center",
+        height: 200,
+        backgroundColor: 'rgba(252, 252, 252, 1)',
+        borderColor: 'rgba(0, 0, 0, 0.4)',
+        borderWidth: 0.2,
+        borderRadius: 10,
+        alignItems: "center",
+        marginBottom: 15,
         
+    },
+    containerCardBody:{
+        width: "98%",
+        height: "78%",
+        borderColor: 'rgba(0, 0, 0, 0.4)',
+        borderWidth: 0.2,
+        borderRadius: 10,
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    containerImage:{
+        width: "22%",
+        height: "70%",
+        marginRight: 8,
+    },
+    imageCard:{
+        height: "100%",
+        width: "100%",
+    },
+    containerText:{
+        flexDirection: "row"
+    },
+    text:{
+     color: "#fe6849",
+     fontWeight: "bold"
     }
 })

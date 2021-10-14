@@ -6,6 +6,7 @@ const orderActions = {
     return async (dispatch, getState) => {
       try {
         const res = await axios.get(`${HOST}/api/orders`, userId)
+        console.log(res.data)
         if (!res.data.success) throw new Error(res.data.error)
         dispatch({ type: 'GET_USER_ORDERS', payload: res.data.response })
         return { success: true, response: res.data.response, error: null }

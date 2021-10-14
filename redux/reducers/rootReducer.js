@@ -9,7 +9,7 @@ import adminOrderReducer from './admin/adminOrderReducer'
 const rootReducer = combineReducers({
     users: userReducer,
     products: productReducer,
-    // orders: orderReducer,
+    orders: orderReducer,
     // adminUsers: adminUserReducer,
     // adminProducts: adminProductReducer,
     // adminOrders: adminOrderReducer
