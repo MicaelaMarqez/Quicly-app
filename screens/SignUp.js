@@ -138,7 +138,6 @@ const SignUp = (props) => {
 				type="password"
 				placeholder="Contraseña"
 				onChangeText={(e) => inputHandler(e, "password")}
-				keyboardType= 'numeric'
 				errorStyle={{ color: 'transparent' }}
 				errorMessage='ENTER A VALID ERROR HERE'
 				color= 'white'
@@ -159,7 +158,6 @@ const SignUp = (props) => {
 				type="password"
 				placeholder="Repite contraseña"
 				onChangeText={(e) => setRepPass(e)}
-				keyboardType= 'numeric'
 				errorStyle={{ color: 'transparent' }}
 				errorMessage='ENTER A VALID ERROR HERE'
 				color= 'white'

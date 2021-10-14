@@ -94,7 +94,6 @@ const LogIn = (props) => {
 						type="password"
 						placeholder="Contraseña"
 						onChangeText={(e) => inputHandler(e, "password")}
-						keyboardType= 'numeric'
 						errorStyle={{ color: 'transparent' }}
 						errorMessage='ENTER A VALID ERROR HERE'
 						color= 'white'

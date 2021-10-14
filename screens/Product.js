@@ -200,15 +200,21 @@ const Product = (props) => {
             <View style={styles.addToCart}>
                 <View style={styles.order}>
                     <View style={styles.amount}>
-                        <Text style={styles.price}
-                            onPress={() => amount('res')}>
-                            -
-                        </Text>
-                        <Text style={styles.price}>{cartItem.totalAmount}</Text>
-                        <Text style={styles.price}
-                            onPress={() => amount('sum')}>
-                            +
-                        </Text>
+                        <View style={styles.sign}>
+                            <Text style={styles.price}
+                                onPress={() => amount('res')}>
+                                -
+                            </Text>
+                        </View>
+                        <View style={styles.number}>
+                            <Text style={styles.numer}>{cartItem.totalAmount}</Text>
+                        </View>
+                        <View style={styles.sign}>
+                            <Text style={styles.price}
+                                onPress={() => amount('sum')}>
+                                +
+                            </Text>
+                        </View>
                     </View>
                     {/* <Text style={styles.text}
                         onPress={addToCart}>
@@ -216,8 +222,8 @@ const Product = (props) => {
                         </Text> */}
                 </View>
                 <View style={styles.order}>
-                    <Text style={styles.price}>Unidad: ${cartItem.unitaryPrice}</Text>
-                    <Text style={styles.price}>Total: ${cartItem.totalPrice}</Text>
+                    <Text style={styles.price2}>Unidad: ${cartItem.unitaryPrice}</Text>
+                    <Text style={styles.price2}>Total: ${cartItem.totalPrice}</Text>
                 </View>
             </View>
             <TouchableOpacity>
@@ -319,13 +325,20 @@ const styles = StyleSheet.create({
     order: {
         width: "50%",
         display: "flex",
-        alignItems: "center"
+        alignItems: "flex-start",
+        justifyContent: 'center',
+        marginLeft: '3%',
+        marginTop: '-13%'
     },
     amount: {
-        width: "30%",
+        width: "50%",
+        height: '20%',
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: 'grey'
     },
     addProduct: {
         backgroundColor: '#fe6849',
@@ -336,6 +349,19 @@ const styles = StyleSheet.create({
     },
     price:{
         fontSize:16,
-        fontWeight: "700"
+        fontWeight: "700",
+        color: 'white'
+    },
+    sign: {
+        width: '30%',
+        height: '100%',
+        backgroundColor: 'tomato',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    price2: {
+        color: 'grey',
+        fontWeight: 'bold'
     }
 })
