@@ -1,13 +1,18 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Home from '../screens/Home'
 import Menu from '../screens/Menu'
-import LogIn from '../screens/LogIn'
-import SignUp from '../screens/SignUp'
-import React from 'react'
+import { AntDesign, Ionicons } from '@expo/vector-icons'
+import React, { useEffect } from 'react'
 import Profile from '../screens/Profile'
 import Product from '../screens/Product'
 import PaymentScreen from '../screens/Card'
+<<<<<<< HEAD
 import Hero from '../screens/Hero'
+=======
+import Cart from '../screens/Cart'
+import { Pressable } from 'react-native'
+import { View } from 'native-base'
+>>>>>>> 1f3bd2292f4943fd84140efc12ee5a9d6333d688
 
 const Stack = createNativeStackNavigator()
 
@@ -24,45 +29,97 @@ const Stack = createNativeStackNavigator()
 //   )
 // }
 
-// export const HeroStack = () => {
-//   return (
-//     <Stack.Navigator screenOptions={{ headerShown: false }}>
-//       <Stack.Screen name='hero' component={Hero} />
-//     </Stack.Navigator>
-//   )
-// }
-
-
-export const HomeStack = () => {
+export const HomeStack = (props) => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name='home' component={Home} />
+      <Stack.Screen name='menu' component={MenuStack} initialParams={props?.route?.params} />
     </Stack.Navigator>
   )
 }
 
-export const MenuStack = () => {
+export const MenuStack = (props) => {
+  useEffect(() => {
+    props?.route?.params?.bool && props?.navigation?.getParent()?.setOptions({ headerShown: false })
+    return () => props?.route?.params?.bool && props?.navigation?.getParent()?.setOptions({ headerShown: true })
+  }, [])
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='menu' component={Menu} />
-      <Stack.Screen name='product' component={Product} />
-
-    </Stack.Navigator>
-  )
-}
-
-export const LoginStack = () => {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='login' component={LogIn} />
-    </Stack.Navigator>
-  )
-}
-
-export const SignUpStack = () => {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='signup' component={SignUp} />
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: props?.route?.params?.bool,
+        headerTitleStyle: {
+          fontSize: 40,
+        },
+        headerStyle: {
+          height: 80,
+          backgroundColor: 'whitesmoke',
+        },
+      }}
+      screenOptions={{}}
+    >
+      <Stack.Screen
+        name='menuStack'
+        component={Menu}
+        options={({ navigation, route }) => {
+          return {
+            headerTitleStyle: { fontSize: 25 },
+            title: 'Menu',
+            headerLeft: () => (
+              <Pressable
+                onPress={() => {
+                  navigation.goBack()
+                }}
+              >
+                <View style={{ marginRight: 20 }}>
+                  <AntDesign name='back' size={24} color='black' />
+                </View>
+              </Pressable>
+            ),
+          }
+        }}
+      />
+      <Stack.Screen
+        name='product'
+        component={Product}
+        options={({ navigation, route }) => {
+          return {
+            headerTitleStyle: { fontSize: 25 },
+            title: route.params.chosen.name,
+            headerLeft: () => (
+              <Pressable
+                onPress={() => {
+                  navigation.goBack()
+                }}
+              >
+                <View style={{ marginRight: 20 }}>
+                  <AntDesign name='back' size={24} color='black' />
+                </View>
+              </Pressable>
+            ),
+          }
+        }}
+      />
+      <Stack.Screen
+        name='cart'
+        component={Cart}
+        options={({ navigation, route }) => {
+          return {
+            headerTitleStyle: { fontSize: 25 },
+            title: 'Carrito',
+            headerLeft: () => (
+              <Pressable
+                onPress={() => {
+                  navigation.goBack()
+                }}
+              >
+                <View style={{ marginRight: 20 }}>
+                  <AntDesign name='back' size={24} color='black' />
+                </View>
+              </Pressable>
+            ),
+          }
+        }}
+      />
     </Stack.Navigator>
   )
 }
@@ -82,4 +139,3 @@ export const ProfileStack = () => {
 //     </Stack.Navigator>
 //   )
 // }
-
