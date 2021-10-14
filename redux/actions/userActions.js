@@ -65,18 +65,19 @@ const userActions = {
   },
   manageCart: (body) => {
     return async (dispatch) => {
-      let token = localStorage.getItem('token')
+      let token = AsyncStorage.getItem('token')
       if (!token) {
-        let cart = JSON.parse(localStorage.getItem('cart'))
-        localStorage.setItem('cart', cart ? JSON.stringify([...cart, body.cartItem]) : JSON.stringify([body.cartItem]))
+        let cart = JSON.parse(AsyncStorage.getItem('cart'))
+        AsyncStorage.setItem('cart', cart ? JSON.stringify([...cart, body.cartItem]) : JSON.stringify([body.cartItem]))
       } else {
         try {
           let response = await axios.put(`${HOST}/api/products`, body)
           if (!response?.data?.success) throw new Error('Algo salió mal')
-          return dispatch({
+          dispatch({
             type: 'HANDLE_CART',
             payload: response.data.userData,
           })
+          return response.data
         } catch (error) {
           console.log(error)
         }
@@ -85,7 +86,7 @@ const userActions = {
   },
   favHandler: (body) => {
     return async (dispatch) => {
-      let token = localStorage.getItem('token')
+      let token = AsyncStorage.getItem('token')
       try {
         let response = await axios.put(`${HOST}/api/products/favs`, body, {
           headers: {
