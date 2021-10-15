@@ -24,14 +24,24 @@ const Cart = (props) => {
           }}
         />
       </View>
-      <View style={styles.resume}>
-        <TouchableOpacity
-          onPress={() => props.navigation.push('checkout', { bool: true })}
-          style={styles.button}
-        >
-          <Text style={{ color: '#fff' }}> Pagar</Text>
-        </TouchableOpacity>
-        <Text style={styles.totalPrice}>Total: $ 000</Text>
+      <View style={styles.resumen}>
+        {!props?.cart?.length ? (
+          <Text style={{ ...styles.totalPrice, color: 'gray', marginTop: 50 }}>
+            No has agregado ningún producto al carrito
+          </Text>
+        ) : (
+          <>
+            <TouchableOpacity
+              onPress={() => props.navigation.push('checkout', { bool: true })}
+              style={styles.button}
+            >
+              <Text style={{ color: '#fff', textAlign: 'center', fontSize: 20 }}> Pagar</Text>
+            </TouchableOpacity>
+            <Text style={styles.totalPrice}>
+              Total: $ {props?.cart?.reduce((acc, item) => acc + item.totalPrice, 0)}
+            </Text>
+          </>
+        )}
       </View>
     </View>
   )

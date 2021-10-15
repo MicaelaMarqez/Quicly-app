@@ -1,12 +1,14 @@
-import React, { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
-
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import React from 'react'
 const Confirmation = () => {
   return (
     <View>
       <View style={styles.container}>
         <Text style={styles.title}>Gracias</Text>
         <Text style={styles.subtitle}> por tu compra!</Text>
-        <Text style={styles.text}>pronto recibiras un mail con la confirmación y detalle de compra</Text>
+        <Text style={styles.text}>
+          Pronto recibiras un mail con la confirmación y detalle de compra
+        </Text>
 
         <Image source={require('../assets/confirmation.png')} style={styles.imagen} />
         <TouchableOpacity style={styles.button}>
@@ -39,7 +41,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     textAlign: 'center',
-    paddingTop: 8,
+    paddingVertical: 30,
   },
 
   container: {

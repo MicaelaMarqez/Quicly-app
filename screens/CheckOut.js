@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, Text, View, StyleSheet, ImageBackground, Pressable, Modal } from 'react-native'
+import {
+  ScrollView,
+  Text,
+  View,
+  StyleSheet,
+  ImageBackground,
+  Pressable,
+  Modal,
+  Dimensions,
+} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { connect } from 'react-redux'
 import userActions from '../redux/actions/userActions'
@@ -324,13 +333,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    width: Dimensions.get('window').width,
   },
   modalView: {
-    width: '90%',
+    width: '100%',
     margin: 20,
     borderRadius: 11,
-    padding: 35,
-    alignItems: 'center',
+    padding: 10,
   },
   textStyle: {
     color: 'white',
