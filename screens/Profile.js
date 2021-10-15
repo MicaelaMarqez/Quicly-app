@@ -30,7 +30,7 @@ const Profile = ({ userData, navigation }) => {
             </Text>
           </View>
           <View style={styles.containerProfileImage}>
-            <ImageBackground style={styles.imageProfile} onPress={() => setChangeComponent('data')} resizeMode='cover' source={{ uri: userData.data.src }}></ImageBackground>
+            <ImageBackground style={styles.imageProfile} onPress={() => setChangeComponent('data')} resizeMode='cover' source={{ uri: 'https://i.postimg.cc/nV5LvNJQ/pi-a.jpg' }}></ImageBackground>
           </View>
         </View>
         <View style={styles.containAllBoxComponent}>
