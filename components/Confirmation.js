@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
-const Confirmation = () => {
+const Confirmation = ({ navigation }) => {
   return (
     <View>
       <View style={styles.container}>
@@ -11,7 +11,7 @@ const Confirmation = () => {
         </Text>
 
         <Image source={require('../assets/confirmation.png')} style={styles.imagen} />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity onPress={() => navigation.navigate('home')} style={styles.button}>
           <Text style={styles.textHome}>Home</Text>
         </TouchableOpacity>
       </View>

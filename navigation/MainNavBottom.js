@@ -6,7 +6,7 @@ import { Ionicons, AntDesign } from '@expo/vector-icons'
 
 const Bottom = createBottomTabNavigator()
 
-const CartBottom = ({ route }) => {
+const CartBottom = ({ route, navigation }) => {
   return (
     <Bottom.Navigator
       screenOptions={({ route }) => ({
@@ -18,6 +18,7 @@ const CartBottom = ({ route }) => {
           height: 80,
           backgroundColor: 'whitesmoke',
         },
+        tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,
       })}
     >
@@ -52,8 +53,17 @@ const CartBottom = ({ route }) => {
               )}
             </View>
           ),
+          headerLeft: () => (
+            <Ionicons
+              onPress={() => navigation.toggleDrawer()}
+              name='menu-sharp'
+              size={24}
+              color='black'
+              style={{ marginLeft: 15 }}
+            />
+          ),
           headerStyle: { height: 60 },
-          title: 'Inicio',
+          title: 'Bienvenido',
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'gray',
           drawerIcon: () => <Ionicons name='home-outline' size={24} color='black' />,

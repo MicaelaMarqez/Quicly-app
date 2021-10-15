@@ -39,7 +39,9 @@ export const HomeStack = (props) => {
 export const MenuStack = (props) => {
   useEffect(() => {
     props?.route?.params?.bool && props?.navigation?.getParent()?.setOptions({ headerShown: false })
-    return () => props?.route?.params?.bool && props?.navigation?.getParent()?.setOptions({ headerShown: true })
+    return () =>
+      props?.route?.params?.bool &&
+      props?.navigation?.getParent()?.setOptions({ headerShown: true })
   }, [])
   return (
     <Stack.Navigator
@@ -55,6 +57,7 @@ export const MenuStack = (props) => {
       }}
     >
       <Stack.Screen
+        initialParams={props?.route?.params}
         name='menuStack'
         component={Menu}
         options={({ navigation, route }) => {
@@ -131,21 +134,12 @@ export const ProfileStack = () => {
 export const CartStack = (props) => {
   useEffect(() => {
     props?.route?.params?.bool && props?.navigation?.getParent()?.setOptions({ headerShown: false })
-    return () => props?.route?.params?.bool && props?.navigation?.getParent()?.setOptions({ headerShown: true })
+    return () =>
+      props?.route?.params?.bool &&
+      props?.navigation?.getParent()?.setOptions({ headerShown: true })
   }, [])
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: props?.route?.params?.bool,
-        headerTitleStyle: {
-          fontSize: 40,
-        },
-        headerStyle: {
-          height: 80,
-          backgroundColor: 'whitesmoke',
-        },
-      }}
-    >
+    <Stack.Navigator screenOptions={{ headerShown: props?.route?.params?.bool }}>
       <Stack.Screen
         name='cart'
         component={Cart}

@@ -45,7 +45,6 @@ const PaymentScreen = ({ pay, payAction, ...props }) => {
     if (error) {
       Alert.alert('Algo salió mal!')
     } else if (paymentIntent) {
-      Alert.alert('Pago exitoso')
       const order = {
         purchased: cart,
         customerId: paymentIntent.id,

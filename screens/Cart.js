@@ -4,6 +4,7 @@ import { ScrollView, View, Text, StyleSheet, TouchableOpacity, ImageBackground }
 import { connect } from 'react-redux'
 import { flexDirection } from 'styled-system'
 import CartItem from '../components/CartItem'
+import userActions from '../redux/actions/userActions'
 
 const Cart = (props) => {
   return (
@@ -20,7 +21,14 @@ const Cart = (props) => {
           data={props?.cart}
           keyExtractor={(item) => item._id}
           renderItem={({ item, index }) => {
-            return <CartItem cartItem={item} index={index} />
+            return (
+              <CartItem
+                cartItem={item}
+                index={index}
+                manageCart={props.manageCart}
+                _id={props?.userData?._id}
+              />
+            )
           }}
         />
       </View>
@@ -50,10 +58,15 @@ const Cart = (props) => {
 const mapStateToProps = (state) => {
   return {
     cart: state.users.cart,
+    userData: state.users.userData,
   }
 }
 
-export default connect(mapStateToProps)(Cart)
+const mapDispatchToProps = {
+  manageCart: userActions.manageCart,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)
 
 const styles = StyleSheet.create({
   container: {

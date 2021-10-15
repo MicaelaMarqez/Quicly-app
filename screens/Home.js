@@ -1,34 +1,79 @@
 import React from 'react'
-import { Text, View, StyleSheet, ImageBackground, TouchableOpacity, ScrollView } from 'react-native'
+import {
+  Text,
+  View,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
+  ScrollView,
+  Pressable,
+} from 'react-native'
 
 const Home = (props) => {
   return (
     <ScrollView>
       <View style={styles.containHeader}>
-        <ImageBackground style={styles.logo} resizeMode='contain' source={{ uri: 'https://i.postimg.cc/k4DZHwVH/loguito.png' }}></ImageBackground>
+        <ImageBackground
+          style={styles.logo}
+          resizeMode='contain'
+          source={{ uri: 'https://i.postimg.cc/k4DZHwVH/loguito.png' }}
+        ></ImageBackground>
         <View style={styles.containerCard}>
           <View style={styles.boxCard}>
-            <View style={styles.cardHome}>
-              <ImageBackground resizeMode='contain' source={{ uri: 'https://i.postimg.cc/pr9w1gTY/hamburguesas.webp' }} style={styles.imageCard}></ImageBackground>
+            <Pressable
+              onPress={() =>
+                props.navigation.push('menu', { bool: true, filterBy: 'Hamburguesas' })
+              }
+              style={styles.cardHome}
+            >
+              <ImageBackground
+                resizeMode='contain'
+                source={{ uri: 'https://i.postimg.cc/pr9w1gTY/hamburguesas.webp' }}
+                style={styles.imageCard}
+              ></ImageBackground>
               <Text style={styles.category}>Hamburguesas</Text>
-            </View>
-            <View style={styles.cardHome}>
-              <ImageBackground resizeMode='contain' source={{ uri: 'https://i.postimg.cc/13zjWkjg/pizza.webp' }} style={styles.imageCard}></ImageBackground>
+            </Pressable>
+            <Pressable
+              onPress={() => props.navigation.push('menu', { bool: true, filterBy: 'Pizzas' })}
+              style={styles.cardHome}
+            >
+              <ImageBackground
+                resizeMode='contain'
+                source={{ uri: 'https://i.postimg.cc/13zjWkjg/pizza.webp' }}
+                style={styles.imageCard}
+              ></ImageBackground>
               <Text style={styles.category}>Pizzas</Text>
-            </View>
+            </Pressable>
           </View>
           <View style={styles.boxCard}>
-            <View style={styles.cardHome}>
-              <ImageBackground resizeMode='contain' source={{ uri: 'https://i.postimg.cc/wTwWsWj9/saludable.webp' }} style={styles.imageCard}></ImageBackground>
+            <Pressable
+              onPress={() => props.navigation.push('menu', { bool: true, filterBy: 'Ensaladas' })}
+              style={styles.cardHome}
+            >
+              <ImageBackground
+                resizeMode='contain'
+                source={{ uri: 'https://i.postimg.cc/wTwWsWj9/saludable.webp' }}
+                style={styles.imageCard}
+              ></ImageBackground>
               <Text style={styles.category}>Ensaladas</Text>
-            </View>
-            <View style={styles.cardHome}>
-              <ImageBackground resizeMode='contain' source={{ uri: 'https://i.postimg.cc/HsdnRzHD/milanesas.webp' }} style={styles.imageCard}></ImageBackground>
+            </Pressable>
+            <Pressable
+              onPress={() => props.navigation.push('menu', { bool: true, filterBy: 'Milanesas' })}
+              style={styles.cardHome}
+            >
+              <ImageBackground
+                resizeMode='contain'
+                source={{ uri: 'https://i.postimg.cc/HsdnRzHD/milanesas.webp' }}
+                style={styles.imageCard}
+              ></ImageBackground>
               <Text style={styles.category}>Milanesas</Text>
-            </View>
+            </Pressable>
           </View>
         </View>
-        <TouchableOpacity style={styles.button} onPress={() => props.navigation.push('menu', { bool: true })}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => props.navigation.navigate('menu', { bool: true })}
+        >
           <Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }}>Ver mas</Text>
         </TouchableOpacity>
       </View>
@@ -101,6 +146,7 @@ const styles = StyleSheet.create({
     shadowRadius: 15,
     elevation: 5,
     marginTop: '10%',
+    marginBottom: '10%',
   },
   containerCarouselBody: {
     height: 200,

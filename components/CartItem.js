@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
+import { AntDesign } from '@expo/vector-icons'
 
-const CartItem = ({ cartItem }) => {
+const CartItem = ({ cartItem, manageCart, _id }) => {
   return (
     <View style={styles.slide}>
       {/* <View style={styles.infoContainer}>
@@ -16,12 +17,19 @@ const CartItem = ({ cartItem }) => {
       <View style={{ width: '15%' }}>
         <Text style={styles.text}>{cartItem?.totalAmount}x</Text>
       </View>
-      <View style={{ width: '65%' }}>
+      <View style={{ width: '50%' }}>
         <Text style={styles.text}>{cartItem?.productId?.name}</Text>
-        <Text style={styles.text}>${cartItem?.productId?.price}</Text>
       </View>
-      <View style={{ width: '20%', alignItems: 'flex-end' }}>
+      <View style={{ width: '20%' }}>
         <Text style={styles.total}>${cartItem?.unitaryPrice}</Text>
+      </View>
+      <View>
+        <AntDesign
+          onPress={() => manageCart({ action: 'delete', cartItem, _id })}
+          name='delete'
+          size={24}
+          color='black'
+        />
       </View>
     </View>
   )
@@ -105,11 +113,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   text: {
-    fontSize: 18
+    fontSize: 18,
   },
   total: {
     fontWeight: 'bold',
     fontSize: 18,
-    color: 'tomato'
-  }
+    color: 'tomato',
+  },
 })

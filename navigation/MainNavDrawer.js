@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Image, Pressable, Text, View } from 'react-native'
 import { MenuStack, ProfileStack } from './MainNavStack'
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItem,
+  DrawerItemList,
+} from '@react-navigation/drawer'
 import Preloader from '../components/Preloader'
 import { AntDesign, Ionicons } from '@expo/vector-icons'
 import { connect } from 'react-redux'
@@ -114,7 +119,12 @@ const MainNavDrawer = ({ user, ...props }) => {
     >
       {user && (
         <>
-          <Drawer.Screen name='Home' component={CartBottom} initialParams={user} />
+          <Drawer.Screen
+            name='Home'
+            component={CartBottom}
+            initialParams={user}
+            options={{ drawerIcon: () => <Ionicons name='home-outline' size={24} color='black' /> }}
+          />
           <Drawer.Screen
             name='Menu'
             component={MenuStack}
