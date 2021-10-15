@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback, Keyboard, ImageBackground, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback, Keyboard, ImageBackground, Dimensions, Pressable } from 'react-native'
 import { connect } from 'react-redux'
 import userActions from '../redux/actions/userActions'
-import { useToast, Box, ScrollView } from 'native-base'
+import { useToast, Box, ScrollView, Button } from 'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Input } from 'react-native-elements'
 

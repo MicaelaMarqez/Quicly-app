@@ -9,6 +9,7 @@ import PaymentScreen from '../screens/Card'
 import Cart from '../screens/Cart'
 import { Pressable } from 'react-native'
 import { View } from 'native-base'
+import CheckOut from '../screens/CheckOut'
 
 const Stack = createNativeStackNavigator()
 
@@ -102,6 +103,27 @@ export const MenuStack = (props) => {
           return {
             headerTitleStyle: { fontSize: 25 },
             title: 'Carrito',
+            headerLeft: () => (
+              <Pressable
+                onPress={() => {
+                  navigation.goBack()
+                }}
+              >
+                <View style={{ marginRight: 20 }}>
+                  <AntDesign name='back' size={24} color='black' />
+                </View>
+              </Pressable>
+            ),
+          }
+        }}
+      />
+      <Stack.Screen
+        name='checkout'
+        component={CheckOut}
+        options={({ navigation, route }) => {
+          return {
+            headerTitleStyle: { fontSize: 25 },
+            title: 'Check Out',
             headerLeft: () => (
               <Pressable
                 onPress={() => {

@@ -1,29 +1,32 @@
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 let initialState = {
   token: null,
   user: null,
   userData: null,
-  cart: [], //localStorage.getItem('cart') ||
-  orders: [], //localStorage.getItem('orders') ||
-  socket: null,
+  cart: [],
+  orders: [],
+  activeAddress: {},
 }
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOG_IN':
-      let { token, userData, user, } = action.payload
-      // localStorage.setItem('token', token)
-      // !keep && localStorage.setItem('cart', JSON.stringify(userData.cart))
+      let { token, userData, user } = action.payload
+
       return {
         ...state,
         token: token,
         user: user,
         userData: userData,
-        // cart: keep ? state.cart : userData.cart,
+        cart: userData.cart,
+      }
+    case 'SET_ACTIVE_ADDRESS':
+      return {
+        ...state,
+        activeAddress: action.payload,
       }
     case 'CREATE_ORDER':
-      state.socket.emit('createOrder')
       let { newOrder } = action.payload
       return {
         ...state,
@@ -45,11 +48,10 @@ const userReducer = (state = initialState, action) => {
           ordersId: cancell(state.userData.ordersId),
         },
       }
-    case 'SET_SOCKET':
-      const { socket } = action.payload
+    case 'UPDATE_PHOTO':
       return {
         ...state,
-        socket,
+        userData: { ...state.userData, data: { ...state.userData.data, src: action.payload.userData.data.src } },
       }
     case 'HANDLE_CART':
       AsyncStorage.setItem('cart', JSON.stringify(action.payload.cart))
@@ -58,12 +60,15 @@ const userReducer = (state = initialState, action) => {
         userData: action.payload,
         cart: action.payload.cart,
       }
+    case 'RESET_CART':
+      AsyncStorage.setItem('cart', JSON.stringify([]))
+      return { ...state, cart: [] }
     case 'LOG_OUT':
-      return {
-        token: null,
-        user: null,
-        userData: null
-      }
+      AsyncStorage.removeItem('token')
+      AsyncStorage.removeItem('socket')
+      AsyncStorage.setItem('cart', JSON.stringify([]))
+      AsyncStorage.setItem('orders', JSON.stringify([]))
+      return initialState
 
     default:
       return state

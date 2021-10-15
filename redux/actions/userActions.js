@@ -1,6 +1,6 @@
 import axios from 'axios'
 const HOST = 'https://quickly-food.herokuapp.com'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const userActions = {
   createUser: (user, props) => {
@@ -45,6 +45,13 @@ const userActions = {
       return dispatch({ type: 'LOG_OUT' })
     }
   },
+  uploadPhoto: (img, _id) => {
+    return async (dispatch) => {
+      let res = await axios.post(`http://localhost:4000/api/mob/userimg`, { img, _id })
+      console.log(res)
+      return dispatch({ type: 'UPDATE_PHOTO', payload: res.data })
+    }
+  },
   verifyToken: (token) => {
     return async (dispatch) => {
       try {
@@ -63,6 +70,23 @@ const userActions = {
       }
     }
   },
+  pay: (cart) => {
+    return async () => {
+      try {
+        let res = await axios.post(`${HOST}/api/create-payment-intent`, { cart })
+        const { client_secret } = res.data.paymentIntent
+        return client_secret
+      } catch (err) {
+        console.log(err.message)
+      }
+    }
+  },
+
+  selectActiveAddress: (address) => {
+    return (dispatch) => {
+      dispatch({ type: 'SET_ACTIVE_ADDRESS', payload: address })
+    }
+  },
   manageCart: (body) => {
     return async (dispatch) => {
       let token = AsyncStorage.getItem('token')
@@ -73,6 +97,7 @@ const userActions = {
         try {
           let response = await axios.put(`${HOST}/api/products`, body)
           if (!response?.data?.success) throw new Error('Algo salió mal')
+          // console.log(response.data)
           dispatch({
             type: 'HANDLE_CART',
             payload: response.data.userData,
@@ -106,7 +131,7 @@ const userActions = {
   },
   updateUser: ({ action, userData, fileImg, currentPassword, password, newPaymentCard, paymentCardId, newAddress, addressId }) => {
     return async (dispatch) => {
-     let token = await AsyncStorage.getItem('token')
+      let token = await AsyncStorage.getItem('token')
       let body = fileImg || {
         action,
         userData,
@@ -127,7 +152,7 @@ const userActions = {
           type: 'LOG_IN',
           payload: { ...res.data, token, keep: true },
         })
-        return res.data 
+        return res.data
       } catch (error) {
         console.log(error)
         // return dispatch({ type: 'LOG_OUT' })

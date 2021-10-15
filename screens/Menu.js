@@ -6,6 +6,7 @@ import CategorySection from '../components/CategorySection'
 import Preloader from '../components/Preloader'
 import { NativeBaseProvider, Button } from 'native-base'
 import CategoryList from '../components/CategoryList'
+import FloatingButton from './FloatingButton'
 
 const Menu = (props) => {
   const [loader, setLoader] = useState(true)
@@ -91,6 +92,7 @@ const Menu = (props) => {
               return <CategorySection route={props.route} navigation={props.navigation} products={products} key={category} category={category} />
             })
         )}
+        <FloatingButton func={() => props.navigation.push('cart')} />
       </ScrollView>
     </NativeBaseProvider>
   )

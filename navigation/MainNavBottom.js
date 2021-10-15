@@ -5,7 +5,7 @@ import LogIn from '../screens/LogIn'
 import Profile from '../screens/Profile'
 import SignUp from '../screens/SignUp'
 import Menu from '../screens/Menu'
-import Card from '../screens/Card.tsx'
+import Card from '../screens/Card.js'
 import CheckOut from '../screens/CheckOut'
 
 const Bottom = createBottomTabNavigator()

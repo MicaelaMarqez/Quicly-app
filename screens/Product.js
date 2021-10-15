@@ -5,6 +5,7 @@ import { RadioButton, Checkbox, TextInput } from 'react-native-paper'
 import { connect } from 'react-redux'
 import userActions from '../redux/actions/userActions'
 import { ScrollView } from 'native-base'
+import FloatingButton from './FloatingButton'
 
 const Product = (props) => {
   const chosen = props.route.params.chosen
@@ -109,7 +110,6 @@ const Product = (props) => {
         dif: edit ? props.editItem.totalAmount - cartItem.totalAmount : null,
       })
       if (!response.success) throw new Error()
-      console.log(response)
       props.navigation.push('cart')
       //sacarr del componente
     } catch (e) {

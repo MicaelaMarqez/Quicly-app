@@ -17,27 +17,31 @@ const orderActions = {
   },
 
   // const { products, delivery, paymentMethod } = req.body
-  createOrder: (order) => {
-    return async (dispatch, getState) => {
+  createOrder: (props, order) => {
+    return async (dispatch) => {
       try {
         const res = await axios.post(`${HOST}/api/orders`, order)
         if (!res.data.success) throw new Error(res.data.error)
         const { newOrder, userData } = res.data.response
-        return dispatch({ type: 'CREATE_ORDER', payload: { newOrder, userData } })
+        dispatch({ type: 'CREATE_ORDER', payload: { newOrder, userData } })
+        dispatch({ type: 'RESET_CART' })
+        return props.navigation.navigate('home')
       } catch (e) {
         return { success: false, response: null, error: e.message }
       }
     }
   },
-
-  cancelOrder: (orderId) => {
-    return async (dispatch, getState) => {
+  cancellOrder: (orderId) => {
+    return async (dispatch) => {
       try {
-        const res = await axios.put(`${HOST}/api/orders`, orderId)
+        const res = await axios.put(`${HOST}/api/order/` + orderId)
         if (!res.data.success) throw new Error(res.data.error)
-        const { orderCancelled } = res.data.resoponse
-        return dispatch({ type: 'CANCEL_ORDER', payload: { orderCancelled } })
+        const { orderCancelled, products } = res.data.response
+        dispatch({ type: 'EMIT_CANCELL' })
+        dispatch({ type: 'GET_PRODUCTS', payload: products })
+        return dispatch({ type: 'CANCELL_ORDER', payload: { orderCancelled } })
       } catch (e) {
+        console.log(e.message)
         return { success: false, response: null, error: e.message }
       }
     }
