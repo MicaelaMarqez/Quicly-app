@@ -19,7 +19,7 @@ const Cart = (props) => {
       </View>
       <View style={styles.resume}>
         <Text>Mi pedido</Text>
-        <TouchableOpacity onPress={() => props.navigation.push('checkout')} style={styles.button}>
+        <TouchableOpacity onPress={() => props.navigation.push('checkout', { bool: true })} style={styles.button}>
           <Text style={{ color: '#fff' }}> Pagar</Text>
         </TouchableOpacity>
       </View>

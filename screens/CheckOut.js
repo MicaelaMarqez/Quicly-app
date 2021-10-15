@@ -1,12 +1,42 @@
-import React, { useState } from 'react'
-import { ScrollView, Text, View, StyleSheet, ImageBackground, Pressable } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { ScrollView, Text, View, StyleSheet, ImageBackground, Pressable, Modal } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { connect } from 'react-redux'
 import userActions from '../redux/actions/userActions'
 import CreditCard from './Card'
+import { MaterialIcons } from '@expo/vector-icons'
+import CardAddress from '../components/CardAddress'
+import { FlatList } from 'native-base'
+const OrderItem = ({ orderItem }) => (
+  <View style={styles.cardContainer2}>
+    <View style={styles.cardContainer}>
+      <ImageBackground
+        style={styles.imageBox}
+        resizeMode='cover'
+        source={{
+          uri: 'https://d1uz88p17r663j.cloudfront.net/original/f10d69e7fede5cd6200a8ddd41b3cb68_hamburguesa-parrillera.jpg',
+        }}
+      ></ImageBackground>
+      <View style={styles.boxMenu}>
+        <View style={styles.menu}>
+          <Text style={styles.text}>{orderItem?.totalAmount}</Text>
+          <Text style={styles.productName}>{orderItem?.productId?.name}</Text>
+        </View>
+        <Text style={styles.text}>$ {orderItem?.totalPrice}</Text>
+      </View>
+    </View>
+    <View style={styles.line}></View>
+  </View>
+)
 
 const CheckOut = (props) => {
   const [pay, setPay] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false)
+  const [address, setAddress] = useState('')
+  const { street, number, apartment } = props?.activeAddress
+  useEffect(() => {
+    setAddress(`${street} ${number} ${apartment}`)
+  }, [props?.activeAddress])
   return (
     <ScrollView>
       <View style={styles.main}>
@@ -16,51 +46,23 @@ const CheckOut = (props) => {
         <View style={styles.boxCard}>
           <View style={styles.containAddress}>
             <Text style={styles.addressTitle}>Dirección de entrega</Text>
-            <Text style={styles.address}>Av. Rivadavia 1194, Caba. Argentina</Text>
+            <Text style={styles.address}>{address}</Text>
           </View>
-          <Text style={styles.btnText}>Cambiar</Text>
+          <Pressable onPress={() => setModalVisible(!modalVisible)}>
+            <Text style={styles.btnText}>Cambiar</Text>
+          </Pressable>
         </View>
         <View style={styles.boxCard2}>
-          <View style={styles.cardContainer2}>
-            <View style={styles.cardContainer}>
-              <ImageBackground
-                style={styles.imageBox}
-                resizeMode='cover'
-                source={{ uri: 'https://d1uz88p17r663j.cloudfront.net/original/f10d69e7fede5cd6200a8ddd41b3cb68_hamburguesa-parrillera.jpg' }}
-              ></ImageBackground>
-              <View style={styles.boxMenu}>
-                <View style={styles.menu}>
-                  <Text style={styles.text}>1</Text>
-                  <Text style={styles.productName}>Nombre Producto</Text>
-                </View>
-                <Text style={styles.text}>$ 0000</Text>
-              </View>
-            </View>
-            <View style={styles.line}></View>
-          </View>
-          <View style={styles.cardContainer2}>
-            <View style={styles.cardContainer}>
-              <ImageBackground
-                style={styles.imageBox}
-                resizeMode='cover'
-                source={{ uri: 'https://d1uz88p17r663j.cloudfront.net/original/f10d69e7fede5cd6200a8ddd41b3cb68_hamburguesa-parrillera.jpg' }}
-              ></ImageBackground>
-              <View style={styles.boxMenu}>
-                <View style={styles.menu}>
-                  <Text style={styles.text}>1</Text>
-                  <Text style={styles.productName}>Nombre Producto</Text>
-                </View>
-                <Text style={styles.text}>$ 0000</Text>
-              </View>
-            </View>
-            <View style={styles.line}></View>
-          </View>
+          <FlatList
+            data={props.cart}
+            keyExtractor={(item) => item._id}
+            renderItem={({ item, index }) => <OrderItem orderItem={item} />}
+          />
         </View>
         <View style={styles.boxCard}>
           <View style={styles.box}>
             <View style={styles.paymentBox}>
               <Text style={styles.paymentTitle}>Método de pago</Text>
-              <Text style={styles.btnText}>Cambiar</Text>
             </View>
             <View style={styles.cardLine}>
               <View style={styles.paymentMethod}>
@@ -74,15 +76,55 @@ const CheckOut = (props) => {
         </View>
         <View style={styles.boxImage}>
           <Text style={styles.phrase}>¡Ya casi!</Text>
-          <ImageBackground style={styles.imageBtn} resizeMode='cover' source={{ uri: 'https://i.postimg.cc/xCRgB988/yacasi-Burguer.png' }}></ImageBackground>
+          <ImageBackground
+            style={styles.imageBtn}
+            resizeMode='cover'
+            source={{ uri: 'https://i.postimg.cc/xCRgB988/yacasi-Burguer.png' }}
+          ></ImageBackground>
         </View>
         <Pressable onPress={() => setPay(true)} style={styles.buttonPayment}>
           <View style={styles.accept}>
             <Icon name='check-circle' size={20} color='white' marginLeft='5%' />
             <Text style={styles.button}>Hacer pedido</Text>
           </View>
-          <Text style={styles.buttonPrice}>$ {props?.cart?.reduce((acc, item) => acc + item.totalPrice, 0)}</Text>
+          <Text style={styles.buttonPrice}>
+            $ {props?.cart?.reduce((acc, item) => acc + item.totalPrice, 0)}
+          </Text>
         </Pressable>
+
+        <Modal
+          animationType='fade'
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(!modalVisible)}
+        >
+          <ImageBackground
+            resizeMode='cover'
+            style={styles.centeredView}
+            source={{ uri: 'https://i.postimg.cc/3JsnjLSx/adress.png' }}
+          >
+            <View style={styles.containerClose}>
+              <Pressable style={styles.containerCloseImage} onPress={() => setModalVisible(false)}>
+                <MaterialIcons name='cancel' size={33} color='white' />
+              </Pressable>
+            </View>
+            <View style={styles.modalView}>
+              {
+                <FlatList
+                  data={props?.userData?.addresses}
+                  keyExtractor={(item) => item._id}
+                  renderItem={({ item }) => (
+                    <CardAddress
+                      address={item}
+                      selectActiveAddress={props?.selectActiveAddress}
+                      setModalVisible={setModalVisible}
+                    />
+                  )}
+                />
+              }
+            </View>
+          </ImageBackground>
+        </Modal>
       </View>
     </ScrollView>
   )
@@ -92,16 +134,26 @@ const mapStateToProps = (state) => {
   return {
     userData: state.users.userData,
     cart: state.users.cart,
+    activeAddress: state.users.activeAddress,
   }
 }
 
 const mapDispatchToProps = {
   manageCart: userActions.manageCart,
+  selectActiveAddress: userActions.selectActiveAddress,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CheckOut)
 
 const styles = StyleSheet.create({
+  containerClose: {
+    width: '100%',
+    alignItems: 'flex-end',
+  },
+  containerCloseImage: {
+    width: 50,
+    height: 50,
+  },
   main: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -122,7 +174,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     padding: '5%',
-    width: '90%',
+    width: '95%',
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
@@ -267,5 +319,26 @@ const styles = StyleSheet.create({
   },
   cardLine: {
     marginTop: '4%',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalView: {
+    width: '90%',
+    margin: 20,
+    borderRadius: 11,
+    padding: 35,
+    alignItems: 'center',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
   },
 })

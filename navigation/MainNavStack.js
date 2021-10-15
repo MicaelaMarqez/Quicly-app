@@ -53,7 +53,6 @@ export const MenuStack = (props) => {
           backgroundColor: 'whitesmoke',
         },
       }}
-      screenOptions={{}}
     >
       <Stack.Screen
         name='menuStack'
@@ -99,6 +98,56 @@ export const MenuStack = (props) => {
       />
       <Stack.Screen
         name='cart'
+        component={CartStack}
+        options={({ navigation, route }) => {
+          return {
+            headerTitleStyle: { fontSize: 25 },
+            title: 'Carrito',
+            headerLeft: () => (
+              <Pressable
+                onPress={() => {
+                  navigation.goBack()
+                }}
+              >
+                <View style={{ marginRight: 20 }}>
+                  <AntDesign name='back' size={24} color='black' />
+                </View>
+              </Pressable>
+            ),
+          }
+        }}
+      />
+    </Stack.Navigator>
+  )
+}
+
+export const ProfileStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='profile' component={Profile} />
+    </Stack.Navigator>
+  )
+}
+export const CartStack = (props) => {
+  useEffect(() => {
+    props?.route?.params?.bool && props?.navigation?.getParent()?.setOptions({ headerShown: false })
+    return () => props?.route?.params?.bool && props?.navigation?.getParent()?.setOptions({ headerShown: true })
+  }, [])
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: props?.route?.params?.bool,
+        headerTitleStyle: {
+          fontSize: 40,
+        },
+        headerStyle: {
+          height: 80,
+          backgroundColor: 'whitesmoke',
+        },
+      }}
+    >
+      <Stack.Screen
+        name='cart'
         component={Cart}
         options={({ navigation, route }) => {
           return {
@@ -140,14 +189,6 @@ export const MenuStack = (props) => {
         }}
       />
       <Stack.Screen name='confirmation' component={Confirmation} options={{ headerShown: false }} />
-    </Stack.Navigator>
-  )
-}
-
-export const ProfileStack = () => {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='profile' component={Profile} />
     </Stack.Navigator>
   )
 }

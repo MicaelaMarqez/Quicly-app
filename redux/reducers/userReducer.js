@@ -21,6 +21,7 @@ const userReducer = (state = initialState, action) => {
         userData: userData,
         cart: userData.cart,
         orders: userData.ordersId,
+        activeAddress: userData.addresses[0],
       }
     case 'SET_ACTIVE_ADDRESS':
       return {

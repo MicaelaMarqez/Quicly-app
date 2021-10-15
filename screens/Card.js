@@ -12,7 +12,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const CreditCard = ({ pay, payAction, ...props }) => {
   return (
-    <StripeProvider publishableKey='pk_test_51JiHmiD8MtlvyDMXOy1Xz9IRz7S6hXvSX3YorvlFJSNbByoEHqgmIhvVuOuYgA3PiOR9hxBM0QzQcf6OlJs4VYgI00pB5OSjXZ' merchantIdentifier='merchant.identifier'>
+    <StripeProvider
+      publishableKey='pk_test_51JiHmiD8MtlvyDMXOy1Xz9IRz7S6hXvSX3YorvlFJSNbByoEHqgmIhvVuOuYgA3PiOR9hxBM0QzQcf6OlJs4VYgI00pB5OSjXZ'
+      merchantIdentifier='merchant.identifier'
+    >
       <PaymentScreen pay={pay} payAction={payAction} {...props} />
     </StripeProvider>
   )
@@ -49,7 +52,7 @@ const PaymentScreen = ({ pay, payAction, ...props }) => {
         metadata: paymentIntent,
         userId: props?.userData._id,
         paymentMethod: null,
-        deliveryAddress: { street: 'San Luis', number: '1231', apartment: '3 A' },
+        deliveryAddress: props.activeAddress,
       } //props?.activeAddress
       props.createOrder(props, order)
     }
@@ -63,7 +66,7 @@ const PaymentScreen = ({ pay, payAction, ...props }) => {
 
   return (
     <>
-      <View style={{ width: Dimensions.get('window').width - 100 }}>
+      <View style={{ width: Dimensions.get('window').width - 80 }}>
         <CardField
           postalCodeEnabled={false}
           placeholder={{

@@ -110,7 +110,7 @@ const Product = (props) => {
         dif: edit ? props.editItem.totalAmount - cartItem.totalAmount : null,
       })
       if (!response.success) throw new Error()
-      props.navigation.push('cart')
+      props.navigation.goBack()
       //sacarr del componente
     } catch (e) {
       console.log(e)

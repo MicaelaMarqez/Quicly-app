@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import AddAddress from '../components/AddAddress'
 import userActions from '../redux/actions/userActions'
 import CardAddress from './CardAddress'
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons'
 const DataProfile = ({ userData, updateUser }) => {
   const [modalVisible, setModalVisible] = useState(false)
   const [addressProfile, setAddressProfile] = useState(userData?.addresses)
@@ -69,7 +69,7 @@ const DataProfile = ({ userData, updateUser }) => {
           onChangeText={(e) => inputHandler(e, 'lastName')}
         />
         <Text style={styles.textTitleInputs}>Email</Text>
-        <TextInput placeholder='Email' defaultValue={userData?.data.email} placeholderTextColor='#333333' color='black' style={styles.inputSignUp} />
+        <TextInput placeholder='Email' editable={false} defaultValue={userData?.data.email} placeholderTextColor='#333333' color='gray' style={styles.inputSignUp} />
         <View style={styles.containerButtons}>
           <Pressable style={styles.button} onPress={cancelUpadte}>
             <Text style={{ textAlign: 'center', color: 'white', fontSize: 22 }}>Cancelar</Text>
@@ -97,7 +97,7 @@ const DataProfile = ({ userData, updateUser }) => {
       </View>
       <View style={styles.containerAddAddress}>
         <Pressable style={styles.buttonAdd} onPress={() => setModalVisible(!modalVisible)}>
-          <AntDesign name="pluscircle" size={50} color="tomato" />
+          <AntDesign name='pluscircle' size={50} color='tomato' />
         </Pressable>
       </View>
       <View style={styles.centeredView}>
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'LatoRegular',
     fontSize: 24,
-    padding: '8%'
+    padding: '8%',
   },
   containAll: {
     width: '100%',
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 30,
     fontWeight: 'bold',
-    fontSize: 26
+    fontSize: 26,
   },
   boxCard: {
     flexDirection: 'row',

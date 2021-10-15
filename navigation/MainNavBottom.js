@@ -1,28 +1,79 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import React, { useEffect } from 'react'
-import Home from '../screens/Home'
-import LogIn from '../screens/LogIn'
-import Profile from '../screens/Profile'
-import SignUp from '../screens/SignUp'
-import Menu from '../screens/Menu'
-import Card from '../screens/Card.js'
-import CheckOut from '../screens/CheckOut'
+import React from 'react'
+import { CartStack, HomeStack } from './MainNavStack'
+import { Image, Text, View } from 'react-native'
+import { Ionicons, AntDesign } from '@expo/vector-icons'
 
 const Bottom = createBottomTabNavigator()
 
-const Navigator = () => {
+const CartBottom = ({ route }) => {
   return (
-    <Bottom.Navigator>
-      <Bottom.Screen name='Card' component={Card} />
-      <Bottom.Screen name='Home' component={Home} />
-      <Bottom.Screen name='Menu' component={Menu} />
-      <Bottom.Screen name='Product' component={Product} />
-      <Bottom.Screen name='Profile' component={Profile} />
-      <Bottom.Screen name='CheckOut' component={CheckOut} />
-      <Bottom.Screen name='SignUp' component={SignUp} />
-      <Bottom.Screen name='LogIn' component={Cart} />
+    <Bottom.Navigator
+      screenOptions={({ route }) => ({
+        headerTitleStyle: {
+          fontFamily: 'LatoRegular',
+          fontSize: 24,
+        },
+        headerStyle: {
+          height: 80,
+          backgroundColor: 'whitesmoke',
+        },
+        tabBarShowLabel: false,
+      })}
+    >
+      <Bottom.Screen
+        name='homeStack'
+        component={HomeStack}
+        options={{
+          headerRight: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text
+                style={{
+                  fontFamily: 'LatoRegular',
+                  fontSize: 20,
+                  textAlign: 'center',
+                  marginRight: 15,
+                }}
+              >
+                {route?.params ? 'Hi ' + route?.params?.firstName + '!' : 'Quickly'}
+              </Text>
+              {route?.params && (
+                <Image
+                  source={{ uri: route?.params?.src }}
+                  style={{
+                    width: 45,
+                    height: 45,
+                    borderRadius: 45,
+                    marginRight: 15,
+                    borderWidth: 1,
+                    borderColor: 'black',
+                  }}
+                />
+              )}
+            </View>
+          ),
+          headerStyle: { height: 60 },
+          title: 'Inicio',
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+          drawerIcon: () => <Ionicons name='home-outline' size={24} color='black' />,
+          tabBarIcon: ({ focused, color }) => <AntDesign name='home' size={32} color={color} />,
+        }}
+      />
+      <Bottom.Screen
+        name='cartStack'
+        component={CartStack}
+        options={{
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+          headerShown: false,
+          tabBarIcon: ({ focused, color }) => (
+            <AntDesign name='shoppingcart' size={32} color={color} />
+          ),
+        }}
+      />
     </Bottom.Navigator>
   )
 }
 
-export default Navigator
+export default CartBottom
