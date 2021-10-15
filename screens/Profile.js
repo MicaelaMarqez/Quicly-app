@@ -6,7 +6,8 @@ import DataProfile from '../components/DataProfile'
 import userActions from '../redux/actions/userActions'
 import Contact from '../components/Contact'
 import { connect } from 'react-redux'
-import { FontAwesome, MaterialCommunityIcons, MaterialIcons, Entypo } from '@expo/vector-icons'
+import { FontAwesome, MaterialCommunityIcons, MaterialIcons, Entypo,  } from '@expo/vector-icons'
+
 
 const Profile = ({ userData, navigation }) => {
   const [changeComponent, setChangeComponent] = useState(<DataProfile userData={userData} />)
