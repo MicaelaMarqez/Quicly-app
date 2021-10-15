@@ -20,6 +20,7 @@ const userReducer = (state = initialState, action) => {
         user: user,
         userData: userData,
         cart: userData.cart,
+        orders: userData.ordersId,
       }
     case 'SET_ACTIVE_ADDRESS':
       return {

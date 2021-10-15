@@ -47,6 +47,7 @@ const MainNavDrawer = ({ user, ...props }) => {
 
   const DrawerInsta = (props) => (
     <DrawerContentScrollView {...props}>
+      {/* {console.log(props.navi)} */}
       {
         <View
           style={{
@@ -58,19 +59,21 @@ const MainNavDrawer = ({ user, ...props }) => {
         >
           <>
             {user && user.src && (
-              <Image
-                source={{ uri: user.src }}
-                style={{
-                  width: 50,
-                  height: 50,
-                  borderRadius: 50,
-                  marginRight: 20,
-                }}
-              />
+              <Pressable onPress={({ navigation }) => navigation.navigate('Profile')}>
+                <Image
+                  source={{ uri: user.src }}
+                  style={{
+                    width: 50,
+                    height: 50,
+                    borderRadius: 50,
+                    marginRight: 20,
+                  }}
+                />
+              </Pressable>
             )}
             <Text
               style={{
-                // fontFamily: "LatoRegular",
+                fontFamily: 'LatoRegular',
                 fontSize: 24,
                 textAlign: 'center',
               }}
@@ -90,7 +93,7 @@ const MainNavDrawer = ({ user, ...props }) => {
             props.navigation.navigate('home')
           }}
           labelStyle={{
-            // fontFamily: "Lato",
+            fontFamily: 'LatoRegular',
             fontSize: 18,
             color: 'black',
           }}
