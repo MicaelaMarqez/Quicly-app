@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Back from 'react-native-vector-icons/Entypo'
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Dimensions, Pressable } from 'react-native'
 import { RadioButton, Checkbox, TextInput } from 'react-native-paper'
 import { connect } from 'react-redux'
 import userActions from '../redux/actions/userActions'
@@ -74,7 +74,9 @@ const Product = (props) => {
     setCartItem({
       ...cartItem,
       unitaryPrice: chosen.price + fries.cost + extrasCost + (chosen.multipleDrinks ? drink.cost : 0),
-      totalPrice: chosen.multipleDrinks ? (chosen.price + fries.cost + extrasCost + drink.cost) * totalAmount : (chosen.price + fries.cost + extrasCost) * totalAmount + drink.cost,
+      totalPrice: chosen.multipleDrinks
+        ? (chosen.price + fries.cost + extrasCost + drink.cost) * totalAmount
+        : (chosen.price + fries.cost + extrasCost) * totalAmount + drink.cost,
     })
   }, [cartItem.fries, cartItem.extras, cartItem.drink])
 
@@ -159,7 +161,12 @@ const Product = (props) => {
             <View>
               {drinkChoices.map((option, index) => (
                 <View key={index} style={styles.option}>
-                  <RadioButton color='#fe6849' value={option.type} status={cartItem.drink.type === option.type ? 'checked' : 'unchecked'} onPress={() => setCartItem({ ...cartItem, drink: option })} />
+                  <RadioButton
+                    color='#fe6849'
+                    value={option.type}
+                    status={cartItem.drink.type === option.type ? 'checked' : 'unchecked'}
+                    onPress={() => setCartItem({ ...cartItem, drink: option })}
+                  />
                   <Text style={styles.text}>
                     {option.type} {option.cost !== 0 && `$${option.cost}`}
                   </Text>
@@ -203,19 +210,15 @@ const Product = (props) => {
         <View style={styles.addToCart}>
           <View style={styles.order}>
             <View style={styles.amount}>
-              <View style={styles.sign}>
-                <Text style={styles.price} onPress={() => amount('res')}>
-                  -
-                </Text>
-              </View>
+              <Pressable onPress={() => amount('res')} style={styles.sign}>
+                <Text style={styles.price}>-</Text>
+              </Pressable>
               <View style={styles.number}>
                 <Text style={styles.numer}>{cartItem.totalAmount}</Text>
               </View>
-              <View style={styles.sign}>
-                <Text style={styles.price} onPress={() => amount('sum')}>
-                  +
-                </Text>
-              </View>
+              <Pressable onPress={() => amount('sum')} style={styles.sign}>
+                <Text style={styles.price}>+</Text>
+              </Pressable>
             </View>
             {/* <Text style={styles.text}
                         onPress={addToCart}>
@@ -332,7 +335,7 @@ const styles = StyleSheet.create({
     marginTop: '-13%',
   },
   amount: {
-    width: '50%',
+    width: '70%',
     height: '20%',
     display: 'flex',
     flexDirection: 'row',

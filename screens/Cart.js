@@ -1,8 +1,8 @@
 import { FlatList, useScreenReaderEnabled } from 'native-base'
 import React from 'react'
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native'
 import { connect } from 'react-redux'
-import { flexDirection } from 'styled-system'
+import Toast from 'react-native-toast-message'
 import CartItem from '../components/CartItem'
 import userActions from '../redux/actions/userActions'
 
@@ -10,10 +10,7 @@ const Cart = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.cartTitle}>
-        <ImageBackground
-          style={styles.image}
-          source={{ uri: 'https://i.postimg.cc/kGq3vvTZ/hambur.gif' }}
-        ></ImageBackground>
+        <ImageBackground style={styles.image} source={{ uri: 'https://i.postimg.cc/kGq3vvTZ/hambur.gif' }}></ImageBackground>
         <Text style={styles.title}>Resumen de mi pedido</Text>
       </View>
       <View style={styles.productsContainer}>
@@ -21,33 +18,31 @@ const Cart = (props) => {
           data={props?.cart}
           keyExtractor={(item) => item._id}
           renderItem={({ item, index }) => {
-            return (
-              <CartItem
-                cartItem={item}
-                index={index}
-                manageCart={props.manageCart}
-                _id={props?.userData?._id}
-              />
-            )
+            return <CartItem cartItem={item} index={index} manageCart={props.manageCart} _id={props?.userData?._id} />
           }}
         />
       </View>
       <View style={styles.resumen}>
         {!props?.cart?.length ? (
-          <Text style={{ ...styles.totalPrice, color: 'gray', marginTop: 50 }}>
-            No has agregado ningún producto al carrito
-          </Text>
+          <Text style={{ ...styles.totalPrice, color: 'gray', marginTop: 50 }}>No has agregado ningún producto al carrito</Text>
         ) : (
           <>
             <TouchableOpacity
-              onPress={() => props.navigation.push('checkout', { bool: true })}
+              onPress={() =>
+                props?.userData?.addresses?.length
+                  ? props.navigation.push('checkout', { bool: true })
+                  : Toast.show({
+                      type: 'error',
+                      text1: 'Ups',
+                      text2: 'Agrega una dirección',
+                      onPress: () => console.log(props.navigation.navigate('Profile')),
+                    })
+              }
               style={styles.button}
             >
               <Text style={{ color: '#fff', textAlign: 'center', fontSize: 20 }}> Pagar</Text>
             </TouchableOpacity>
-            <Text style={styles.totalPrice}>
-              Total: $ {props?.cart?.reduce((acc, item) => acc + item.totalPrice, 0)}
-            </Text>
+            <Text style={styles.totalPrice}>Total: $ {props?.cart?.reduce((acc, item) => acc + item.totalPrice, 0)}</Text>
           </>
         )}
       </View>

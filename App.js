@@ -9,8 +9,7 @@ import rootReducer from './redux/reducers/rootReducer'
 import { initStripe } from '@stripe/stripe-react-native'
 import { NativeBaseProvider } from 'native-base'
 import { LogBox } from 'react-native'
-
-import buyConfirmation from './components/Confirmation'
+import Toast from 'react-native-toast-message'
 import { useFonts } from 'expo-font'
 import Preloader from './components/Preloader'
 LogBox.ignoreAllLogs(true)
@@ -52,6 +51,7 @@ export default function App() {
         <PaperProvider theme={theme}>
           <NativeBaseProvider>
             <Navigator />
+            <Toast ref={(ref) => Toast.setRef(ref)} />
           </NativeBaseProvider>
         </PaperProvider>
       </Provider>

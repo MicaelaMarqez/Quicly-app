@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Image, Pressable, Text, View } from 'react-native'
-import { MenuStack, ProfileStack } from './MainNavStack'
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItem,
-  DrawerItemList,
-} from '@react-navigation/drawer'
+import { MenuStack } from './MainNavStack'
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 import Preloader from '../components/Preloader'
 import { AntDesign, Ionicons } from '@expo/vector-icons'
 import { connect } from 'react-redux'
@@ -16,6 +11,7 @@ import LogIn from '../screens/LogIn'
 import SignUp from '../screens/SignUp'
 import Hero from '../screens/Hero'
 import CartBottom from './MainNavBottom'
+import Profile from '../screens/Profile'
 
 const Drawer = createDrawerNavigator()
 
@@ -99,7 +95,6 @@ const MainNavDrawer = ({ user, ...props }) => {
       )}
     </DrawerContentScrollView>
   )
-
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -138,7 +133,7 @@ const MainNavDrawer = ({ user, ...props }) => {
           />
           <Drawer.Screen
             name='Profile'
-            component={ProfileStack}
+            component={Profile}
             options={({ navigation }) => {
               return {
                 title: 'Perfil',

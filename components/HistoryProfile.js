@@ -5,52 +5,62 @@ import { connect } from 'react-redux'
 import orderActions from '../redux/actions/orderActions'
 
 const OrderCard = ({ order }) => {
-    console.log(order)
-    const [address, setAddress] = useState('')
-    const { street, number, apartment } = order?.deliveryAddress
-    useEffect(() => {
-        setAddress(`${street} ${number} ${apartment}`)
-    }, [])
-    let deliveryTime = order?.deliveryTime.split(' ').slice(4, 5)[0]
-    deliveryTime = deliveryTime?.split(':').slice(0, 2).join(':')
-    return (
-        <View style={styles.containerCard}>
-        <View style={styles.containerTitle}>
-            <Text style={styles.title}>Estado de pedido</Text>
-        </View>
-        <View style={styles.containerCardBody}>
+  console.log(order)
+  const [address, setAddress] = useState('')
+  const { street, number, apartment } = order?.deliveryAddress
+  useEffect(() => {
+    setAddress(`${street} ${number} ${apartment}`)
+  }, [])
+  let deliveryTime = order?.deliveryTime.split(' ').slice(4, 5)[0]
+  deliveryTime = deliveryTime?.split(':').slice(0, 2).join(':')
+  return (
+    <View style={styles.containerCard}>
+      <View style={styles.containerTitle}>
+        <Text style={styles.title}>Estado de pedido</Text>
+      </View>
+      <View style={styles.containerCardBody}>
         <View style={styles.containerImage}>
-            {order?.status === 'Pendiente' && <ImageBackground style={styles.imageCard} style={{ backgroundImage: 'url("https://i.postimg.cc/Ls7XBvbv/pendiente.png")' }}></ImageBackground>}
-            {order?.status === 'En preparación' && <ImageBackground style={styles.imageCard} style={{ backgroundImage: 'url("https://i.postimg.cc/KcH4B8tN/preparacion.gif")' }}></ImageBackground>}
-            {order?.status === 'En camino' && <ImageBackground style={styles.imageCard} style={{ backgroundImage: 'url("https://i.postimg.cc/rsg8yc5K/moto.png")' }}></ImageBackground>}
-            {order?.status === 'Entregado' && <ImageBackground style={styles.imageCard} style={{ backgroundImage: 'url("https://i.postimg.cc/tJtPC0mf/entregado.gif")' }}></ImageBackground>}
-            {order?.status === 'Cancelado' && <ImageBackground style={styles.imageCard} style={{ backgroundImage: 'url("https://i.postimg.cc/L5D1mLxP/cancelado.gif")' }}></ImageBackground>}
-            </View>
-            <View>
-            <View style={styles.containerText}>
-                <Text style={styles.text}>Estado: </Text>
-                <Text>{order?.status}</Text>
-            </View>
-            <View style={styles.containerText}>
-                <Text style={styles.text}>N°: </Text>
-                <Text>{order?._id}</Text>
-            </View>
-            <View style={styles.containerText}>
-                <Text style={styles.text}>Precio: </Text>
-                <Text>{order?.purchased?.reduce((acc, item) => acc + item.totalPrice, 0)}</Text>
-            </View>
-            <View style={styles.containerText}>
-                <Text style={styles.text}>Punto de entrega: </Text>
-                <Text>{address}</Text>
-            </View>
-            <View style={styles.containerText}>
-                <Text style={styles.text}>Hora estimada: </Text>
-                <Text>{deliveryTime}</Text>
-            </View>
-            </View>
+          {order?.status === 'Pendiente' && (
+            <ImageBackground style={styles.imageCard} style={{ backgroundImage: 'url("https://i.postimg.cc/Ls7XBvbv/pendiente.png")' }}></ImageBackground>
+          )}
+          {order?.status === 'En preparación' && (
+            <ImageBackground style={styles.imageCard} style={{ backgroundImage: 'url("https://i.postimg.cc/KcH4B8tN/preparacion.gif")' }}></ImageBackground>
+          )}
+          {order?.status === 'En camino' && (
+            <ImageBackground style={styles.imageCard} style={{ backgroundImage: 'url("https://i.postimg.cc/rsg8yc5K/moto.png")' }}></ImageBackground>
+          )}
+          {order?.status === 'Entregado' && (
+            <ImageBackground style={styles.imageCard} style={{ backgroundImage: 'url("https://i.postimg.cc/tJtPC0mf/entregado.gif")' }}></ImageBackground>
+          )}
+          {order?.status === 'Cancelado' && (
+            <ImageBackground style={styles.imageCard} style={{ backgroundImage: 'url("https://i.postimg.cc/L5D1mLxP/cancelado.gif")' }}></ImageBackground>
+          )}
         </View>
+        <View>
+          <View style={styles.containerText}>
+            <Text style={styles.text}>Estado: </Text>
+            <Text>{order?.status}</Text>
+          </View>
+          <View style={styles.containerText}>
+            <Text style={styles.text}>N°: </Text>
+            <Text>{order?._id}</Text>
+          </View>
+          <View style={styles.containerText}>
+            <Text style={styles.text}>Precio: </Text>
+            <Text>{order?.purchased?.reduce((acc, item) => acc + item.totalPrice, 0)}</Text>
+          </View>
+          <View style={styles.containerText}>
+            <Text style={styles.text}>Punto de entrega: </Text>
+            <Text>{address}</Text>
+          </View>
+          <View style={styles.containerText}>
+            <Text style={styles.text}>Hora estimada: </Text>
+            <Text>{deliveryTime}</Text>
+          </View>
         </View>
-    )
+      </View>
+    </View>
+  )
 }
 
 const HistoryProfile = ({ userData, orders, getOrders }) => {
@@ -68,7 +78,16 @@ const HistoryProfile = ({ userData, orders, getOrders }) => {
   console.log(orders)
   return (
     <View style={styles.containerAll}>
-      <FlatList data={orders} keyExtractor={(item) => item._id} renderItem={({ item, index }) => <OrderCard order={item} />} />
+      <FlatList
+        data={orders}
+        ListEmptyComponent={
+          <View style={{ width: '100%' }}>
+            <Text style={{ ...styles.text, textAlign: 'center', fontSize: 20 }}>No has realizado ninguna orden aún</Text>
+          </View>
+        }
+        keyExtractor={(item) => item._id}
+        renderItem={({ item, index }) => <OrderCard order={item} />}
+      />
     </View>
   )
 }

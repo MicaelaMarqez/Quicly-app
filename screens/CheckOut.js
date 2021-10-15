@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {
-  ScrollView,
-  Text,
-  View,
-  StyleSheet,
-  ImageBackground,
-  Pressable,
-  Modal,
-  Dimensions,
-} from 'react-native'
+import { ScrollView, Text, View, StyleSheet, ImageBackground, Pressable, Modal, Dimensions } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { connect } from 'react-redux'
 import userActions from '../redux/actions/userActions'
@@ -42,9 +33,12 @@ const CheckOut = (props) => {
   const [pay, setPay] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
   const [address, setAddress] = useState('')
-  const { street, number, apartment } = props?.activeAddress
+
   useEffect(() => {
-    setAddress(`${street} ${number} ${apartment}`)
+    if (props.activeAddress) {
+      const { street, number, apartment } = props?.activeAddress
+      setAddress(`${street} ${number} ${apartment}`)
+    } else setAddress('No has cargado ninguna dirección')
   }, [props?.activeAddress])
   return (
     <ScrollView>
@@ -62,11 +56,7 @@ const CheckOut = (props) => {
           </Pressable>
         </View>
         <View style={styles.boxCard2}>
-          <FlatList
-            data={props.cart}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item, index }) => <OrderItem orderItem={item} />}
-          />
+          <FlatList data={props.cart} keyExtractor={(item) => item._id} renderItem={({ item, index }) => <OrderItem orderItem={item} />} />
         </View>
         <View style={styles.boxCard}>
           <View style={styles.box}>
@@ -85,33 +75,18 @@ const CheckOut = (props) => {
         </View>
         <View style={styles.boxImage}>
           <Text style={styles.phrase}>¡Ya casi!</Text>
-          <ImageBackground
-            style={styles.imageBtn}
-            resizeMode='cover'
-            source={{ uri: 'https://i.postimg.cc/xCRgB988/yacasi-Burguer.png' }}
-          ></ImageBackground>
+          <ImageBackground style={styles.imageBtn} resizeMode='cover' source={{ uri: 'https://i.postimg.cc/xCRgB988/yacasi-Burguer.png' }}></ImageBackground>
         </View>
         <Pressable onPress={() => setPay(true)} style={styles.buttonPayment}>
           <View style={styles.accept}>
             <Icon name='check-circle' size={20} color='white' marginLeft='5%' />
             <Text style={styles.button}>Hacer pedido</Text>
           </View>
-          <Text style={styles.buttonPrice}>
-            $ {props?.cart?.reduce((acc, item) => acc + item.totalPrice, 0)}
-          </Text>
+          <Text style={styles.buttonPrice}>$ {props?.cart?.reduce((acc, item) => acc + item.totalPrice, 0)}</Text>
         </Pressable>
 
-        <Modal
-          animationType='fade'
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => setModalVisible(!modalVisible)}
-        >
-          <ImageBackground
-            resizeMode='cover'
-            style={styles.centeredView}
-            source={{ uri: 'https://i.postimg.cc/3JsnjLSx/adress.png' }}
-          >
+        <Modal animationType='fade' transparent={true} visible={modalVisible} onRequestClose={() => setModalVisible(!modalVisible)}>
+          <ImageBackground resizeMode='cover' style={styles.centeredView} source={{ uri: 'https://i.postimg.cc/3JsnjLSx/adress.png' }}>
             <View style={styles.containerClose}>
               <Pressable style={styles.containerCloseImage} onPress={() => setModalVisible(false)}>
                 <MaterialIcons name='cancel' size={33} color='white' />
@@ -122,13 +97,7 @@ const CheckOut = (props) => {
                 <FlatList
                   data={props?.userData?.addresses}
                   keyExtractor={(item) => item._id}
-                  renderItem={({ item }) => (
-                    <CardAddress
-                      address={item}
-                      selectActiveAddress={props?.selectActiveAddress}
-                      setModalVisible={setModalVisible}
-                    />
-                  )}
+                  renderItem={({ item }) => <CardAddress address={item} selectActiveAddress={props?.selectActiveAddress} setModalVisible={setModalVisible} />}
                 />
               }
             </View>

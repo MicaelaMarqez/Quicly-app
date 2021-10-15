@@ -39,10 +39,8 @@ export const HomeStack = (props) => {
 export const MenuStack = (props) => {
   useEffect(() => {
     props?.route?.params?.bool && props?.navigation?.getParent()?.setOptions({ headerShown: false })
-    return () =>
-      props?.route?.params?.bool &&
-      props?.navigation?.getParent()?.setOptions({ headerShown: true })
-  }, [])
+    return () => props?.route?.params?.bool && props?.navigation?.getParent()?.setOptions({ headerShown: true })
+  }, [props?.route?.params])
   return (
     <Stack.Navigator
       screenOptions={{
@@ -62,7 +60,7 @@ export const MenuStack = (props) => {
         component={Menu}
         options={({ navigation, route }) => {
           return {
-            headerTitleStyle: { fontSize: 25 },
+            headerTitleStyle: { fontSize: 25, fontFamily: 'LatoRegular' },
             title: 'Menu',
             headerLeft: () => (
               <Pressable
@@ -83,7 +81,7 @@ export const MenuStack = (props) => {
         component={Product}
         options={({ navigation, route }) => {
           return {
-            headerTitleStyle: { fontSize: 25 },
+            headerTitleStyle: { fontSize: 25, fontFamily: 'LatoRegular' },
             title: route.params.chosen.name,
             headerLeft: () => (
               <Pressable
@@ -99,53 +97,19 @@ export const MenuStack = (props) => {
           }
         }}
       />
-      <Stack.Screen
-        name='cart'
-        component={CartStack}
-        options={({ navigation, route }) => {
-          return {
-            headerTitleStyle: { fontSize: 25 },
-            title: 'Carrito',
-            headerLeft: () => (
-              <Pressable
-                onPress={() => {
-                  navigation.goBack()
-                }}
-              >
-                <View style={{ marginRight: 20 }}>
-                  <AntDesign name='back' size={24} color='black' />
-                </View>
-              </Pressable>
-            ),
-          }
-        }}
-      />
-    </Stack.Navigator>
-  )
-}
-
-export const ProfileStack = () => {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='profile' component={Profile} />
+      <Stack.Screen name='cart' component={CartStack} initialParams={props.route.params} options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }
 export const CartStack = (props) => {
-  useEffect(() => {
-    props?.route?.params?.bool && props?.navigation?.getParent()?.setOptions({ headerShown: false })
-    return () =>
-      props?.route?.params?.bool &&
-      props?.navigation?.getParent()?.setOptions({ headerShown: true })
-  }, [])
   return (
-    <Stack.Navigator screenOptions={{ headerShown: props?.route?.params?.bool }}>
+    <Stack.Navigator>
       <Stack.Screen
         name='cart'
         component={Cart}
         options={({ navigation, route }) => {
           return {
-            headerTitleStyle: { fontSize: 25 },
+            headerTitleStyle: { fontSize: 25, fontFamily: 'LatoRegular' },
             title: 'Carrito',
             headerLeft: () => (
               <Pressable
