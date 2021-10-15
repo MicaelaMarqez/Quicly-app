@@ -61,7 +61,11 @@ const Menu = (props) => {
     Empanadas: 'https://i.postimg.cc/nzBkHLsx/empanadas-1.webp',
     Pizzas: 'https://i.postimg.cc/13zjWkjg/pizza.webp',
     Lomos: 'https://i.postimg.cc/wMXPnc8Y/sandwich.webp',
-    Sandiwch: 'https://i.postimg.cc/bJFrqgt9/lomos.png',
+    Ensaladas: 'https://i.postimg.cc/bwNTtmYC/saludable-1.webp',
+    Milanesas: 'https://i.postimg.cc/m2mGW6PB/milanesas-de-ternera.jpg',
+    Pastas:
+      'https://i.postimg.cc/59GwKf3V/receta-de-pasta-a-la-napolitana-un-clasico-italiano-facil-de-preparar-2.jpg',
+    Postres: 'https://i.postimg.cc/ZnpYbPy4/2020-05-26-T17-38-55-mrs-Image-Recipes-138750lrg.jpg',
     todos: 'https://i.postimg.cc/sgBKb4RQ/fast-food.webp',
   }
 
