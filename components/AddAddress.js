@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Pressable, TextInput, ImageBackground } from 'react-native'
-
+import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons';
 
 const AddAddress = ({setModalVisible, updateUser,setAddressProfile}, ) => {
 	const [newAddress, setNewAddress] = useState({
@@ -20,7 +20,7 @@ const AddAddress = ({setModalVisible, updateUser,setAddressProfile}, ) => {
 
 	const dataUpdate = async () => {
 		let verification = Object.values(newAddress).some((prop) => prop === "" || !prop)
-		if(verification) return console.log("LLENA LOS CAMPOS PETE")
+		if(verification) return console.log("LLENA LOS CAMPOS")
 		try{
 			let response = await updateUser({ action: 'addAddress', newAddress})
 			console.log(response.success)
@@ -40,56 +40,55 @@ const AddAddress = ({setModalVisible, updateUser,setAddressProfile}, ) => {
 	}
 
     return (
-        <View style={styles.container}>
 			<View style={styles.container}>
-				<View style={styles.containerClose}>
-					<Pressable style={styles.containerCloseImage} onPress={confirm}>
-						<ImageBackground resizeMode="cover" style={styles.imageClose} source={{uri: "https://st.depositphotos.com/1734074/3308/v/600/depositphotos_33083835-stock-illustration-vector-close-icon.jpg"}}>
-						</ImageBackground>
-					</Pressable>
-				</View>
-				<TextInput 
-					placeholder="Alias"
-					placeholderTextColor="#333333"
-					color="black"
-					style={styles.inputNewAddress}
-					onChangeText={(e) => inputHandler(e, "alias")}
-					/>
-					<TextInput 
-					placeholder="Calle"
-					placeholderTextColor="#333333"
-					color="black"
-					style={styles.inputNewAddress}
-					onChangeText={(e) => inputHandler(e, "street")}
-					/>
-					<TextInput 
-					placeholder="Numeración"
-					placeholderTextColor="#333333"
-					color="black"
-					style={styles.inputNewAddress}
-					onChangeText={(e) => inputHandler(e, "number")}
-					/>
-					<TextInput 
-					placeholder="Departamento"
-					placeholderTextColor="#333333"
-					color="black"
-					style={styles.inputNewAddress}
-					onChangeText={(e) => inputHandler(e, "apartment")}
-					/>
-					<TextInput 
-					placeholder="Barrio / Partido / Localidad"
-					placeholderTextColor="#333333"
-					color="black"
-					style={styles.inputNewAddress}
-					onChangeText={(e) => inputHandler(e, "neighborhood")}
-					/>
-					<View style={styles.containerButton}>
-						<Pressable style={styles.button} onPress={dataUpdate}>
-							<Text style={{ textAlign: 'center', color: 'white', fontSize: 19 }}>Agregar Dirreción</Text>
+				<View style={styles.container}>
+					<View style={styles.containerClose}>
+						<Pressable style={styles.containerCloseImage} onPress={confirm}>
+							<MaterialIcons name="cancel" size={33} color="white" />
 						</Pressable>
 					</View>
-			</View>	
-        </View>
+					<TextInput 
+						placeholder="Alias"
+						placeholderTextColor="#333333"
+						color="black"
+						style={styles.inputNewAddress}
+						onChangeText={(e) => inputHandler(e, "alias")}
+						/>
+						<TextInput 
+						placeholder="Calle"
+						placeholderTextColor="#333333"
+						color="black"
+						style={styles.inputNewAddress}
+						onChangeText={(e) => inputHandler(e, "street")}
+						/>
+						<TextInput 
+						placeholder="Numeración"
+						placeholderTextColor="#333333"
+						color="black"
+						style={styles.inputNewAddress}
+						onChangeText={(e) => inputHandler(e, "number")}
+						/>
+						<TextInput 
+						placeholder="Departamento"
+						placeholderTextColor="#333333"
+						color="black"
+						style={styles.inputNewAddress}
+						onChangeText={(e) => inputHandler(e, "apartment")}
+						/>
+						<TextInput 
+						placeholder="Barrio / Partido / Localidad"
+						placeholderTextColor="#333333"
+						color="black"
+						style={styles.inputNewAddress}
+						onChangeText={(e) => inputHandler(e, "neighborhood")}
+						/>
+						<View style={styles.containerButton}>
+							<Pressable style={styles.button} onPress={dataUpdate}>
+								<Text style={{ textAlign: 'center', color: 'white', fontSize: 19 }}>Agregar Dirreción</Text>
+							</Pressable>
+						</View>
+				</View>	
+			</View>
     )
 }
 
@@ -123,8 +122,6 @@ const styles = StyleSheet.create({
 	containerClose:{
 		width: "100%",
 		alignItems: "flex-end",
-		marginBottom: 15,
-		paddingBottom: 10,
 	},
 	containerCloseImage:{
 		width: 50,

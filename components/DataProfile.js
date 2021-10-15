@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import AddAddress from '../components/AddAddress'
 import userActions from '../redux/actions/userActions'
 import CardAddress from './CardAddress'
+import { AntDesign } from '@expo/vector-icons';
 const DataProfile = ({ userData, updateUser }) => {
   const [modalVisible, setModalVisible] = useState(false)
   const [addressProfile, setAddressProfile] = useState(userData?.addresses)
@@ -47,6 +48,7 @@ const DataProfile = ({ userData, updateUser }) => {
   }
   return (
     <View style={styles.containAll}>
+      <Text style={styles.title}>Actualizar datos personales</Text>
       <View style={styles.containInputs}>
         <Text style={styles.textTitleInputs}>Nombre</Text>
         <TextInput
@@ -95,12 +97,12 @@ const DataProfile = ({ userData, updateUser }) => {
       </View>
       <View style={styles.containerAddAddress}>
         <Pressable style={styles.buttonAdd} onPress={() => setModalVisible(!modalVisible)}>
-          <ImageBackground resizeMode='cover' style={styles.imageAdd} source={{ uri: 'https://i.postimg.cc/hvXnHK15/descarga-removebg-preview.png' }}></ImageBackground>
+          <AntDesign name="pluscircle" size={50} color="tomato" />
         </Pressable>
       </View>
       <View style={styles.centeredView}>
         <Modal animationType='fade' transparent={true} visible={modalVisible} onRequestClose={() => setModalVisible(!modalVisible)}>
-          <ImageBackground resizeMode='cover' style={styles.centeredView} source={{ uri: 'https://thumbs.dreamstime.com/z/consolador-incons%C3%BAtil-del-modelo-en-el-fondo-blanco-70952881.jpg' }}>
+          <ImageBackground resizeMode='cover' style={styles.centeredView} source={{ uri: 'https://i.postimg.cc/3JsnjLSx/adress.png' }}>
             <View style={styles.modalView}>{<AddAddress updateUser={updateUser} setAddressProfile={setAddressProfile} setModalVisible={setModalVisible} />}</View>
           </ImageBackground>
         </Modal>
@@ -114,17 +116,23 @@ const mapDispatchToProps = {
 export default connect(null, mapDispatchToProps)(DataProfile)
 
 const styles = StyleSheet.create({
+  title: {
+    fontWeight: 'bold',
+    fontFamily: 'LatoRegular',
+    fontSize: 24,
+    padding: '8%'
+  },
   containAll: {
     width: '100%',
     height: 600,
     alignItems: 'center',
-    paddingTop: 20,
+    // paddingTop: '2%',
   },
   containInputs: {
     width: '95%',
     height: '85%',
     paddingTop: 25,
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   inputSignUp: {
     backgroundColor: 'white',
@@ -136,7 +144,7 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     paddingTop: 6,
     marginBottom: 20,
-    fontSize: 23,
+    fontSize: 20,
     fontWeight: 'bold',
     shadowColor: '#000',
     shadowOffset: {
@@ -188,29 +196,18 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingEnd: 15,
   },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
   },
   modalView: {
     width: '90%',
     margin: 20,
-    backgroundColor: 'rgba(252, 252, 252, 0.5)',
     borderRadius: 11,
     padding: 35,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
   },
   textStyle: {
     color: 'white',
@@ -229,6 +226,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 30,
     fontWeight: 'bold',
+    fontSize: 26
   },
   boxCard: {
     flexDirection: 'row',
