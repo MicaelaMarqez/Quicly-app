@@ -46,12 +46,13 @@ const Menu = (props) => {
   }
 
   const picture = {
-    Hamburguesas: 'https://i.postimg.cc/Y0G90FNK/hamburguesas.png',
-    Empanadas: 'https://i.postimg.cc/L5WSFfyC/empanadas.png',
-    Pizzas: 'https://i.postimg.cc/1XkzqzMg/pizzas.png',
-    Lomos: 'https://i.postimg.cc/bJFrqgt9/lomos.png',
+    Hamburguesas: 'https://i.postimg.cc/pr9w1gTY/hamburguesas.webp',
+    Empanadas: 'https://i.postimg.cc/nzBkHLsx/empanadas-1.webp',
+    Pizzas: 'https://i.postimg.cc/13zjWkjg/pizza.webp',
+    Lomos: 'https://i.postimg.cc/wMXPnc8Y/sandwich.webp',
     Sandiwch: 'https://i.postimg.cc/bJFrqgt9/lomos.png',
-    todos: 'https://i.postimg.cc/Rh7qTvvV/todos.png',
+    todos: 'https://i.postimg.cc/sgBKb4RQ/fast-food.webp',
+    
   }
 
   return (
@@ -189,5 +190,6 @@ const styles = StyleSheet.create({
   categoryPic: {
     width: '50%',
     height: '50%',
+    padding: '2%',
   },
 })
