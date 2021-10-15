@@ -25,7 +25,7 @@ const orderActions = {
         const { newOrder, userData } = res.data.response
         dispatch({ type: 'CREATE_ORDER', payload: { newOrder, userData } })
         dispatch({ type: 'RESET_CART' })
-        return props.navigation.navigate('home')
+        return props.navigation.push('confirmation')
       } catch (e) {
         return { success: false, response: null, error: e.message }
       }

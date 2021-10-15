@@ -49,8 +49,8 @@ const PaymentScreen = ({ pay, payAction, ...props }) => {
         metadata: paymentIntent,
         userId: props?.userData._id,
         paymentMethod: null,
-        deliveryAddress: props?.activeAddress,
-      }
+        deliveryAddress: { street: 'San Luis', number: '1231', apartment: '3 A' },
+      } //props?.activeAddress
       props.createOrder(props, order)
     }
   }

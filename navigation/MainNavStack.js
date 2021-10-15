@@ -10,6 +10,7 @@ import Cart from '../screens/Cart'
 import { Pressable } from 'react-native'
 import { View } from 'native-base'
 import CheckOut from '../screens/CheckOut'
+import Confirmation from '../components/Confirmation'
 
 const Stack = createNativeStackNavigator()
 
@@ -138,6 +139,7 @@ export const MenuStack = (props) => {
           }
         }}
       />
+      <Stack.Screen name='confirmation' component={Confirmation} options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }

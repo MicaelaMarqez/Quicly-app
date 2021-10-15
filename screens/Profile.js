@@ -16,7 +16,7 @@ const Profile = ({ userData, navigation }) => {
   } else if (changeComponent === 'help') {
     setChangeComponent(<Contact userData={userData} />)
   } else if (changeComponent === 'history') {
-    setChangeComponent(<HistoryProfile userData={userData.data?._id} />)
+    setChangeComponent(<HistoryProfile userData={userData?._id} />)
   }
 
   return (
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: '10%',
     display: 'flex',
     alignItems: 'flex-start',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   containerProfileImage: {
     height: '100%',
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   titleHi: {
     fontSize: 20,
     marginBottom: 5,
-    color: 'grey'
+    color: 'grey',
   },
   profileName: {
     fontSize: 28,
