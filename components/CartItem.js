@@ -14,14 +14,14 @@ const CartItem = ({ cartItem }) => {
                 </View>
             </View> */}
       <View style={{ width: '15%' }}>
-        <Text>{cartItem?.totalAmount}x</Text>
+        <Text style={styles.text}>{cartItem?.totalAmount}x</Text>
       </View>
       <View style={{ width: '65%' }}>
-        <Text>{cartItem?.productId?.name}</Text>
-        <Text>${cartItem?.productId?.price}</Text>
+        <Text style={styles.text}>{cartItem?.productId?.name}</Text>
+        <Text style={styles.text}>${cartItem?.productId?.price}</Text>
       </View>
       <View style={{ width: '20%', alignItems: 'flex-end' }}>
-        <Text>${cartItem?.unitaryPrice}</Text>
+        <Text style={styles.total}>${cartItem?.unitaryPrice}</Text>
       </View>
     </View>
   )
@@ -58,8 +58,6 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 10,
-    // borderTopStartRadius: 10,
-    // borderBottomStartRadius: 10,
     marginRight: 5,
     overflow: 'hidden',
   },
@@ -106,4 +104,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  text: {
+    fontSize: 18
+  },
+  total: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: 'tomato'
+  }
 })

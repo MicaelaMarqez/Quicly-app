@@ -7,6 +7,8 @@ import Preloader from '../components/Preloader'
 import { NativeBaseProvider, Button } from 'native-base'
 import CategoryList from '../components/CategoryList'
 import FloatingButton from './FloatingButton'
+import { Feather } from '@expo/vector-icons';
+import { flex, marginBottom, width } from 'styled-system'
 
 const Menu = (props) => {
   const [loader, setLoader] = useState(true)
@@ -60,7 +62,12 @@ const Menu = (props) => {
       <ScrollView style={styles.container}>
         <ImageBackground style={styles.image} source={{ uri: 'https://i.postimg.cc/DwvFPSkY/comida.gif' }}>
           <ImageBackground style={styles.logo} source={{ uri: 'https://i.postimg.cc/zv3pNmMr/loguito-2.png' }}></ImageBackground>
-          <TextInput placeholder='¿Qué quieres pedir?' style={styles.searcher} onChange={(e) => getFiltered(e.nativeEvent.text)} />
+          <View style={styles.cart}>
+            <TextInput placeholder='¿Qué quieres pedir?' style={styles.searcher} onChange={(e) => getFiltered(e.nativeEvent.text)} />
+            <TouchableOpacity onPress={() => props.navigation.navigate('cart')}>
+              <Feather name="shopping-cart" size={30} color="white" />
+            </TouchableOpacity>
+          </View>
         </ImageBackground>
         <View style={styles.categoriesCards}>
           {categories.map((category) => {
@@ -93,7 +100,6 @@ const Menu = (props) => {
               return <CategorySection route={props.route} navigation={props.navigation} products={products} key={category} category={category} />
             })
         )}
-        <FloatingButton func={() => props.navigation.push('cart')} />
       </ScrollView>
     </NativeBaseProvider>
   )
@@ -120,8 +126,16 @@ const styles = StyleSheet.create({
   contenedor: {
     width: '90%',
   },
+  cart: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginBottom: '10%',
+    width: '88%'
+  },
   searcher: {
-    width: '80%',
+    width: '75%',
     height: 40,
     padding: 10,
     paddingHorizontal: 20,
@@ -131,7 +145,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderStyle: 'solid',
     color: '#444',
-    marginBottom: 40,
     backgroundColor: 'white',
   },
   image: {

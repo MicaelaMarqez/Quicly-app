@@ -1,13 +1,18 @@
 import { FlatList, useScreenReaderEnabled } from 'native-base'
 import React from 'react'
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native'
 import { connect } from 'react-redux'
+import { flexDirection } from 'styled-system'
 import CartItem from '../components/CartItem'
 
 const Cart = (props) => {
-  return (
+  
+return (
     <View style={styles.container}>
-      <Text style={styles.title}>Resumen de mi pedido</Text>
+      <View style={styles.cartTitle}>
+        <ImageBackground style={styles.image} source={{ uri: 'https://i.postimg.cc/kGq3vvTZ/hambur.gif' }}></ImageBackground>
+        <Text style={styles.title}>Resumen de mi pedido</Text>
+      </View>
       <View style={styles.productsContainer}>
         <FlatList
           data={props?.cart}
@@ -17,11 +22,11 @@ const Cart = (props) => {
           }}
         />
       </View>
-      <View style={styles.resume}>
-        <Text>Mi pedido</Text>
+      <View style={styles.resumen}>
         <TouchableOpacity onPress={() => props.navigation.push('checkout')} style={styles.button}>
-          <Text style={{ color: '#fff' }}> Pagar</Text>
+          <Text style={{ color: '#fff', textAlign: 'center', fontSize: 20 }}> Pagar</Text>
         </TouchableOpacity>
+        <Text style={styles.totalPrice}>Total: $ 000</Text>
       </View>
     </View>
   )
@@ -43,24 +48,28 @@ const styles = StyleSheet.create({
   },
   title: {
     marginVertical: 30,
-    fontSize: 20,
+    fontSize: 24,
     color: '#fe6849',
     fontWeight: '700',
+    textAlign:'center'
   },
   productsContainer: {
     width: '100%',
     paddingHorizontal: 20,
   },
-  resume: {
-    width: '100%',
+  resumen: {
+    width: '70%',
     height: 120,
-    backgroundColor: 'red',
+    fontSize: 24,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   button: {
     backgroundColor: '#fe6849',
-    width: '50%',
+    width: '35%',
     borderRadius: 10,
-    padding: 10,
+    padding: 8,
     shadowColor: '#000',
     shadowOffset: {
       width: 5,
@@ -71,4 +80,20 @@ const styles = StyleSheet.create({
     elevation: 5,
     marginBottom: 20,
   },
+  image: {
+    width: 100,
+    height: 100,
+    resizeMode: 'cover',
+  },
+  cartTitle: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '50%',
+  },
+  totalPrice: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'tomato'
+  }
 })
