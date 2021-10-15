@@ -6,10 +6,7 @@ import DataProfile from '../components/DataProfile'
 import userActions from '../redux/actions/userActions'
 import Contact from '../components/Contact'
 import { connect } from 'react-redux'
-import { FontAwesome } from '@expo/vector-icons'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { MaterialIcons } from '@expo/vector-icons'
-import { Entypo } from '@expo/vector-icons'
+import { FontAwesome, MaterialCommunityIcons, MaterialIcons, Entypo } from '@expo/vector-icons'
 
 const Profile = ({ userData, navigation }) => {
   const [changeComponent, setChangeComponent] = useState(<DataProfile userData={userData} />)
@@ -20,8 +17,6 @@ const Profile = ({ userData, navigation }) => {
     setChangeComponent(<Contact userData={userData} />)
   } else if (changeComponent === 'history') {
     setChangeComponent(<HistoryProfile userData={userData.data?._id} />)
-  } else if (changeComponent === 'payment') {
-    setChangeComponent(<PaymentProfile userData={userData} />)
   }
 
   return (
@@ -35,7 +30,7 @@ const Profile = ({ userData, navigation }) => {
             </Text>
           </View>
           <View style={styles.containerProfileImage}>
-            <ImageBackground style={styles.imageProfile} onPress={() => setChangeComponent('data')} resizeMode='cover' source={{ uri: userData.data.src }}></ImageBackground>
+            <ImageBackground style={styles.imageProfile} onPress={() => setChangeComponent('data')} resizeMode='cover' source={{ uri: 'https://i.postimg.cc/nV5LvNJQ/pi-a.jpg' }}></ImageBackground>
           </View>
         </View>
         <View style={styles.containAllBoxComponent}>
@@ -73,17 +68,6 @@ const Profile = ({ userData, navigation }) => {
                 <Text style={styles.textBox}>de pedidos</Text>
               </View>
             </Pressable>
-            <Pressable style={styles.boxComponent} onPress={() => setChangeComponent('payment')}>
-              <View style={styles.containerImageBox}>
-                {/* <ImageBackground style={styles.imageBox} resizeMode="cover" source={{ uri: "https://www.latercera.com/resizer/nq_sgXHp2LhgY71dV9CHtzoUvIo=/200x200/smart/arc-anglerfish-arc2-prod-copesa.s3.amazonaws.com/public/Z2NK6DYAPBHO3BVPUE25LQ22ZA.jpg" }}>
-								</ImageBackground> */}
-                <Entypo name='wallet' size={30} color='tomato' />
-              </View>
-              <View>
-                <Text style={styles.textBox}>Métodos</Text>
-                <Text style={styles.textBox}>de pago</Text>
-              </View>
-            </Pressable>
           </View>
         </View>
         <View style={styles.containerBanner}>
@@ -116,13 +100,18 @@ const styles = StyleSheet.create({
   },
   containerProfile: {
     width: '100%',
-    height: '35%',
+    height: '30%',
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   containerProfileName: {
     height: '100%',
     width: '60%',
-    padding: 10,
+    paddingHorizontal: '10%',
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'center'
   },
   containerProfileImage: {
     height: '100%',
@@ -133,6 +122,7 @@ const styles = StyleSheet.create({
   titleHi: {
     fontSize: 20,
     marginBottom: 5,
+    color: 'grey'
   },
   profileName: {
     fontSize: 28,
@@ -146,13 +136,22 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   containBoxComponent: {
-    height: '95%',
+    height: '75%',
     width: '95%',
     borderRadius: 15,
     backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    padding: '5%',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 5,
+      height: 5,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 15,
+    elevation: 5,
   },
   containerImageBox: {
     width: '50%',
@@ -164,7 +163,7 @@ const styles = StyleSheet.create({
   boxComponent: {
     width: '22%',
     height: '75%',
-    margin: 5,
+    // margin: 5,
     alignItems: 'center',
     justifyContent: 'center',
   },

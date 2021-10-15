@@ -4,19 +4,20 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
 import orderActions from '../redux/actions/orderActions'
 const HistoryProfile = ({userData, orders, getOrders}) => {
-    // useEffect(() => {
-    //     const getOrdersById = async () => {
-    //         try{    
-    //             let response = await getOrders(userData)
-    //             console.log(response)
-    //         }catch(e){
-    //             console.log(e)
-    //         }
+    
+    useEffect(() => {
+        const getOrdersById = async () => {
+            try{    
+                let response = await getOrders(userData)
+                console.log(response)
+            }catch(e){
+                console.log(e)
+            }
             
-    //     }
-    //     getOrdersById()
-    // },[])
- 
+        }
+        getOrdersById()
+    },[])
+
     return (
         <ScrollView style={styles.containerAll}>
             <View style={styles.containerCard}>
@@ -25,41 +26,11 @@ const HistoryProfile = ({userData, orders, getOrders}) => {
                 </View>
                 <View style={styles.containerCardBody}>
                     <View style={styles.containerImage}>
-                        <ImageBackground source={{uri: "https://i.postimg.cc/yxFkk4g3/moto.png"}} resizeMode="cover" style={styles.imageCard}> 
-                        </ImageBackground>
-                    </View>
-                    <View>
-                        <View style={styles.containerText}>
-                            <Text style={styles.text}>Estado: </Text>
-                            <Text>Cancelado</Text>
-                        </View>                       
-                        <View style={styles.containerText}>
-                            <Text style={styles.text}>N°: </Text>
-                            <Text>61684ee5d985aa2a04379900_ord0</Text>
-                        </View>                       
-                        <View style={styles.containerText}>
-                            <Text style={styles.text}>Precio: </Text>
-                            <Text>$ 1.350,00</Text>
-                        </View>                        
-                        <View style={styles.containerText}>
-                            <Text style={styles.text}>Punto de entrega: </Text>
-                            <Text>carlos 12 juan</Text>
-                        </View>                       
-                        <View style={styles.containerText}>
-                            <Text style={styles.text}>Hora estimada: </Text>
-                            <Text>16:14</Text>
-                        </View>      
-                    </View>
-                </View>
-            </View> 
-            <View style={styles.containerCard}>
-                <View style={styles.containerTitle}>
-                    <Text style={styles.title}>Estado de pedido</Text>
-                </View>
-                <View style={styles.containerCardBody}>
-                    <View style={styles.containerImage}>
-                        <ImageBackground source={{uri: "https://i.postimg.cc/yxFkk4g3/moto.png"}} resizeMode="cover" style={styles.imageCard}> 
-                        </ImageBackground>
+                        {/* {order?.status === 'Pendiente' && <ImageBackground style={styles.imageCard} style={{ backgroundImage: 'url("https://i.postimg.cc/Ls7XBvbv/pendiente.png")' }}></ImageBackground>}
+                        {order?.status === 'En preparacion' && <ImageBackground style={styles.imageCard} style={{ backgroundImage: 'url("https://i.postimg.cc/KcH4B8tN/preparacion.gif")' }}></ImageBackground>}
+                        {order?.status === 'En camino' && <ImageBackground style={styles.imageCard} style={{ backgroundImage: 'url("https://i.postimg.cc/rsg8yc5K/moto.png")' }}></ImageBackground>}
+                        {order?.status === 'Entregado' && <ImageBackground style={styles.imageCard} style={{ backgroundImage: 'url("https://i.postimg.cc/tJtPC0mf/entregado.gif")' }}></ImageBackground>}
+                        {order?.status === 'Cancelado' && <ImageBackground style={styles.imageCard} style={{ backgroundImage: 'url("https://i.postimg.cc/L5D1mLxP/cancelado.gif")' }}></ImageBackground>} */}
                     </View>
                     <View>
                         <View style={styles.containerText}>
@@ -85,73 +56,7 @@ const HistoryProfile = ({userData, orders, getOrders}) => {
                     </View>
                 </View>
             </View>    
-            <View style={styles.containerCard}>
-                <View style={styles.containerTitle}>
-                    <Text style={styles.title}>Estado de pedido</Text>
-                </View>
-                <View style={styles.containerCardBody}>
-                    <View style={styles.containerImage}>
-                        <ImageBackground source={{uri: "https://i.postimg.cc/yxFkk4g3/moto.png"}} resizeMode="cover" style={styles.imageCard}> 
-                        </ImageBackground>
-                    </View>
-                    <View>
-                        <View style={styles.containerText}>
-                            <Text style={styles.text}>Estado: </Text>
-                            <Text>Cancelado</Text>
-                        </View>                       
-                        <View style={styles.containerText}>
-                            <Text style={styles.text}>N°: </Text>
-                            <Text>61684ee5d985aa2a04379900_ord0</Text>
-                        </View>                       
-                        <View style={styles.containerText}>
-                            <Text style={styles.text}>Precio: </Text>
-                            <Text>$ 1.350,00</Text>
-                        </View>                        
-                        <View style={styles.containerText}>
-                            <Text style={styles.text}>Punto de entrega: </Text>
-                            <Text>carlos 12 juan</Text>
-                        </View>                       
-                        <View style={styles.containerText}>
-                            <Text style={styles.text}>Hora estimada: </Text>
-                            <Text>16:14</Text>
-                        </View>      
-                    </View>
-                </View>
-            </View>    
-            <View style={styles.containerCard}>
-                <View style={styles.containerTitle}>
-                    <Text style={styles.title}>Estado de pedido</Text>
-                </View>
-                <View style={styles.containerCardBody}>
-                    <View style={styles.containerImage}>
-                        <ImageBackground source={{uri: "https://i.postimg.cc/yxFkk4g3/moto.png"}} resizeMode="cover" style={styles.imageCard}> 
-                        </ImageBackground>
-                    </View>
-                    <View>
-                        <View style={styles.containerText}>
-                            <Text style={styles.text}>Estado: </Text>
-                            <Text>Cancelado</Text>
-                        </View>                       
-                        <View style={styles.containerText}>
-                            <Text style={styles.text}>N°: </Text>
-                            <Text>61684ee5d985aa2a04379900_ord0</Text>
-                        </View>                       
-                        <View style={styles.containerText}>
-                            <Text style={styles.text}>Precio: </Text>
-                            <Text>$ 1.350,00</Text>
-                        </View>                        
-                        <View style={styles.containerText}>
-                            <Text style={styles.text}>Punto de entrega: </Text>
-                            <Text>carlos 12 juan</Text>
-                        </View>                       
-                        <View style={styles.containerText}>
-                            <Text style={styles.text}>Hora estimada: </Text>
-                            <Text>16:14</Text>
-                        </View>      
-                    </View>
-                </View>
-            </View>       
-        </ScrollView>
+    </ScrollView>
     )
 }
 
@@ -163,16 +68,13 @@ const mapStateToProps = state => {
         orders: state.orders.orders,
     }
 }
-         
+
 export default connect(mapStateToProps, mapDispachToProps)(HistoryProfile)
 
 const styles = StyleSheet.create({
     containerAll: {
         width:"100%",
-        marginBottom: 20,
-        minHeight: 200,
         padding: 10,
-        backgroundColor: 'rgba(200, 200, 200, 0.1)',
     },
     title:{
         width: "100%",
@@ -191,25 +93,34 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         alignItems: "center",
         marginBottom: 15,
-        
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 5,
+            height: 5,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 15,
+        elevation: 5,
+        marginTop: '5%'
     },
     containerCardBody:{
         width: "98%",
         height: "78%",
-        borderColor: 'rgba(0, 0, 0, 0.4)',
-        borderWidth: 0.2,
-        borderRadius: 10,
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        borderTopWidth: 1,
+        borderTopColor: 'tomato'
     },
     containerImage:{
-        width: "22%",
-        height: "70%",
+        width: 80,
+        height: 80,
         marginRight: 8,
+        borderRadius: 100
     },
     imageCard:{
         height: "100%",
         width: "100%",
+        resizeMode: 'cover'
     },
     containerText:{
         flexDirection: "row"
