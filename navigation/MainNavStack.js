@@ -6,13 +6,9 @@ import React, { useEffect } from 'react'
 import Profile from '../screens/Profile'
 import Product from '../screens/Product'
 import PaymentScreen from '../screens/Card'
-<<<<<<< HEAD
-import Hero from '../screens/Hero'
-=======
 import Cart from '../screens/Cart'
 import { Pressable } from 'react-native'
 import { View } from 'native-base'
->>>>>>> 1f3bd2292f4943fd84140efc12ee5a9d6333d688
 
 const Stack = createNativeStackNavigator()
 
